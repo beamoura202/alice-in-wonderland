@@ -1,0 +1,248 @@
+body {
+    background-color: #a36172;
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+    color: #c7b689;
+}
+
+/*                                  geral */
+h1 {
+    font-size: 1.2rem; /* Keep as rem for base text */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+}
+
+h2 {
+    font-size: clamp(2.5rem, 5vw, 5.5rem); /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+p {
+    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    max-width: 800px;/* AUMENTEI Limite de largura para o texto */
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#chapter4 {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #a36172;
+}
+
+/* Container para a seção sticky e o espaço de scroll */
+/*                                                 cena 1 */
+#sticky-container, #sticky-container-2 {
+    position: relative;
+    height: 900vh;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Modificado para que a imagem determine a altura da seção */
+#cap4cena1 {
+    height: 100vh; /* Altura inicial, será substituída pelo JS */
+}
+
+#fundo-img{
+    position: absolute;  /* Same as other background-image */
+    opacity: 1;
+    z-index: -2;
+
+}
+.background-image {
+    position: absolute; /* Changed from fixed to absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+
+
+.scene-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Prevent overflow issues with afterimages */
+}
+
+#fisheyeCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+#cap4cena1detalhes1-img {
+    position: absolute;
+    left: 50%;
+    bottom: 20%;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    opacity: 1;
+    z-index: 2;
+}
+
+#cap4cena1detalhes2-img {
+    position: absolute;
+    left: 15%;
+    bottom: 15%;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    opacity: 1;
+    z-index: 2;
+}
+
+#cap4alice-img {
+    position: absolute;
+    left: 30%;
+    bottom: 15%;
+    height: 50vh;
+    width: auto;
+    z-index: 2;
+}
+.details-image {
+    position: absolute;
+    width: 20%;
+    height: auto;
+    object-fit: cover;
+    z-index: 2;
+    transform-origin: bottom center;
+    transition: transform 0.5s ease-in; /* Smooth scaling transition */
+}
+.afterimage {
+    position: absolute;
+    pointer-events: none; /* So they don't interfere with interactions */
+    opacity: 0.2; /* Default opacity for afterimages */
+    transition: opacity 0.8s ease-out; /* Smooth transition for opacity changes */
+    z-index: 1; /* Position behind the original images */
+    transform-origin: bottom center; /* Same as the original images */
+}
+/* Fisheye effect styles */
+.fisheye-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow interactions to pass through to elements underneath */
+    z-index: 1; /* Position above the background image but below other content */
+}
+/* Fisheye effect display */
+.distortion-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(163, 97, 114, 0.8); /* Match the site color palette */
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 1000;
+    color: #c7b689;
+    font-family: 'Libre Caslon Text', serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 200px;
+}
+
+.control-row {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.control-row label {
+    display: inline-block;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.control-row input[type="range"] {
+    width: 100px;
+    margin-right: 5px;
+}
+
+.control-row span {
+    width: 30px;
+    text-align: right;
+}
+
+/* Update fisheye intensity display */
+.fisheye-intensity {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(163, 97, 114, 0.8);
+    color: #c7b689;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 10;
+    font-family: 'Libre Caslon Text', serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure canvas has correct properties */
+.fisheye-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background-color: #352b29; /* Set background color */
+}
+
+/* Animate the curiouser text better with the fisheye effect */
+@keyframes growAndFade {
+    0% { 
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(0.5);
+        filter: blur(5px);
+    }
+    20% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(0.8);
+        filter: blur(2px);
+    }
+    50% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1.5);
+        filter: blur(0px);
+    }
+    80% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(2.2);
+        filter: blur(2px);
+    }
+    100% { 
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(3);
+        filter: blur(8px);
+    }
+}

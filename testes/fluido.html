@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efeito Fluido de Tamanhos - Scrollytelling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0f0f1a;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            transition: background-color 1s ease;
+        }
+        
+        #section1 {
+            background-color: #0f0f1a;
+        }
+        
+        #section2 {
+            background-color: #1a0f1a;
+        }
+        
+        #section3 {
+            background-color: #0f1a1a;
+        }
+        
+        #section4 {
+            background-color: #1a1a0f;
+        }
+        
+        .section-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .fluid-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+            perspective: 1000px;
+        }
+        
+        .fluid-object {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            border-radius: 20px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+            will-change: transform;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .wobble-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        
+        .controls {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .settings-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(20, 20, 30, 0.8);
+            padding: 15px;
+            border-radius: 12px;
+            z-index: 100;
+            width: 220px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .settings-panel h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 5px;
+            color: #c9c9ff;
+        }
+        
+        .settings-panel label {
+            display: block;
+            margin: 8px 0 3px;
+            font-size: 14px;
+            color: #ebebff;
+        }
+        
+        .settings-panel input {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        
+        .settings-panel button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            background-color: rgba(161, 109, 255, 0.3);
+        }
+        
+        .settings-panel button:hover {
+            background-color: rgba(161, 109, 255, 0.5);
+        }
+        
+        .background-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            filter: blur(1px);
+        }
+        
+        .intensity-indicator {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-particles" id="particles"></div>
+    
+    <div class="settings-panel">
+        <h3>Configurações do Efeito Fluido</h3>
+        <label for="elasticity">Elasticidade:</label>
+        <input type="range" id="elasticity" min="1" max="30" value="15">
+        <span id="elasticityValue">15</span>
+        
+        <label for="wobbleFrequency">Frequência de Oscilação:</label>
+        <input type="range" id="wobbleFrequency" min="1" max="15" value="3">
+        <span id="wobbleFrequencyValue">3</span>
+        
+        <label for="wobbleIntensity">Intensidade da Oscilação:</label>
+        <input type="range" id="wobbleIntensity" min="1" max="50" value="15">
+        <span id="wobbleIntensityValue">15</span>
+        
+        <label for="springiness">Elasticidade (Springiness):</label>
+        <input type="range" id="springiness" min="1" max="100" value="40">
+        <span id="springinessValue">40%</span>
+        
+        <button id="applySettings">Aplicar</button>
+    </div>
+    
+    <section id="section1">
+        <div class="section-content fade-in">
+            <h1>Efeito Fluido de Tamanhos</h1>
+            <p>Faça scroll para baixo para ver elementos com comportamento gelatinoso e viscoelástico.</p>
+        </div>
+    </section>
+    
+    <section id="section2">
+        <div class="section-content fade-in">
+            <h1>Primeira Cena</h1>
+            <p>Observe como o objeto se comporta como um fluido gelatinoso ao interagir com ele.</p>
+            <div class="fluid-container" id="fluid-container-1">
+                <div class="wobble-container" id="wobble-container-1">
+                    <img src="../img/cena2/alice2.png" alt="Objeto Fluido 1" class="fluid-object" id="fluid1">
+                    <div class="intensity-indicator" id="intensity-1">Intensidade: 0%</div>
+                </div>
+            </div>
+            <div class="controls">
+                <button onclick="applyForce('fluid1', -30, 0)">⬅️ Esticar Esquerda</button>
+                <button onclick="applyForce('fluid1', 30, 0)">➡️ Esticar Direita</button>
+                <button onclick="applyForce('fluid1', 0, -30)">⬆️ Esticar Cima</button>
+                <button onclick="applyForce('fluid1', 0, 30)">⬇️ Esticar Baixo</button>
+                <button onclick="wiggle('fluid1')">🔄 Sacudir</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="section3">
+        <div class="section-content fade-in">
+            <h1>Segunda Cena</h1>
+            <p>Continue explorando o comportamento viscoelástico deste objeto.</p>
+            <div class="fluid-container" id="fluid-container-2">
+                <div class="wobble-container" id="wobble-container-2">
+                    <img src="../img/cena1/coelho.png" alt="Objeto Fluido 2" class="fluid-object" id="fluid2">
+                    <div class="intensity-indicator" id="intensity-2">Intensidade: 0%</div>
+                </div>
+            </div>
+            <div class="controls">
+                <button onclick="applyForce('fluid2', -30, 0)">⬅️ Esticar Esquerda</button>
+                <button onclick="applyForce('fluid2', 30, 0)">➡️ Esticar Direita</button>
+                <button onclick="applyForce('fluid2', 0, -30)">⬆️ Esticar Cima</button>
+                <button onclick="applyForce('fluid2', 0, 30)">⬇️ Esticar Baixo</button>
+                <button onclick="wiggle('fluid2')">🔄 Sacudir</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="section4">
+        <div class="section-content fade-in">
+            <h1>Conclusão</h1>
+            <p>Este efeito dá uma qualidade viscosa e orgânica aos seus elementos, ideal para criar narrativas visuais com sensação de fluidez e vida.</p>
+        </div>
+    </section>
+
+    <script>
+        // Configurações do efeito fluido
+        let fluidSettings = {
+            elasticity: 15,          // Fator de elasticidade
+            wobbleFrequency: 3,      // Frequência de oscilação
+            wobbleIntensity: 15,     // Intensidade da oscilação
+            springiness: 0.4,        // Elasticidade (springiness)
+            damping: 0.85,           // Amortecimento
+            scrollThreshold: 10      // Limiar para gatilho de scroll
+        };
+        
+        // Dados de simulação física para cada objeto
+        const fluidObjects = {};
+        
+        // Função para inicializar as configurações de cada objeto fluido
+        function initFluidObject(id) {
+            fluidObjects[id] = {
+                // Posição atual
+                x: 0,
+                y: 0,
+                scaleX: 1,
+                scaleY: 1,
+                rotation: 0,
+                
+                // Velocidade (para simulação física)
+                velocityX: 0,
+                velocityY: 0,
+                velocityScaleX: 0,
+                velocityScaleY: 0,
+                velocityRotation: 0,
+                
+                // Forças aplicadas
+                forceX: 0,
+                forceY: 0,
+                forceScaleX: 0,
+                forceScaleY: 0,
+                forceRotation: 0,
+                
+                // Estado da animação
+                animating: false,
+                
+                // Tempo para retornar à forma original
+                returnDelay: null,
+                
+                // Intensidade atual da deformação (para visual)
+                intensity: 0
+            };
+        }
+        
+        // Inicializar objetos fluídos
+        window.addEventListener('DOMContentLoaded', () => {
+            // Inicializar objetos
+            document.querySelectorAll('.fluid-object').forEach(obj => {
+                initFluidObject(obj.id);
+            });
+            
+            // Criar partículas de fundo
+            createBackgroundParticles();
+            
+            // Setup dos sliders de configuração
+            document.getElementById('elasticityValue').textContent = document.getElementById('elasticity').value;
+            document.getElementById('wobbleFrequencyValue').textContent = document.getElementById('wobbleFrequency').value;
+            document.getElementById('wobbleIntensityValue').textContent = document.getElementById('wobbleIntensity').value;
+            document.getElementById('springinessValue').textContent = document.getElementById('springiness').value + '%';
+            
+            document.getElementById('elasticity').addEventListener('input', function() {
+                document.getElementById('elasticityValue').textContent = this.value;
+            });
+            
+            document.getElementById('wobbleFrequency').addEventListener('input', function() {
+                document.getElementById('wobbleFrequencyValue').textContent = this.value;
+            });
+            
+            document.getElementById('wobbleIntensity').addEventListener('input', function() {
+                document.getElementById('wobbleIntensityValue').textContent = this.value;
+            });
+            
+            document.getElementById('springiness').addEventListener('input', function() {
+                document.getElementById('springinessValue').textContent = this.value + '%';
+            });
+            
+            document.getElementById('applySettings').addEventListener('click', function() {
+                fluidSettings.elasticity = parseInt(document.getElementById('elasticity').value);
+                fluidSettings.wobbleFrequency = parseInt(document.getElementById('wobbleFrequency').value);
+                fluidSettings.wobbleIntensity = parseInt(document.getElementById('wobbleIntensity').value);
+                fluidSettings.springiness = parseInt(document.getElementById('springiness').value) / 100;
+            });
+            
+            // Iniciar loop de animação
+            window.requestAnimationFrame(updateFluidSimulation);
+        });
+        
+        // Criar partículas de fundo
+        function createBackgroundParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamanho aleatório
+                const size = Math.random() * 8 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posição aleatória
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                particle.style.left = `${x}%`;
+                particle.style.top = `${y}%`;
+                
+                // Opacidade aleatória
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                // Animação aleatória
+                const duration = Math.random() * 100 + 50;
+                particle.style.animation = `float ${duration}s infinite ease-in-out`;
+                
+                particlesContainer.appendChild(particle);
+                
+                // Animação de movimento lento
+                setInterval(() => {
+                    const newX = parseFloat(particle.style.left) + (Math.random() * 2 - 1) * 0.2;
+                    const newY = parseFloat(particle.style.top) + (Math.random() * 2 - 1) * 0.2;
+                    
+                    particle.style.left = `${Math.max(0, Math.min(100, newX))}%`;
+                    particle.style.top = `${Math.max(0, Math.min(100, newY))}%`;
+                }, 1000);
+            }
+        }
+        
+        // Detectar quando os elementos entram na viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Aplicar um pequeno wiggle para mostrar o efeito fluido
+                    const section = entry.target.closest('section');
+                    if (section) {
+                        const fluidObj = section.querySelector('.fluid-object');
+                        if (fluidObj) {
+                            setTimeout(() => wiggle(fluidObj.id), 500);
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Observar todos os elementos com fade-in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Função para aplicar força a um objeto fluido
+        function applyForce(objectId, forceX, forceY) {
+            const obj = fluidObjects[objectId];
+            if (!obj) return;
+            
+            // Aplicar força ao objeto
+            obj.forceX += forceX;
+            obj.forceY += forceY;
+            
+            // Calcular deformação baseada na direção da força
+            const absForceX = Math.abs(forceX);
+            const absForceY = Math.abs(forceY);
+            
+            // Esticar na direção da força
+            if (absForceX > absForceY) {
+                obj.forceScaleX += forceX * 0.01;
+                obj.forceScaleY -= Math.abs(forceX) * 0.005;
+            } else {
+                obj.forceScaleY += forceY * 0.01;
+                obj.forceScaleX -= Math.abs(forceY) * 0.005;
+            }
+            
+            // Adicionar um pouco de rotação para tornar mais natural
+            obj.forceRotation += (Math.random() * 2 - 1) * 5;
+            
+            // Garantir que estamos animando
+            obj.animating = true;
+            
+            // Cancelar o retorno à forma original se houver um agendado
+            if (obj.returnDelay) {
+                clearTimeout(obj.returnDelay);
+            }
+            
+            // Agendar retorno à forma original
+            obj.returnDelay = setTimeout(() => {
+                returnToOriginalShape(objectId);
+            }, 2000);
+            
+            // Atualizar o indicador de intensidade
+            updateIntensityIndicator(objectId);
+        }
+        
+        // Função para fazer o objeto sacudir (wiggle)
+        function wiggle(objectId) {
+            const obj = fluidObjects[objectId];
+            if (!obj) return;
+            
+            // Aplicar forças aleatórias para criar efeito de sacudida
+            const intensity = fluidSettings.wobbleIntensity;
+            
+            // Sequência de forças para criar movimento de gelatina
+            const applySequence = () => {
+                // Primeira força (puxar)
+                applyForce(objectId, 
+                    (Math.random() * 2 - 1) * intensity, 
+                    (Math.random() * 2 - 1) * intensity
+                );
+                
+                // Segunda força (oposta)
+                setTimeout(() => {
+                    applyForce(objectId, 
+                        (Math.random() * 2 - 1) * intensity * 0.7, 
+                        (Math.random() * 2 - 1) * intensity * 0.7
+                    );
+                }, 100);
+                
+                // Terceira força (menor)
+                setTimeout(() => {
+                    applyForce(objectId, 
+                        (Math.random() * 2 - 1) * intensity * 0.4, 
+                        (Math.random() * 2 - 1) * intensity * 0.4
+                    );
+                }, 200);
+            };
+            
+            // Aplicar sequência inicial
+            applySequence();
+            
+            // Adicionar um pouco de rotação para tornar mais natural
+            obj.forceRotation += (Math.random() * 2 - 1) * 15;
+        }
+        
+        // Função para retornar o objeto à forma original
+        function returnToOriginalShape(objectId) {
+            const obj = fluidObjects[objectId];
+            if (!obj) return;
+            
+            // Aplicar força suave na direção da forma original
+            obj.forceX = -obj.x * 2;
+            obj.forceY = -obj.y * 2;
+            obj.forceScaleX = (1 - obj.scaleX) * 2;
+            obj.forceScaleY = (1 - obj.scaleY) * 2;
+            obj.forceRotation = -obj.rotation * 2;
+        }
+        
+        // Função para atualizar a simulação de fluido
+        function updateFluidSimulation() {
+            // Atualizar cada objeto fluido
+            Object.keys(fluidObjects).forEach(objectId => {
+                const obj = fluidObjects[objectId];
+                const element = document.getElementById(objectId);
+                if (!element) return;
+                
+                // Elasticidade - quanto maior, mais "mola" o objeto
+                const elasticity = fluidSettings.elasticity * 0.1;
+                
+                // Atualizar velocidades
+                obj.velocityX += obj.forceX * elasticity;
+                obj.velocityY += obj.forceY * elasticity;
+                obj.velocityScaleX += obj.forceScaleX * elasticity;
+                obj.velocityScaleY += obj.forceScaleY * elasticity;
+                obj.velocityRotation += obj.forceRotation * elasticity;
+                
+                // Aplicar amortecimento para impedir movimento perpétuo
+                obj.velocityX *= fluidSettings.damping;
+                obj.velocityY *= fluidSettings.damping;
+                obj.velocityScaleX *= fluidSettings.damping;
+                obj.velocityScaleY *= fluidSettings.damping;
+                obj.velocityRotation *= fluidSettings.damping;
+                
+                // Atualizar posições
+                obj.x += obj.velocityX * fluidSettings.springiness;
+                obj.y += obj.velocityY * fluidSettings.springiness;
+                obj.scaleX += obj.velocityScaleX * fluidSettings.springiness;
+                obj.scaleY += obj.velocityScaleY * fluidSettings.springiness;
+                obj.rotation += obj.velocityRotation * fluidSettings.springiness;
+                
+                // Garantir limites para as transformações
+                obj.scaleX = Math.max(0.5, Math.min(1.5, obj.scaleX));
+                obj.scaleY = Math.max(0.5, Math.min(1.5, obj.scaleY));
+                obj.rotation = Math.max(-25, Math.min(25, obj.rotation));
+                
+                // Limitar movimento máximo
+                const maxTranslation = 50;
+                obj.x = Math.max(-maxTranslation, Math.min(maxTranslation, obj.x));
+                obj.y = Math.max(-maxTranslation, Math.min(maxTranslation, obj.y));
+                
+                // Aplicar transformações ao elemento
+                const container = element.closest('.wobble-container');
+                if (container) {
+                    container.style.transform = `
+                        translate(${obj.x}px, ${obj.y}px)
+                        scale(${obj.scaleX}, ${obj.scaleY})
+                        rotate(${obj.rotation}deg)
+                    `;
+                }
+                
+                // Resetar forças
+                obj.forceX = 0;
+                obj.forceY = 0;
+                obj.forceScaleX = 0;
+                obj.forceScaleY = 0;
+                obj.forceRotation = 0;
+                
+                // Atualizar intensidade para o indicador
+                obj.intensity = Math.sqrt(
+                    Math.pow(obj.velocityX, 2) + 
+                    Math.pow(obj.velocityY, 2) + 
+                    Math.pow(obj.velocityScaleX * 100, 2) + 
+                    Math.pow(obj.velocityScaleY * 100, 2) + 
+                    Math.pow(obj.velocityRotation * 0.1, 2)
+                );
+                
+                // Atualizar indicador de intensidade
+                updateIntensityIndicator(objectId);
+                
+                // Verificar se ainda precisa animar
+                if (Math.abs(obj.velocityX) < 0.01 && 
+                    Math.abs(obj.velocityY) < 0.01 && 
+                    Math.abs(obj.velocityScaleX) < 0.001 && 
+                    Math.abs(obj.velocityScaleY) < 0.001 && 
+                    Math.abs(obj.velocityRotation) < 0.01) {
+                    obj.animating = false;
+                }
+            });
+            
+            // Continuar animação
+            window.requestAnimationFrame(updateFluidSimulation);
+        }
+        
+        // Atualizar indicador de intensidade
+        function updateIntensityIndicator(objectId) {
+            const obj = fluidObjects[objectId];
+            if (!obj) return;
+            
+            const indicator = document.getElementById(`intensity-${objectId.replace('fluid', '')}`);
+            if (indicator) {
+                const normalizedIntensity = Math.min(100, Math.round(obj.intensity * 100));
+                indicator.textContent = `Intensidade: ${normalizedIntensity}%`;
+                
+                // Mudar cor baseada na intensidade
+                const hue = Math.max(0, 120 - normalizedIntensity);
+                indicator.style.backgroundColor = `hsla(${hue}, 80%, 50%, 0.7)`;
+            }
+        }
+        
+        // Gerenciar efeito durante o scroll
+        let lastScrollY = window.scrollY;
+        let scrollTimeout;
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const delta = currentScrollY - lastScrollY;
+            
+            // Limitar frequência de atualização
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (Math.abs(delta) > fluidSettings.scrollThreshold) {
+                    handleScrollEffect(delta);
+                }
+                lastScrollY = currentScrollY;
+            }, 50);
+        });
+        
+        function handleScrollEffect(scrollDelta) {
+            const objects = document.querySelectorAll('.fluid-object');
+            
+            objects.forEach(element => {
+                const section = element.closest('section');
+                if (!section) return;
+                
+                const rect = section.getBoundingClientRect();
+                
+                // Verificar se a seção está visível na viewport
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const objectId = element.id;
+                    const scrollForce = Math.min(30, Math.abs(scrollDelta) * 0.5);
+                    
+                    // Aplicar força vertical baseada na direção do scroll
+                    if (scrollDelta > 0) {
+                        // Scroll para baixo: comprimir verticalmente
+                        applyForce(objectId, 0, scrollForce);
+                    } else {
+                        // Scroll para cima: esticar verticalmente
+                        applyForce(objectId, 0, -scrollForce);
+                    }
+                    
+                    // Adicionar um efeito de compressão horizontal também
+                    const obj = fluidObjects[objectId];
+                    if (obj) {
+                        obj.forceScaleX += scrollForce * 0.005;
+                        obj.forceScaleY -= scrollForce * 0.01;
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

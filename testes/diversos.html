@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efeitos de Tamanho Dinâmico no Scroll</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .scroll-container {
+            height: 500vh;
+            position: relative;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .element-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .element {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            transition: transform 0.3s ease-out;
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        .grow-element {
+            background-color: #3498db;
+        }
+
+        .shrink-element {
+            background-color: #e74c3c;
+        }
+
+        .pulse-element {
+            background-color: #2ecc71;
+        }
+
+        .rotate-scale-element {
+            background-color: #f39c12;
+        }
+
+        .fixed-element {
+            background-color: #9b59b6;
+        }
+
+        .instructions {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        /* Seção com elementos que crescem e diminuem juntos */
+        .multi-elements {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .multi-element {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            transition: transform 0.5s ease-out;
+        }
+
+        .multi-element:nth-child(odd) {
+            background-color: #1abc9c;
+        }
+
+        .multi-element:nth-child(even) {
+            background-color: #d35400;
+        }
+
+        /* Indicadores de depuração */
+        .debug-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">Faça scroll para ver os efeitos de tamanho dinâmico</div>
+    <div class="debug-info" id="debugInfo">Progresso: 0</div>
+    
+    <div class="scroll-container">
+        <div class="section" id="section1">
+            <div class="element-container">
+                <div class="element grow-element" id="growElement">Aumenta</div>
+                <div class="element shrink-element" id="shrinkElement">Diminui</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="element-container">
+                <div class="element pulse-element" data-effect="pulse">Pulsa</div>
+                <div class="element rotate-scale-element" data-effect="rotate-scale">Gira e Aumenta</div>
+                <div class="element fixed-element" data-effect="fixed">Fixo</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="multi-elements">
+                <div class="multi-element" data-effect="alternate" data-index="0">1</div>
+                <div class="multi-element" data-effect="alternate" data-index="1">2</div>
+                <div class="multi-element" data-effect="alternate" data-index="2">3</div>
+                <div class="multi-element" data-effect="alternate" data-index="3">4</div>
+                <div class="multi-element" data-effect="alternate" data-index="4">5</div>
+                <div class="multi-element" data-effect="alternate" data-index="5">6</div>
+                <div class="multi-element" data-effect="alternate" data-index="6">7</div>
+                <div class="multi-element" data-effect="alternate" data-index="7">8</div>
+                <div class="multi-element" data-effect="alternate" data-index="8">9</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="element-container">
+                <div class="element grow-element" data-effect="scroll-grow">Cresce com Scroll</div>
+                <div class="element shrink-element" data-effect="scroll-shrink">Diminui com Scroll</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="element-container">
+                <div class="element pulse-element" data-effect="opposite" data-pair="1">Par 1A</div>
+                <div class="element rotate-scale-element" data-effect="opposite" data-pair="1">Par 1B</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            const elements = document.querySelectorAll('[data-effect]');
+            const debugInfo = document.getElementById('debugInfo');
+            const growElement = document.getElementById('growElement');
+            const shrinkElement = document.getElementById('shrinkElement');
+            const section1 = document.getElementById('section1');
+            
+            let scrollPosition = 0;
+            let ticking = false;
+            
+            // Função para verificar se o elemento está visível na viewport
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                
+                // Define a área "gatilho" mais abrangente
+                return (
+                    rect.top <= windowHeight * 0.9 &&
+                    rect.bottom >= windowHeight * 0.1
+                );
+            }
+
+            // Calcula o progresso do scroll dentro de uma seção (0 a 1)
+            function getScrollProgress(section) {
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Quando o topo da seção está no topo da janela: progresso = 0
+                // Quando o topo da seção está no fundo da janela: progresso = 1
+                const progress = 1 - (rect.top / windowHeight);
+                return Math.min(Math.max(progress, 0), 1);
+            }
+
+            // Função específica para a primeira seção
+            function updateFirstSection() {
+                const progress = getScrollProgress(section1);
+                debugInfo.textContent = `Progresso: ${progress.toFixed(2)}`;
+
+                // Atualize os elementos de crescimento e encolhimento
+                if (progress >= 0 && progress <= 1) {
+                    // Elemento de crescimento: aumenta de 1x para 2x
+                    const growScale = 1 + progress;
+                    growElement.style.transform = `scale(${growScale})`;
+                    
+                    // Elemento de encolhimento: diminui de 2x para 1x
+                    const shrinkScale = 2 - progress;
+                    shrinkElement.style.transform = `scale(${shrinkScale})`;
+                }
+            }
+            
+            // Aplica efeitos diferentes baseados no atributo data-effect
+            function applyScrollEffects() {
+                // Primeiro, atualize a primeira seção separadamente
+                updateFirstSection();
+                
+                // Em seguida, processe os outros elementos
+                elements.forEach(element => {
+                    const effect = element.getAttribute('data-effect');
+                    const section = element.closest('.section');
+                    
+                    if (isElementInViewport(section)) {
+                        const progress = getScrollProgress(section);
+                        
+                        switch(effect) {
+                            case 'pulse':
+                                if (progress > 0.2 && progress < 0.8) {
+                                    const pulseValue = 1 + 0.5 * Math.sin(progress * Math.PI * 3);
+                                    element.style.transform = `scale(${pulseValue})`;
+                                } else {
+                                    element.style.transform = 'scale(1)';
+                                }
+                                break;
+                                
+                            case 'rotate-scale':
+                                if (progress > 0.2 && progress < 0.8) {
+                                    const rotateValue = progress * 360;
+                                    const scaleValue = 1 + progress * 0.5;
+                                    element.style.transform = `rotate(${rotateValue}deg) scale(${scaleValue})`;
+                                } else {
+                                    element.style.transform = 'rotate(0deg) scale(1)';
+                                }
+                                break;
+                                
+                            case 'fixed':
+                                // Este elemento permanece com tamanho fixo
+                                element.style.transform = 'scale(1)';
+                                break;
+                                
+                            case 'alternate':
+                                const index = parseInt(element.getAttribute('data-index'));
+                                const offset = index * 0.1;
+                                const scaleValue = 1 + 0.7 * Math.sin(progress * Math.PI * 2 + offset);
+                                element.style.transform = `scale(${scaleValue})`;
+                                break;
+                                
+                            case 'scroll-grow':
+                                // Cresce conforme o scroll desce
+                                element.style.transform = `scale(${1 + (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 1.5})`;
+                                break;
+                                
+                            case 'scroll-shrink':
+                                // Diminui conforme o scroll desce
+                                element.style.transform = `scale(${2 - (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 1})`;
+                                break;
+                                
+                            case 'opposite':
+                                const pair = element.getAttribute('data-pair');
+                                const pairElements = document.querySelectorAll(`[data-effect="opposite"][data-pair="${pair}"]`);
+                                const isFirst = pairElements[0] === element;
+                                
+                                if (isFirst) {
+                                    element.style.transform = `scale(${1 + progress})`;
+                                } else {
+                                    element.style.transform = `scale(${2 - progress})`;
+                                }
+                                break;
+                        }
+                    }
+                });
+                
+                ticking = false;
+            }
+            
+            // Event listener para o scroll
+            window.addEventListener('scroll', function() {
+                scrollPosition = window.scrollY;
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        applyScrollEffects();
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Configura os estados iniciais
+            window.addEventListener('load', function() {
+                // Define o tamanho inicial do elemento que encolhe
+                shrinkElement.style.transform = 'scale(2)';
+                
+                // Aplica os efeitos iniciais
+                applyScrollEffects();
+            });
+            
+            // Aplica os efeitos também quando o DOM é carregado
+            applyScrollEffects();
+        });
+    </script>
+</body>
+</html>

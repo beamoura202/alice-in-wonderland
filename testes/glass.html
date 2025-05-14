@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Morphism em Uma Imagem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #5641d7, #28c7fa);
+            color: white;
+            min-height: 300vh;
+        }
+
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 25%);
+            z-index: -1;
+        }
+
+        .intro {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .intro h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .intro p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-section {
+            position: relative;
+            height: 200vh;
+        }
+
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glass-frame {
+            position: relative;
+            width: 80vw;
+            height: 80vh;
+            max-width: 800px;
+            max-height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            z-index: 2;
+            pointer-events: none;
+            transform-origin: center;
+        }
+
+        .glass-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transform-origin: center;
+        }
+
+        .glass-reflection {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            z-index: 3;
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        .glass-highlight {
+            position: absolute;
+            z-index: 4;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .outro {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <section class="intro">
+        <div>
+            <h1>Glass Morphism</h1>
+            <p>Efeito de vidro deformado em uma única imagem</p>
+        </div>
+    </section>
+
+    <section class="glass-section">
+        <div class="sticky-container">
+            <div class="glass-frame">
+                <img src="../img/cena2/alice2.png" alt="Imagem Principal" class="glass-image">
+                <div class="glass-layer"></div>
+                <div class="glass-reflection"></div>
+                <div class="glass-highlight"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="outro">
+        <div>
+            <h2>Efeito de Vidro</h2>
+            <p>O efeito Glass Morphism cria uma experiência visual única com transparência e distorção</p>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const glassSection = document.querySelector('.glass-section');
+            const glassFrame = document.querySelector('.glass-frame');
+            const glassLayer = document.querySelector('.glass-layer');
+            const glassImage = document.querySelector('.glass-image');
+            const glassHighlight = document.querySelector('.glass-highlight');
+            const glassReflection = document.querySelector('.glass-reflection');
+            
+            // Posição do mouse para interatividade
+            let mouseX = 0.5;
+            let mouseY = 0.5;
+            
+            // Rastrear movimento do mouse
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX / window.innerWidth;
+                mouseY = e.clientY / window.innerHeight;
+                
+                // Mover o efeito de highlight baseado no mouse
+                glassHighlight.style.transform = `translate(${(mouseX - 0.5) * -40}px, ${(mouseY - 0.5) * -40}px)`;
+                
+                // Leve inclinação baseada no mouse
+                if (!isScrolling) {
+                    glassFrame.style.transform = `
+                        perspective(1000px)
+                        rotateX(${(mouseY - 0.5) * 10}deg)
+                        rotateY(${(mouseX - 0.5) * -10}deg)
+                    `;
+                }
+            });
+            
+            let isScrolling = false;
+            let scrollTimeout;
+            
+            // Função para aplicar o efeito de vidro distorcido
+            function applyGlassEffect(progress) {
+                isScrolling = true;
+                clearTimeout(scrollTimeout);
+                
+                // Constantes para as distorções
+                const maxBulge = 40; // Máxima quantidade de "bulge" ou inchaço
+                const maxWaveAmp = 30; // Amplitude máxima das ondas
+                const maxBlur = 30; // Desfoque máximo
+                
+                // Calcular valores baseados no progresso do scroll
+                const bulgeAmount = progress * maxBulge;
+                const waveFrequency = 2 + progress * 4;
+                const waveAmplitude = progress * maxWaveAmp;
+                const blurAmount = 10 + progress * maxBlur;
+                
+                // Criar uma malha de distorção usando múltiplas transformações
+                const time = Date.now() * 0.001; // Para animar as ondas
+                const wave1 = Math.sin(time * 0.5) * waveAmplitude * 0.2;
+                const wave2 = Math.cos(time * 0.3) * waveAmplitude * 0.15;
+                
+                // Aplicar distorção na imagem
+                glassImage.style.transform = `
+                    scale(${1 + progress * 0.15})
+                    perspective(800px)
+                    rotateX(${progress * wave1}deg)
+                    rotateY(${progress * wave2}deg)
+                    translate(${wave1}px, ${wave2}px)
+                `;
+                
+                // Aplicar efeito no quadro de vidro
+                glassFrame.style.transform = `
+                    perspective(1000px)
+                    rotateX(${progress * 15 + (mouseY - 0.5) * 10 * (1 - progress)}deg)
+                    rotateY(${progress * -10 + (mouseX - 0.5) * -10 * (1 - progress)}deg)
+                    scale(${1 + progress * 0.1})
+                    translate(${wave1 * 0.5}px, ${wave2 * 0.5}px)
+                `;
+                
+                // Efeito de flutuação nas bordas
+                glassFrame.style.borderRadius = `${20 + bulgeAmount * 0.5}px`;
+                glassFrame.style.boxShadow = `
+                    0 ${10 + progress * 20}px ${40 + progress * 30}px rgba(0, 0, 0, ${0.3 + progress * 0.2}),
+                    inset 0 0 ${progress * 3}px ${progress * 5}px rgba(255, 255, 255, ${0.2 + progress * 0.3})
+                `;
+                
+                // Ajustar layer de vidro
+                glassLayer.style.backdropFilter = `blur(${blurAmount}px)`;
+                glassLayer.style.webkitBackdropFilter = `blur(${blurAmount}px)`;
+                glassLayer.style.background = `rgba(255, 255, 255, ${0.15 + progress * 0.1})`;
+                
+                // Criar efeito de distorção no vidro usando transformações
+                glassLayer.style.transform = `
+                    perspective(500px)
+                    rotateX(${progress * wave1 * 2}deg)
+                    rotateY(${progress * wave2 * 2}deg)
+                    scale(${1 + progress * 0.05})
+                    translate(${-wave1 * 0.8}px, ${-wave2 * 0.8}px)
+                `;
+                
+                // Ajustar reflexos
+                glassReflection.style.opacity = 0.7 + progress * 0.3;
+                glassReflection.style.transform = `
+                    rotate(${progress * 10}deg)
+                    scale(${1 + progress * 0.2})
+                    translate(${wave1 * 2}px, ${wave2 * 2}px)
+                `;
+                
+                // Reset do flag de rolagem após um tempo
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            }
+            
+            // Detectar scroll e aplicar efeitos
+            window.addEventListener('scroll', () => {
+                // Calcular progresso do scroll
+                const rect = glassSection.getBoundingClientRect();
+                const startY = window.innerHeight;
+                const endY = -window.innerHeight;
+                
+                let progress = (startY - rect.top) / (startY - endY);
+                progress = Math.min(Math.max(progress, 0), 1);
+                
+                // Aplicar a distorção baseada no progresso do scroll
+                applyGlassEffect(progress);
+            });
+            
+            // Aplicar estado inicial
+            applyGlassEffect(0);
+        });
+    </script>
+</body>
+</html>

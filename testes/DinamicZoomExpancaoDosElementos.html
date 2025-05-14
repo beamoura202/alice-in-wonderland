@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice in Wonderland - Scrollytelling</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&display=swap" rel="stylesheet">
+    <style>
+        /* Reset e estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #011309;
+            color: #836C43;
+            font-family: 'Libre Caslon Text', serif;
+        }
+
+        /* Estilos das seções */
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Título inicial */
+        .chapter {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .chapter h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .chapter p {
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Container sticky */
+        .sticky-container {
+            position: relative;
+            height: 300vh;
+        }
+
+        .sticky-section {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* Imagens e elementos */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .element {
+            position: absolute;
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+
+        .element.zoom {
+            transform: scale(0.3); /* Começa menor */
+        }
+
+        .element.slide-left {
+            transform: translateX(-100%);
+        }
+
+        .element.slide-right {
+            transform: translateX(100%);
+        }
+
+        /* Frases */
+        .quote {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Capítulo 1 -->
+
+
+    <!-- Cena 1 -->
+    <div class="sticky-container">
+        <section class="sticky-section">
+            <img src="../img/cena1/fundo.jpeg" alt="Background" class="background-image">
+            <img src="../img/cena1/detalhes.png" alt="Details" class="element slide-left">
+            <img src="../img/cena1/coelho.png" alt="Rabbit" class="element zoom">
+            <div class="quote">"Oh dear! Oh dear! I shall be late!"</div>
+        </section>
+    </div>
+
+    <!-- Cena 2 -->
+    <div class="sticky-container">
+        <section class="sticky-section">
+            <img src="../img/cena2/fundo.png" alt="Background" class="background-image">
+            <img src="../img/cena2/detalhes2.png" alt="Details" class="element slide-right">
+            <img src="../img/cena2/alice2.png" alt="Alice" class="element zoom">
+            <div class="quote">"Curiouser and curiouser!"</div>
+        </section>
+    </div>
+
+    
+
+    <script>
+        // Função para animar elementos baseado no scroll
+        function handleScroll() {
+            const containers = document.querySelectorAll('.sticky-container');
+            
+            containers.forEach(container => {
+                const section = container.querySelector('.sticky-section');
+                const elements = section.querySelectorAll('.element');
+                const quote = section.querySelector('.quote');
+                
+                const rect = container.getBoundingClientRect();
+                const scrollProgress = -rect.top / (container.offsetHeight - window.innerHeight);
+                
+                if (scrollProgress >= 0 && scrollProgress <= 1) {
+                    // Animar elementos
+                    elements.forEach(element => {
+                        if (element.classList.contains('zoom')) {
+                            const scale = Math.min(0.3 + scrollProgress, 1.2); // Limita o zoom máximo a 1.2
+                            element.style.transform = `scale(${scale})`;
+                        } else if (element.classList.contains('slide-left')) {
+                            element.style.transform = `translateX(${-100 + scrollProgress * 100}%)`;
+                        } else if (element.classList.contains('slide-right')) {
+                            element.style.transform = `translateX(${100 - scrollProgress * 100}%)`;
+                        }
+                        element.style.opacity = scrollProgress;
+                    });
+
+                    // Animar quote
+                    if (quote) {
+                        quote.style.opacity = Math.max(0, scrollProgress * 2 - 1);
+                    }
+                }
+            });
+        }
+
+        // Adicionar evento de scroll
+        window.addEventListener('scroll', handleScroll);
+        // Chamar uma vez para inicializar
+        handleScroll();
+    </script>
+</body>
+</html>

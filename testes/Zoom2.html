@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Growth Effects</title>
+    <style>
+        /* ...existing code... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #011309;
+            color: #836C43;
+            font-family: 'Libre Caslon Text', serif;
+        }
+
+        .scroll-section {
+            height: 400vh; /* Increased for more effects */
+            position: relative;
+        }
+
+        .dynamic-element {
+            width: 200px;
+            height: 200px;
+            background-image: url('../img/cena1/coelho.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: all 0.1s ease-out;
+            filter: brightness(1);
+        }
+
+        .path-element {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #836C43;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .wave-text {
+            position: absolute;
+            color: #836C43;
+            font-size: 2rem;
+            opacity: 0;
+            transform: translateY(0);
+        }
+        .sticky-container {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+        
+    </style>
+</head>
+<body>
+    <div class="scroll-section">
+        <div class="sticky-container">
+            <div class="dynamic-element"></div>
+            <div class="text-overlay">"Curiouser and curiouser!"</div>
+            <div class="path-element"></div>
+            <div class="wave-text">Down the rabbit hole...</div>
+        </div>
+    </div>
+    <div style="height: 200vh; background: transparent;"></div>
+
+
+    <script>
+        // Add new easing functions
+        // Add the missing easeInOutQuad function
+    function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    // ...existing easing functions...
+
+    function handleScroll() {
+        // Add console.log to debug
+        console.log('Scrolling:', window.scrollY);
+        
+        const section = document.querySelector('.scroll-section');
+        const element = document.querySelector('.dynamic-element');
+        const text = document.querySelector('.text-overlay');
+        const pathElement = document.querySelector('.path-element');
+        const waveText = document.querySelector('.wave-text');
+        
+        // Check if all elements exist
+        if (!section || !element || !text || !pathElement || !waveText) {
+            console.error('Some elements are missing');
+            return;
+        }
+
+        const scrollProgress = window.scrollY / (section.offsetHeight - window.innerHeight);
+        const boundedProgress = Math.min(Math.max(scrollProgress, 0), 1);
+        
+        console.log('Progress:', boundedProgress);
+
+        // Rest of your existing handleScroll code...
+    }
+
+    // Ensure DOM is loaded before adding event listener
+    document.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Initial call
+    });
+        function easeOutBounce(x) {
+            const n1 = 7.5625;
+            const d1 = 2.75;
+            if (x < 1 / d1) {
+                return n1 * x * x;
+            } else if (x < 2 / d1) {
+                return n1 * (x -= 1.5 / d1) * x + 0.75;
+            } else if (x < 2.5 / d1) {
+                return n1 * (x -= 2.25 / d1) * x + 0.9375;
+            } else {
+                return n1 * (x -= 2.625 / d1) * x + 0.984375;
+            }
+        }
+
+        function easeInOutSine(x) {
+            return -(Math.cos(Math.PI * x) - 1) / 2;
+        }
+
+        function handleScroll() {
+            const section = document.querySelector('.scroll-section');
+            const element = document.querySelector('.dynamic-element');
+            const text = document.querySelector('.text-overlay');
+            const pathElement = document.querySelector('.path-element');
+            const waveText = document.querySelector('.wave-text');
+            
+            const scrollProgress = window.scrollY / (section.offsetHeight - window.innerHeight);
+            const boundedProgress = Math.min(Math.max(scrollProgress, 0), 1);
+            
+            // Non-linear growth with bounce
+            const bounceScale = easeOutBounce(boundedProgress);
+            const baseScale = 0.3;
+            const maxScale = 1.2;
+            const currentScale = baseScale + (maxScale - baseScale) * bounceScale;
+            
+            // Circular path movement
+            const angle = boundedProgress * Math.PI * 2;
+            const radius = 100;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            // Wave movement for text
+            const waveAmplitude = 50;
+            const waveFrequency = 4;
+            const waveY = Math.sin(boundedProgress * Math.PI * waveFrequency) * waveAmplitude;
+            
+            // Apply all transforms
+            element.style.transform = `
+                scale(${currentScale})
+                rotate(${easeInOutQuad(boundedProgress) * 720}deg)
+            `;
+            
+            // Brightness and contrast effects
+            const brightness = 0.5 + easeInOutSine(boundedProgress);
+            element.style.filter = `brightness(${brightness})`;
+            
+            // Path element animation
+            pathElement.style.transform = `translate(${x}px, ${y}px)`;
+            pathElement.style.opacity = boundedProgress;
+            
+            // Wave text animation
+            waveText.style.transform = `translateY(${waveY}px)`;
+            waveText.style.opacity = easeInOutSine(boundedProgress);
+            
+            // Original text opacity
+            text.style.opacity = boundedProgress > 0.5 ? (boundedProgress - 0.5) * 2 : 0;
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+    </script>
+</body>
+</html>

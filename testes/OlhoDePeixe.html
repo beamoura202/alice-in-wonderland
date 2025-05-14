@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extreme Fisheye Effect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #011309;
+            color: #836C43;
+            font-family: 'Libre Caslon Text', serif;
+            perspective: 1000px;
+        }
+
+        .scroll-section {
+            height: 300vh;
+            position: relative;
+        }
+
+        .sticky-container {
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .fisheye-wrapper {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            perspective: 400px; /* More extreme perspective */
+        }
+
+        .dynamic-element, .alice-element {
+            width: 200px;
+            height: 200px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: all 0.2s ease-out;
+            transform-origin: center center;
+            backface-visibility: hidden;
+            position: absolute;
+        }
+
+        .dynamic-element {
+            background-image: url('../img/cena1/coelho.png');
+            left: -150px;
+        }
+
+        .alice-element {
+            background-image: url('../img/cena2/alice2.png');
+            right: -150px;
+        }
+
+        .text-overlay {
+            position: absolute;
+            color: white;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            transform: translateZ(50px);
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-section">
+        <div class="sticky-container">
+            <div class="fisheye-wrapper">
+                <div class="dynamic-element"></div>
+                <div class="alice-element"></div>
+                <div class="text-overlay">"Curiouser and curiouser!"</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function easeInOutQuad(t) {
+            return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        }
+
+        function handleScroll() {
+            const section = document.querySelector('.scroll-section');
+            const wrapper = document.querySelector('.fisheye-wrapper');
+            const rabbit = document.querySelector('.dynamic-element');
+            const alice = document.querySelector('.alice-element');
+            const text = document.querySelector('.text-overlay');
+            
+            const scrollProgress = window.scrollY / (section.offsetHeight - window.innerHeight);
+            const boundedProgress = Math.min(Math.max(scrollProgress, 0), 1);
+            
+            // More extreme fisheye parameters
+            const maxDistortion = 50; // Doubled distortion
+            const maxScale = 3.0;      // Increased maximum scale
+            const minScale = 0.3;      // Decreased minimum scale
+            
+            // Enhanced distortion calculations
+            const distortionZ = maxDistortion * Math.sin(boundedProgress * Math.PI * 2);
+            const rabbitScale = minScale + (maxScale - minScale) * Math.sin(boundedProgress * Math.PI);
+            const aliceScale = minScale + (maxScale - minScale) * Math.cos(boundedProgress * Math.PI);
+            
+            // Extreme fisheye transform
+            wrapper.style.transform = `
+                translateZ(${-distortionZ}px)
+                rotateX(${boundedProgress * 40}deg)
+                rotateY(${boundedProgress * 40}deg)
+                scale(${1 + boundedProgress * 0.5})
+            `;
+            
+            // Rabbit animation
+            rabbit.style.transform = `
+                scale(${rabbitScale})
+                translateX(${boundedProgress * 300}px)
+                translateZ(${distortionZ}px)
+                rotateY(${-boundedProgress * 180}deg)
+            `;
+            
+            // Alice animation
+            alice.style.transform = `
+                scale(${aliceScale})
+                translateX(${-boundedProgress * 300}px)
+                translateZ(${-distortionZ}px)
+                rotateY(${boundedProgress * 180}deg)
+            `;
+            
+            // Enhanced barrel distortion
+            const barrel = 1 + (boundedProgress * 0.6);
+            rabbit.style.borderRadius = `${boundedProgress * 100}%`;
+            alice.style.borderRadius = `${(1 - boundedProgress) * 100}%`;
+            
+            // Dynamic text with extreme depth
+            text.style.opacity = boundedProgress;
+            text.style.transform = `
+                translateZ(${100 + distortionZ * 2}px)
+                scale(${1 + boundedProgress})
+                rotateX(${boundedProgress * 360}deg)
+            `;
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+    </script>
+</body>
+</html>

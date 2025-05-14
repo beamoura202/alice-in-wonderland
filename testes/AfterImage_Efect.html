@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efeito Afterimage - Scrollytelling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .section-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .image-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .afterimage {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+        }
+        
+        .controls {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #666;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <section id="section1">
+        <div class="section-content fade-in">
+            <h1>Efeito Afterimage</h1>
+            <p>Faça scroll para baixo para ver o efeito de pós-imagem fantasma entre as seções.</p>
+        </div>
+    </section>
+    
+    <section id="section2">
+        <div class="section-content fade-in">
+            <h1>Primeira Cena</h1>
+            <p>Observe como a imagem deixa rastros ao se mover e durante o scroll.</p>
+            <div class="image-container" id="image-container-1">
+                <img src="../img/cena2/personagem.png" alt="Imagem 1" class="main-image" id="image1">
+            </div>
+            <div class="controls">
+                <button onclick="moveImage('image1', -20, 0)">⬅️ Esquerda</button>
+                <button onclick="moveImage('image1', 20, 0)">➡️ Direita</button>
+                <button onclick="moveImage('image1', 0, -20)">⬆️ Cima</button>
+                <button onclick="moveImage('image1', 0, 20)">⬇️ Baixo</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="section3">
+        <div class="section-content fade-in">
+            <h1>Segunda Cena</h1>
+            <p>Continue explorando diferentes efeitos de afterimage.</p>
+            <div class="image-container" id="image-container-2">
+                <img src="../img/cena2/personagem.png" alt="Imagem 2" class="main-image" id="image2">
+            </div>
+            <div class="controls">
+                <button onclick="moveImage('image2', -20, 0)">⬅️ Esquerda</button>
+                <button onclick="moveImage('image2', 20, 0)">➡️ Direita</button>
+                <button onclick="moveImage('image2', 0, -20)">⬆️ Cima</button>
+                <button onclick="moveImage('image2', 0, 20)">⬇️ Baixo</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="section4">
+        <div class="section-content fade-in">
+            <h1>Conclusão</h1>
+            <p>Este efeito de pós-imagem pode ser aplicado em diferentes elementos do seu projeto de scrollytelling.</p>
+        </div>
+    </section>
+
+    <script>
+        // Configurações do efeito afterimage
+        const afterimageSettings = {
+            count: 5,           // Número de imagens fantasma
+            fadeSpeed: 1200,    // Velocidade de desaparecimento (ms)
+            delay: 80,          // Atraso entre cada imagem fantasma (ms)
+            opacityStep: 0.15,  // Quão transparente cada cópia fica
+            scrollThreshold: 5  // Limiar para criar afterimages no scroll
+        };
+        
+        // Armazenar posições das imagens
+        const imagePositions = {};
+        
+        // Inicializar posições
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.main-image').forEach(img => {
+                imagePositions[img.id] = { x: 0, y: 0 };
+            });
+        });
+        
+        // Detectar quando os elementos entram na viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+        
+        // Observar todos os elementos com fade-in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Função para mover a imagem e criar o efeito afterimage
+        function moveImage(imageId, deltaX, deltaY) {
+            const image = document.getElementById(imageId);
+            if (!image) return;
+            
+            // Atualizar posição armazenada
+            imagePositions[imageId].x += deltaX;
+            imagePositions[imageId].y += deltaY;
+            
+            // Limitar movimento a uma área razoável
+            const maxMove = 50;
+            imagePositions[imageId].x = Math.max(-maxMove, Math.min(maxMove, imagePositions[imageId].x));
+            imagePositions[imageId].y = Math.max(-maxMove, Math.min(maxMove, imagePositions[imageId].y));
+            
+            // Criar efeito afterimage
+            createAfterimageSequence(image);
+            
+            // Aplicar movimento à imagem
+            updateImagePosition(image);
+        }
+        
+        // Função para atualizar posição da imagem
+        function updateImagePosition(image) {
+            const pos = imagePositions[image.id];
+            image.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+        }
+        
+        // Criar sequência de imagens fantasma
+        function createAfterimageSequence(originalImage) {
+            // Remover afterimages anteriores que possam estar sobrando
+            const container = originalImage.parentElement;
+            const oldAfterimages = container.querySelectorAll('.afterimage');
+            if (oldAfterimages.length > 10) {
+                oldAfterimages.forEach((img, index) => {
+                    if (index < oldAfterimages.length - 5) {
+                        img.remove();
+                    }
+                });
+            }
+            
+            // Criar novas afterimages
+            for (let i = 0; i < afterimageSettings.count; i++) {
+                setTimeout(() => {
+                    createAfterimage(originalImage, i);
+                }, i * afterimageSettings.delay);
+            }
+        }
+        
+        // Função para criar uma única imagem fantasma
+        function createAfterimage(originalImage, index) {
+            const afterimage = originalImage.cloneNode(true);
+            afterimage.classList.remove('main-image');
+            afterimage.classList.add('afterimage');
+            
+            // Copiar a posição atual da imagem original
+            const currentTransform = window.getComputedStyle(originalImage).transform;
+            afterimage.style.transform = currentTransform;
+            
+            // Definir opacidade baseada no índice
+            const opacity = (afterimageSettings.count - index) * afterimageSettings.opacityStep;
+            afterimage.style.opacity = opacity;
+            
+            // Adicionar um leve blur progressivo
+            const blurAmount = index + 1;
+            afterimage.style.filter = `blur(${blurAmount}px)`;
+            
+            // Adicionar ao container
+            originalImage.parentElement.appendChild(afterimage);
+            
+            // Iniciar desaparecimento
+            setTimeout(() => {
+                afterimage.style.opacity = '0';
+                // Remover após a transição
+                setTimeout(() => {
+                    if (afterimage.parentNode) {
+                        afterimage.parentNode.removeChild(afterimage);
+                    }
+                }, afterimageSettings.fadeSpeed);
+            }, 10);
+        }
+        
+        // Gerenciar efeito durante o scroll
+        let lastScrollY = window.scrollY;
+        let scrollTimeout;
+        let scrollDirection = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const delta = currentScrollY - lastScrollY;
+            
+            // Determinar direção do scroll
+            scrollDirection = delta > 0 ? 1 : -1;
+            
+            // Limitar a frequência de criação de afterimages durante scroll
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (Math.abs(delta) > afterimageSettings.scrollThreshold) {
+                    handleScrollEffect();
+                }
+                lastScrollY = currentScrollY;
+            }, 50);
+        });
+        
+        function handleScrollEffect() {
+            const images = document.querySelectorAll('.main-image');
+            
+            images.forEach(image => {
+                const section = image.closest('section');
+                if (!section) return;
+                
+                const rect = section.getBoundingClientRect();
+                
+                // Verificar se a seção está visível na viewport
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    // Simular um pequeno movimento vertical baseado na direção do scroll
+                    const pos = imagePositions[image.id] || { x: 0, y: 0 };
+                    const moveAmount = scrollDirection * 2;
+                    
+                    // Armazenar posição temporária para o efeito
+                    const tempY = pos.y + moveAmount;
+                    
+                    // Criar efeito afterimage
+                    createAfterimageSequence(image);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

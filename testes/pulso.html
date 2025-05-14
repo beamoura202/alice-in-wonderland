@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efeito de Pulso com Scroll - Corrigido</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .scroll-container {
+            height: 500vh;
+            position: relative;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .pulse-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        .pulse-element {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            will-change: transform;
+        }
+
+        /* Cores diferentes para cada tipo de pulso */
+        .pulse-slow { background-color: #3498db; }
+        .pulse-medium { background-color: #e74c3c; }
+        .pulse-fast { background-color: #2ecc71; }
+        .pulse-alternate-1 { background-color: #f39c12; }
+        .pulse-alternate-2 { background-color: #9b59b6; }
+        .pulse-alternate-3 { background-color: #1abc9c; }
+        .pulse-wave-1 { background-color: #e67e22; }
+        .pulse-wave-2 { background-color: #16a085; }
+        .pulse-wave-3 { background-color: #8e44ad; }
+        .pulse-random { background-color: #d35400; }
+
+        /* Elementos não circulares para o último exemplo */
+        .shape-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .shape {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            will-change: transform;
+        }
+
+        .square { 
+            background-color: #e74c3c; 
+            border-radius: 0;
+        }
+        
+        .circle { 
+            background-color: #3498db; 
+            border-radius: 50%;
+        }
+        
+        .triangle {
+            width: 0;
+            height: 0;
+            background-color: transparent;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 120px solid #2ecc71;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .triangle span {
+            position: absolute;
+            top: 60px;
+        }
+        
+        .pentagon {
+            background-color: #9b59b6;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+        
+        .hexagon {
+            background-color: #f39c12;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        
+        .star {
+            background-color: #1abc9c;
+            clip-path: polygon(
+                50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+                50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+            );
+        }
+
+        .instructions {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        .debug-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">Faça scroll para ver os diferentes efeitos de pulso</div>
+    <div class="debug-info" id="debugInfo">Progresso: 0</div>
+    
+    <div class="scroll-container">
+        <!-- Seção 1: Diferentes velocidades de pulso -->
+        <div class="section" id="section1">
+            <div class="section-title">Diferentes Velocidades de Pulso</div>
+            <div class="pulse-container">
+                <div class="pulse-element pulse-slow" id="pulseSlow">Pulso Lento</div>
+                <div class="pulse-element pulse-medium" id="pulseMedium">Pulso Médio</div>
+                <div class="pulse-element pulse-fast" id="pulseFast">Pulso Rápido</div>
+            </div>
+        </div>
+
+        <!-- Seção 2: Pulsos alternados -->
+        <div class="section">
+            <div class="section-title">Pulsos Alternados</div>
+            <div class="pulse-container">
+                <div class="pulse-element pulse-alternate-1" data-pulse-type="alternate" data-index="0">Alternado 1</div>
+                <div class="pulse-element pulse-alternate-2" data-pulse-type="alternate" data-index="1">Alternado 2</div>
+                <div class="pulse-element pulse-alternate-3" data-pulse-type="alternate" data-index="2">Alternado 3</div>
+            </div>
+        </div>
+
+        <!-- Seção 3: Efeito de onda -->
+        <div class="section">
+            <div class="section-title">Efeito de Onda</div>
+            <div class="pulse-container">
+                <div class="pulse-element pulse-wave-1" data-pulse-type="wave" data-wave-position="0">Onda 1</div>
+                <div class="pulse-element pulse-wave-2" data-pulse-type="wave" data-wave-position="1">Onda 2</div>
+                <div class="pulse-element pulse-wave-3" data-pulse-type="wave" data-wave-position="2">Onda 3</div>
+                <div class="pulse-element pulse-wave-1" data-pulse-type="wave" data-wave-position="3">Onda 4</div>
+                <div class="pulse-element pulse-wave-2" data-pulse-type="wave" data-wave-position="4">Onda 5</div>
+                <div class="pulse-element pulse-wave-3" data-pulse-type="wave" data-wave-position="5">Onda 6</div>
+                <div class="pulse-element pulse-wave-1" data-pulse-type="wave" data-wave-position="6">Onda 7</div>
+                <div class="pulse-element pulse-wave-2" data-pulse-type="wave" data-wave-position="7">Onda 8</div>
+                <div class="pulse-element pulse-wave-3" data-pulse-type="wave" data-wave-position="8">Onda 9</div>
+            </div>
+        </div>
+
+        <!-- Seção 4: Pulsos Intensos baseados no Scroll -->
+        <div class="section">
+            <div class="section-title">Pulsos Intensos com Scroll</div>
+            <div class="pulse-container">
+                <div class="pulse-element pulse-random" data-pulse-type="scroll-intensity">Intensidade com Scroll</div>
+            </div>
+        </div>
+
+        <!-- Seção 5: Formas Diferentes Pulsando -->
+        <div class="section">
+            <div class="section-title">Formas Diferentes Pulsando</div>
+            <div class="shape-container">
+                <div class="shape square" data-pulse-type="shape">Quadrado</div>
+                <div class="shape circle" data-pulse-type="shape">Círculo</div>
+                <div class="shape triangle" data-pulse-type="shape"><span>Triângulo</span></div>
+                <div class="shape pentagon" data-pulse-type="shape">Pentágono</div>
+                <div class="shape hexagon" data-pulse-type="shape">Hexágono</div>
+                <div class="shape star" data-pulse-type="shape">Estrela</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            const debugInfo = document.getElementById('debugInfo');
+            const section1 = document.getElementById('section1');
+            const pulseSlow = document.getElementById('pulseSlow');
+            const pulseMedium = document.getElementById('pulseMedium');
+            const pulseFast = document.getElementById('pulseFast');
+            
+            let scrollSpeed = 0;
+            let lastScrollPosition = window.pageYOffset;
+            let currentScrollPosition;
+            let ticking = false;
+            let animationFrame;
+            
+            // Função para verificar se o elemento está visível na viewport
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                
+                return (
+                    rect.top <= windowHeight * 0.9 &&
+                    rect.bottom >= windowHeight * 0.1
+                );
+            }
+
+            // Calcula o progresso do scroll dentro de uma seção (0 a 1)
+            function getScrollProgress(section) {
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                const progress = 1 - (rect.top / windowHeight);
+                return Math.min(Math.max(progress, 0), 1);
+            }
+            
+            // Calcula a velocidade do scroll
+            function updateScrollSpeed() {
+                currentScrollPosition = window.pageYOffset;
+                scrollSpeed = Math.abs(currentScrollPosition - lastScrollPosition);
+                lastScrollPosition = currentScrollPosition;
+                return Math.min(scrollSpeed / 50, 1); // Normaliza a velocidade
+            }
+
+            // Função específica para a primeira seção com velocidades diferentes de pulso
+            function updateFirstSection() {
+                const progress = getScrollProgress(section1);
+                debugInfo.textContent = `Progresso: ${progress.toFixed(2)}`;
+
+                if (isElementInViewport(section1)) {
+                    // Pulso lento: 1 oscilação completa ao longo da seção
+                    const slowScale = 1 + 0.5 * Math.sin(progress * Math.PI * 1);
+                    pulseSlow.style.transform = `scale(${slowScale})`;
+                    
+                    // Pulso médio: 2 oscilações completas ao longo da seção
+                    const mediumScale = 1 + 0.4 * Math.sin(progress * Math.PI * 2);
+                    pulseMedium.style.transform = `scale(${mediumScale})`;
+                    
+                    // Pulso rápido: 4 oscilações completas ao longo da seção
+                    const fastScale = 1 + 0.3 * Math.sin(progress * Math.PI * 4);
+                    pulseFast.style.transform = `scale(${fastScale})`;
+                }
+            }
+            
+            // Aplica efeitos de pulso
+            function applyPulseEffects() {
+                const speedFactor = updateScrollSpeed();
+                
+                // Atualizar a primeira seção especificamente
+                updateFirstSection();
+                
+                sections.forEach(section => {
+                    if (section !== section1 && isElementInViewport(section)) {
+                        const progress = getScrollProgress(section);
+                        const pulseElements = section.querySelectorAll('[data-pulse-type]');
+                        
+                        pulseElements.forEach(element => {
+                            const pulseType = element.getAttribute('data-pulse-type');
+                            
+                            switch(pulseType) {
+                                case 'alternate':
+                                    const index = parseInt(element.getAttribute('data-index'));
+                                    const offset = index * Math.PI * 0.67; // Desfasa os pulsos
+                                    const alternateScale = 1 + 0.4 * Math.sin(progress * Math.PI * 2 + offset);
+                                    element.style.transform = `scale(${alternateScale})`;
+                                    break;
+                                    
+                                case 'wave':
+                                    const position = parseInt(element.getAttribute('data-wave-position'));
+                                    const delay = position * 0.2; // Cria efeito de onda
+                                    const waveProgress = (progress + delay) % 1;
+                                    const waveScale = 1 + 0.5 * Math.sin(waveProgress * Math.PI * 3);
+                                    element.style.transform = `scale(${waveScale})`;
+                                    break;
+                                    
+                                case 'scroll-intensity':
+                                    // A intensidade do pulso depende da velocidade do scroll
+                                    const intensityBase = 1;
+                                    const intensityFactor = 0.5 + speedFactor * 1.5;
+                                    const intensityFreq = 3 + speedFactor * 5;
+                                    const intensityScale = intensityBase + 
+                                        intensityFactor * Math.sin(progress * Math.PI * intensityFreq);
+                                    element.style.transform = `scale(${intensityScale})`;
+                                    break;
+                                    
+                                case 'shape':
+                                    // Formas diferentes pulsando em ritmos diferentes
+                                    const baseShapeScale = 1;
+                                    const shapeIndex = Array.from(element.parentNode.children).indexOf(element);
+                                    const shapeOffset = shapeIndex * Math.PI / 3;
+                                    const shapePulse = baseShapeScale + 
+                                        0.3 * Math.sin(progress * Math.PI * 2 + shapeOffset);
+                                    element.style.transform = `scale(${shapePulse})`;
+                                    break;
+                            }
+                        });
+                    }
+                });
+                
+                ticking = false;
+            }
+            
+            // Função de animação contínua para garantir que mesmo sem scroll tenhamos animação
+            function animate() {
+                applyPulseEffects();
+                animationFrame = requestAnimationFrame(animate);
+            }
+            
+            // Inicia a animação contínua para garantir melhor efeito
+            animationFrame = requestAnimationFrame(animate);
+            
+            // Event listener para o scroll também
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        applyPulseEffects();
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Limpa a animação quando necessário
+            window.addEventListener('beforeunload', function() {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

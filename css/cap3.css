@@ -1,0 +1,90 @@
+body {
+    background-color: #433521;
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+    color: #c7b689;
+}
+
+/*                                  geral */
+h1 {
+    font-size: 1.2rem; /* Keep as rem for base text */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+}
+
+h2 {
+    font-size: clamp(2.5rem, 5vw, 5.5rem); /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+p {
+    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    max-width: 800px;/* AUMENTEI Limite de largura para o texto */
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#chapter3 {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+/* Container para a seção sticky e o espaço de scroll */
+/*                                                 cena 1 */
+#sticky-container {
+    position: relative;
+    width: 100%;
+    /* Altura será definida dinamicamente pelo JavaScript */
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh; /* Altura inicial, será substituída pelo JS */
+    overflow: hidden;
+}
+
+/* Modificado para que a imagem determine a altura da seção */
+#cap3cena1 {
+    position: relative;
+    height: 100vh; /* Altura inicial, será substituída pelo JS */
+}
+
+/* Imagem de fundo */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: -1;
+    display: block;
+}
+
+#cap3rato-img {
+    position: absolute;
+    bottom: 15%;
+    left: 48%;
+    z-index: 1;
+    transition: left 0.3s ease-out, transform 0.3s ease-out; /* Transição suave */
+}
+#cap3detalhe{
+    width: 8vw;
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    z-index: 1;
+}

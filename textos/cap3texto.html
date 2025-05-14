@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 2</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #011309;
+            color: #836C43; /* Texto */
+            font-family: "adobe-caslon-pro", serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-container {
+            margin-top: 20vh;
+            max-width: 1000px;
+            padding: 2rem;
+            text-align: justify;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 6rem;
+            
+            font-family: "adobe-caslon-pro", serif;
+            font-weight: 400;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            font-family: "adobe-caslon-pro", serif;
+            font-style: normal;
+            font-weight: 400;
+            margin: 0; /* Remove margin entre parágrafos */
+            text-indent: 2em; /* Adiciona espaço no início do parágrafo */
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">
+        <h1 id="title"></h1>
+        <div id="content"></div>
+    </div>
+
+    <script>
+        fetch('texts.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data received:', data);
+                if (!data || !data.cap2) {
+                    throw new Error('Invalid JSON structure');
+                }
+                document.getElementById('title').innerHTML = `${data.cap2.chapter}<br>${data.cap2.title}`;
+                const paragraphs = data.cap2.content.split('\n\n');
+                const formattedContent = paragraphs
+                    .map(p => `<p>${p.trim()}</p>`)
+                    .join('\n');
+                document.getElementById('content').innerHTML = formattedContent;
+            })
+            .catch(error => {
+                console.error('Detailed error:', error);
+                document.getElementById('content').innerHTML = `
+                    <p style="color: #ff6b6b;">Error loading content: ${error.message}</p>
+                    <p>Please make sure:</p>
+                    <ul>
+                        <li>texts.json is in the same folder as this HTML file</li>
+                        <li>You're running this through a web server (not file://)</li>
+                        <li>The JSON file is properly formatted</li>
+                    </ul>
+                `;
+            });
+    </script>
+</body>
+</html>
