@@ -116,6 +116,80 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Trigger scroll event initially to set the initial state
     window.dispatchEvent(new Event('scroll'));
+
+    // Replace the existing scroll event listener for trees
+    window.addEventListener('scroll', () => {
+        const sectionArvore = document.getElementById('sectionarvore');
+        const rect = sectionArvore.getBoundingClientRect();
+        const scrollEnd = rect.top + rect.height;
+        const viewportHeight = window.innerHeight;
+        
+        const distanceToEnd = scrollEnd - viewportHeight;
+        const leftTree = document.querySelector('.slide-left');
+        const rightTree = document.querySelector('.slide-right');
+        const house = document.getElementById('cap4cena2casa-img');
+        
+        if (distanceToEnd <= 100) {
+            leftTree.classList.add('active');
+            rightTree.classList.add('active');
+            house.classList.add('scale-up');
+        } else if (distanceToEnd > 200) {
+            leftTree.classList.remove('active');
+            rightTree.classList.remove('active');
+            house.classList.remove('scale-up');
+        }
+    });
+
+    function handleLizardAnimation() {
+        const lizardImg = document.querySelector('#cap4cena3lagarto-img');
+        const container = document.querySelector('#sticky-container2');
+        const containerRect = container.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset;
+        const triggerPoint = containerRect.top + containerRect.height - window.innerHeight;
+
+        if (scrollPosition >= triggerPoint) {
+            lizardImg.classList.add('lizard-animate');
+        } else {
+            lizardImg.classList.remove('lizard-animate');
+        }
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleLizardAnimation);
+
+    // Call once on page load to check initial position
+    document.addEventListener('DOMContentLoaded', handleLizardAnimation);
+
+    function animateLizard() {
+        const container = document.querySelector('#sticky-container2');
+        const lizardContainer = document.querySelector('#lizard-container');
+        
+        if (!container || !lizardContainer) return; // Guard clause to prevent null errors
+        
+        const scrollPosition = window.pageYOffset;
+        const containerTop = container.offsetTop;
+        const containerHeight = container.offsetHeight;
+        const startAnimation = containerTop + (containerHeight * 0.8); // Start at 80% of container
+    
+        requestAnimationFrame(() => {
+            if (scrollPosition >= startAnimation) {
+                const progress = Math.min((scrollPosition - startAnimation) / (window.innerHeight), 1);
+                const bottomPosition = -70 + (170 * progress); // From -70vh to 100vh
+                lizardContainer.style.bottom = `${bottomPosition}vh`;
+            } else {
+                lizardContainer.style.bottom = '-70vh';
+            }
+        });
+    }
+
+    // Cleanup old event listeners
+    window.removeEventListener('scroll', animateLizard);
+
+    // Add new event listener
+    window.addEventListener('scroll', animateLizard);
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', animateLizard);
 });
 
 function initFisheyeEffect(image, canvas) {

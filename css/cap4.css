@@ -53,10 +53,11 @@ section {
 }
  #sticky-container2 {
     position: relative;
-    height: 300vh; /* Ajuste a altura conforme necessário */
+    height: 1400vh; /* Ajuste a altura conforme necessário */
     margin: 0;
     padding: 0;
     background-color: transparent;
+    z-index: 2;
 }
 .sticky {
     position: sticky;
@@ -86,7 +87,7 @@ section {
 #fundo2-img{
     position: absolute;  /* Same as other background-image */
     opacity: 1;
-    z-index: 2;
+    z-index: 1;
     width: 100%;
     height: 100%;
 }
@@ -103,15 +104,15 @@ section {
 
 
 /* Adicionamos a imagem de fundo como um elemento separado para melhor controle */
-#sectioncasa {
+#sectionarvore {
  position: absolute;
  top: 990vh;
  left: 0;
- height: 300vh;/* aumentar para a ravore ir mais para baixo*/
+ height: 1000vh;/* aumentar para a ravore ir mais para baixo*/
 width: 100vw;
  z-index: 100;
 }
-#casa {
+#arvore {
 position: sticky;
 top: 0%;/* 40% */
 height:100vh;  
@@ -121,7 +122,72 @@ width: auto;
 
 
 }
-#divcasa {
+#divarvore {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#cap4cena2casa-img {
+    position: absolute;
+    left: 60%;
+    bottom: 0%;
+    height: 70vh; /* Ajuste este valor para mudar o tamanho inicial */
+    width: auto; /* Ajuste este valor para mudar a largura */
+    transform: translateX(-50%) translateY(0) scale(1); /* Removed translateY since we're using bottom */
+    transform-origin: bottom center; /* Changed to grow from bottom */
+    transition: transform 1s ease-in-out;
+    z-index: 100; /* Acima da imagem de fundo, mas abaixo do texto */
+}
+
+#cap4cena2casa-img.scale-up {
+    transform: translateX(-50%) translateY(130%) scale(2) !important; /* Increased scale factor to 2 for more visible effect */
+}
+
+#cap4cena2detalhes1-img {
+    position: absolute;
+    left: 0%;
+    bottom: 0%;
+    height: 150vh;
+    width: auto;
+    opacity: 1;
+    z-index: 2;
+}
+#cap4cena2detalhes2-img {
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
+    height: 150vh;
+    width: auto;
+    opacity: 1;
+    z-index: 2;
+}
+
+
+
+
+
+
+
+#sectioncoelho {
+ position: absolute;
+ top: 1600vh;
+ left: 0;
+ height: 300vh;/* aumentar para a ravore ir mais para baixo*/
+width: 100vw;
+ z-index: 100;
+}
+#coelho {
+position: sticky;
+top: 0%;/* 40% */
+height:100vh;  
+width: auto;   
+ z-index: 0;
+}
+#divcoelho {
     position: relative;
     top: 0%;
     left: 0%;
@@ -130,11 +196,11 @@ width: auto;
     z-index: 0;
 }
 
-#cap4cena2casa-img {
+#cap4cena2coelho-img {
     position: absolute;
-    left: 50%;
-    bottom: 10%; /* Changed from top: 50% to bottom: 0 */
-    height: 80vh; /* Ajuste este valor para mudar o tamanho inicial */
+    left: 20%;
+    bottom: 0%; /* Changed from top: 50% to bottom: 0 */
+    height: 70vh; /* Ajuste este valor para mudar o tamanho inicial */
     width: auto; /* Ajuste este valor para mudar a largura */
     transform: translateX(-50%) scale(1); /* Removed translateY since we're using bottom */
     transform-origin: bottom center; /* Changed to grow from bottom */
@@ -144,28 +210,32 @@ width: auto;
 
 
 
-#cap4cena2detalhes1-img {
-    position: absolute;
-    left: 0%;
-    bottom: 0%;
+
+
+
+
+#lizard-container {
+    position: fixed; /* Changed from absolute to fixed */
+    bottom: -70vh;
+    left: 0;
+    width: 100%;
     height: 100vh;
-    width: auto;
-    opacity: 1;
-    z-index: 2;
-}
-#cap4cena2detalhes2-img {
-    position: absolute;
-    right: 0%;
-    bottom: 0%;
-    height: 100vh;
-    width: auto;
-    opacity: 1;
-    z-index: 2;
+    display: block;
+    z-index: 10;
+    will-change: transform; /* Optimize for animations */
+    pointer-events: none; /* Prevent interaction */
 }
 
-
-
-
+#cap4cena3lagarto-img {
+    position: absolute;
+    right: 35%;
+    bottom: 0;
+    height: 30vh;
+    width: auto;
+    transform: translateX(-50%);
+    z-index: 2;
+    transition: none; /* Remove any transition to let JS control the animation */
+}
 
 
 
@@ -335,3 +405,35 @@ width: auto;
         filter: blur(8px);
     }
 }
+.slide-left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 150vh;
+    width: auto;
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 1s ease-in-out;
+}
+
+.slide-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 150vh;
+    width: auto;
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 1s ease-in-out;
+}
+
+.slide-left.active {
+    transform: translateX(-150%);
+    opacity: 0;
+}
+
+.slide-right.active {
+    transform: translateX(150%);
+    opacity: 0;
+}
+
