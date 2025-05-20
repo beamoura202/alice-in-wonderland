@@ -198,6 +198,29 @@ document.addEventListener('DOMContentLoaded', function() {
     animateLizard();
     
     // Remove all existing rabbit-related code and replace with this:
+    
+    const lizardContainer = document.getElementById('lizard-container');
+    const lizardImg = document.getElementById('cap4cena3lagarto-img');
+    let lizardAnimated = false;
+
+    window.addEventListener('scroll', function() {
+        const container2 = document.getElementById('sticky-container2');
+        const container2Rect = container2.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset;
+        const containerHeight = container2.offsetHeight;
+        const triggerPoint = containerHeight * 0.7; // Start at 70% of container2
+
+        if (scrollPosition >= triggerPoint && !lizardAnimated) {
+            lizardImg.classList.add('lizard-climbing');
+            lizardAnimated = true;
+        }
+
+        // Reset animation when scrolling back up
+        if (scrollPosition < triggerPoint) {
+            lizardImg.classList.remove('lizard-climbing');
+            lizardAnimated = false;
+        }
+    });
 });
 
 function initFisheyeEffect(image, canvas) {
@@ -311,41 +334,60 @@ window.addEventListener('scroll', checkScroll);
 document.addEventListener('DOMContentLoaded', checkScroll);
 
 document.addEventListener('DOMContentLoaded', function() {
+    const stickyContainer2 = document.getElementById('sticky-container2');
     const sectionCoelho = document.getElementById('sectioncoelho');
     const rabbitImg = document.getElementById('cap4cena2coelho-img');
+    const handImg = document.getElementById('cap4cena2mao-img');
     let isAnimating = false;
     let hasReachedTarget = false;
-    let lastScrollPos = window.pageYOffset;
-
+    let isReversing = false;
+    
     window.addEventListener('scroll', function() {
-        const rect = sectionCoelho.getBoundingClientRect();
-        const triggerHeight = window.innerHeight * 0.7;
-        const currentScrollPos = window.pageYOffset;
-        const isScrollingUp = currentScrollPos < lastScrollPos;
-
-        if (rect.top <= triggerHeight && !hasReachedTarget) {
-            // Start jumping animation
+        const container2Height = stickyContainer2.offsetHeight;
+        const scrollPosition = window.pageYOffset;
+        const startTrigger = container2Height * 0.6; // 90% of container
+        const reverseTrigger = container2Height*2; // 100% of container
+        const scrollPercentage = (scrollPosition / container2Height) * 100;
+        
+        // Forward animation at 90%
+        if (scrollPosition >= startTrigger && !hasReachedTarget && !isReversing) {
+            sectionCoelho.style.opacity = '1';
+            sectionCoelho.style.pointerEvents = 'auto';
+            
             if (!isAnimating) {
                 rabbitImg.classList.add('rabbit-jumping');
+                handImg.classList.add('hand-forward');
                 isAnimating = true;
             }
-            
-            // Check if rabbit has reached target position
-            const rabbitRect = rabbitImg.getBoundingClientRect();
-            if (rabbitRect.left >= window.innerWidth * 0.3) { // 30vw
-                rabbitImg.classList.remove('rabbit-jumping');
-                rabbitImg.style.left = '30vw'; // Force position to stay at 30vw
-                hasReachedTarget = true;
-                isAnimating = false;
-            }
-        } else if (rect.top > triggerHeight && isScrollingUp) {
-            // Only reset when scrolling back up AND we're above trigger point
-            rabbitImg.style.left = ''; // Remove forced position
-            rabbitImg.classList.remove('rabbit-jumping');
-            hasReachedTarget = false;
-            isAnimating = false;
-        }
 
-        lastScrollPos = currentScrollPos;
+            const rabbitRect = rabbitImg.getBoundingClientRect();
+            if (rabbitRect.left >= window.innerWidth * 0.3) {
+                hasReachedTarget = true;
+                // Keep the rabbit at 30vw position
+                rabbitImg.style.left = '30vw';
+            }
+        }
+        
+        // Only trigger reverse animation when reaching 100% of container
+        if (scrollPercentage >= 100 && hasReachedTarget && !isReversing) {
+            rabbitImg.style.left = ''; // Remove fixed position before animation
+            rabbitImg.classList.remove('rabbit-jumping');
+            handImg.classList.remove('hand-forward');
+            rabbitImg.classList.add('rabbit-jumping-reverse');
+            handImg.classList.add('hand-reverse');
+            isReversing = true;
+        }
+        
+        // Reset when scrolling back up
+        if (scrollPosition < startTrigger) {
+            sectionCoelho.style.opacity = '0';
+            sectionCoelho.style.pointerEvents = 'none';
+            isAnimating = false;
+            hasReachedTarget = false;
+            isReversing = false;
+            rabbitImg.classList.remove('rabbit-jumping', 'rabbit-jumping-reverse');
+            handImg.classList.remove('hand-forward', 'hand-reverse');
+            rabbitImg.style.left = '-20%'; // Reset to initial position
+        }
     });
 });

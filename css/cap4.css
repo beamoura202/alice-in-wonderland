@@ -1,11 +1,13 @@
+/*  ......................................................geral.................... */
 body {
     background-color: #a36172;
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
     color: #c7b689;
+        overflow-x: hidden;
+
 }
 
-/*                                  geral */
 h1 {
     font-size: 1.2rem; /* Keep as rem for base text */
     font-family: "adobe-caslon-pro", serif;
@@ -42,8 +44,8 @@ section {
     background-color: #a36172;
 }
 
-/* Container para a seção sticky e o espaço de scroll */
-/*                                                 cena 1 */
+
+/* .............................................containers ...............*/
 #sticky-container {
     position: relative;
     height: 900vh;
@@ -70,7 +72,7 @@ section {
     position: relative;
     z-index: 1;
 }
-/* Modificado para que a imagem determine a altura da seção */
+/* ............................................. cena 1 e 2 ...... ...............*/
 #cap4cena1 {
     height: 100vh; /* Altura inicial, será substituída pelo JS */
 }
@@ -100,174 +102,7 @@ section {
     object-fit: cover;
     z-index: -1;
 }
-
-
-
-/* Adicionamos a imagem de fundo como um elemento separado para melhor controle */
-#sectionarvore {
- position: absolute;
- top: 990vh;
- left: 0;
- height: 1000vh;/* aumentar para a ravore ir mais para baixo*/
-width: 100vw;
- z-index: 100;
-}
-#arvore {
-position: sticky;
-top: 0%;/* 40% */
-height:100vh;  
-width: auto;   
- z-index: 0;
-
-
-
-}
-#divarvore {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-#cap4cena2casa-img {
-    position: absolute;
-    left: 60%;
-    bottom: 0%;
-    height: 70vh; /* Ajuste este valor para mudar o tamanho inicial */
-    width: auto; /* Ajuste este valor para mudar a largura */
-    transform: translateX(-50%) translateY(0) scale(1); /* Removed translateY since we're using bottom */
-    transform-origin: bottom center; /* Changed to grow from bottom */
-    transition: transform 1s ease-in-out;
-    z-index: 100; /* Acima da imagem de fundo, mas abaixo do texto */
-}
-
-#cap4cena2casa-img.scale-up {
-    transform: translateX(-50%) translateY(130%) scale(2) !important; /* Increased scale factor to 2 for more visible effect */
-}
-
-#cap4cena2detalhes1-img {
-    position: absolute;
-    left: 0%;
-    bottom: 0%;
-    height: 150vh;
-    width: auto;
-    opacity: 1;
-    z-index: 2;
-}
-#cap4cena2detalhes2-img {
-    position: absolute;
-    right: 0%;
-    bottom: 0%;
-    height: 150vh;
-    width: auto;
-    opacity: 1;
-    z-index: 2;
-}
-
-
-
-
-
-
-
-#sectioncoelho {
- position: absolute;
- top: 1600vh;
- left: 0;
- height: 300vh;/* aumentar para a ravore ir mais para baixo*/
-width: 100vw;
- z-index: 100;
-}
-#coelho {
-position: sticky;
-top: 0%;/* 40% */
-height:100vh;  
-width: auto;   
- z-index: 0;
-}
-#divcoelho {
-    position: relative;
-    top: 0%;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    z-index: 0;
-}
-
-#cap4cena2coelho-img {
-    position: absolute;
-    left: -20%;
-    bottom: 0;
-    height: 50vh;
-    #cap4cena2coelho-img {
-        position: absolute;
-        left: -20%;
-        bottom: 0;
-        height: 50vh;
-        transition: none;
-    }
-    
-    .rabbit-jumping {
-        animation: rabbitJump 2s forwards;
-        animation-fill-mode: forwards !important; /* Ensures it stays at final position */
-    }
-    
-   
-    
-    
-    
-    /* Remove these classes as they're not needed anymore */
-    .jumping {
-        animation: none;
-    }
-    
-    .moved {
-        left: 30vh !important;
-    }    transition: none;
-}
-
-#cap4cena2mao-img {
-    position: absolute;
-    left: -5%;
-    bottom: 40%; /* Changed from top: 50% to bottom: 0 */
-    height: 30vh; /* Ajuste este valor para mudar o tamanho inicial */
-    width: auto; /* Ajuste este valor para mudar a largura */
-    transform: translateY(-50%) scale(1); /* Removed translateY since we're usando bottom */
-    transform-origin: bottom center; /* Changed to grow from bottom */
-    transition: transform 0.1s ease-out;
-    z-index: 3; /* Acima da imagem de fundo, mas abaixo do texto */
-}
-
-
-
-#lizard-container {
-    position: fixed; /* Changed from absolute to fixed */
-    bottom: -70vh;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: block;
-    z-index: 10;
-    will-change: transform; /* Optimize for animations */
-    pointer-events: none; /* Prevent interaction */
-}
-
-#cap4cena3lagarto-img {
-    position: absolute;
-    right: 35%;
-    bottom: 0;
-    height: 30vh;
-    width: auto;
-    transform: translateX(-50%);
-    z-index: 2;
-    transition: none; /* Remove any transition to let JS control the animation */
-}
-
-
-
-
+/* .......................................cena1 efeito fisheye ....................*/
 
 
 .scene-container {
@@ -405,49 +240,66 @@ width: auto;
     background-color: #352b29; /* Set background color */
 }
 
-#divcoelho {
-    position: relastive;
-    top: 0%;
-    left: 0;
+/* .......................................cena 2 ....................*/
+#cap4cena2casa-img {
+    position: absolute;
+    left: 60%;
+    bottom: 0%;
+    height: 70vh; /* Ajuste este valor para mudar o tamanho inicial */
+    width: auto; /* Ajuste este valor para mudar a largura */
+    transform: translateX(-50%) translateY(0) scale(1); /* Removed translateY since we're using bottom */
+    transform-origin: bottom center; /* Changed to grow from bottom */
+    transition: transform 1s ease-in-out;
+    z-index: 100; /* Acima da imagem de fundo, mas abaixo do texto */
+}
+
+#cap4cena2casa-img.scale-up {
+    transform: translateX(-50%) translateY(130%) scale(2) !important; /* Increased scale factor to 2 for more visible effect */
+}
+
+
+/* .......................................arvores flutuantes entre cena1 e 2 */
+#sectionarvore {
+ position: absolute;
+ top: 990vh;
+ left: 0;
+ height: 1000vh;/* aumentar para a ravore ir mais para baixo*/
+width: 100vw;
+ z-index: 100;
+}
+#arvore {
+position: sticky;
+top: 0%;/* 40% */
+height:100vh;  
+width: auto;   
+ z-index: 0;
+}
+#divarvore {
+    position: relative;
     height: 100vh;
     width: 100%;
-    z-index: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
-
-
-
-.rabbit-jumping {
-    animation: rabbitJump 1.4s forwards; /* Changed to 'forwards' to keep final position */
-    animation-fill-mode: forwards !important; /* Ensures it stays at final position */
+#cap4cena2detalhes1-img {
+    position: absolute;
+    left: 0%;
+    bottom: 0%;
+    height: 150vh;
+    width: auto;
+    opacity: 1;
+    z-index: 2;
 }
-
-@keyframes rabbitJump {
-    0% {
-        transform: translateY(0);
-        left: -20%;
-    }
-    25% {
-        transform: translateY(-80px);
-        left: -5vw;
-    }
-    40% {
-        transform: translateY(0);
-        left: 8vw;
-    }
-    60% {
-        transform: translateY(-80px);
-        left: 15vw
-    }
-    80% {
-        transform: translateY(0);
-        left: 23vw;
-    }
-    100% {
-        transform: translateY(0);
-        left: 30vw;
-    }
+#cap4cena2detalhes2-img {
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
+    height: 150vh;
+    width: auto;
+    opacity: 1;
+    z-index: 2;
 }
-
 /* Animate the curiouser text better with the fisheye effect */
 @keyframes growAndFade {
     0% { 
@@ -508,9 +360,183 @@ width: auto;
     opacity: 0;
 }
 
+/* .......................................coelho flutuantes cena 2 ....................*/
 
+#sectioncoelho {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100vw;
+ height: 100vh;
+ z-index: 100;
+ opacity: 0;
+ pointer-events: none;
+ transition: opacity 0.5s ease;
+}
+#coelho {
+position: relative;
+height:100vh;  
+width: auto;   
+ z-index: 0;
+}
+#divcoelho {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+}
 
+#cap4cena2coelho-img {
+    position: absolute;
+    left: -20%;
+    bottom: 0;
+    height: 50vh;
+    transition: none;
+}
 
+.rabbit-jumping {
+    animation: rabbitJump 2s forwards;
+    animation-fill-mode: forwards !important;
+}
+
+@keyframes rabbitJump {
+    0% {
+        transform: translateY(0);
+        left: -20%;
+    }
+    20% {
+        transform: translateY(-80px);
+        left: -5vw;
+    }
+    40% {
+        transform: translateY(0);
+        left: 8vw;
+    }
+    60% {
+        transform: translateY(-80px);
+        left: 15vw;
+    }
+    80% {
+        transform: translateY(0);
+        left: 23vw;
+    }
+    100% {
+        transform: translateY(0);
+        left: 30vw;
+    }
+}
+
+.rabbit-jumping-reverse {
+    animation: rabbitJumpReverse 2s forwards;
+    animation-fill-mode: forwards !important;
+}
+
+@keyframes rabbitJumpReverse {
+    0% {
+        transform: translateY(0);
+        left: 30vw;
+    }
+    20% {
+        transform: translateY(-80px);
+        left: 23vw;
+    }
+    40% {
+        transform: translateY(0);
+        left: 15vw;
+    }
+    60% {
+        transform: translateY(-80px);
+        left: 8vw;
+    }
+    80% {
+        transform: translateY(0);
+        left: -5vw;
+    }
+    100% {
+        transform: translateY(0);
+        left: -20%;
+    }
+}
+
+@keyframes handWave {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-50%) rotate(-15deg);
+    }
+    75% {
+        transform: translateY(-50%) rotate(15deg);
+    }
+    100% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+}
+
+@keyframes handForward {
+    0% {
+        left: -50%;
+    }
+    100% {
+        left: -5%;
+    }
+}
+
+@keyframes handReverse {
+    0% {
+        left: -5%;
+    }
+    100% {
+        left: -50%;
+    }
+}
+
+#cap4cena2mao-img {
+    position: absolute;
+    left: -50%;
+    bottom: 40%;
+    height: 30vh;
+    width: auto;
+    transform-origin: center center;
+    transform: translateY(-50%) rotate(0deg);
+    z-index: 3;
+}
+
+.hand-forward {
+    animation: 
+        handForward 2s forwards,
+        handWave 2s infinite;
+    animation-fill-mode: forwards, forwards;
+}
+
+.hand-reverse {
+    animation: 
+        handReverse 2s forwards,
+        handWave 2s infinite;
+    animation-fill-mode: forwards, forwards;
+}
+
+/* Novo código para o lagarto na cena 3 */
+#lizard-container {
+    position: fixed;
+    left: 0%;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    pointer-events: none;
+}
+
+#cap4cena3lagarto-img {
+    position: absolute;
+    left: 50%;
+    bottom: -100px;
+    height: 45vh;
+    width: auto;
+    transform: translateX(-50%);
+    z-index: 100;
+}
 
 
 
