@@ -211,47 +211,77 @@ section {
     position: absolute;
     height: auto;
     z-index: 300;
+    opacity: 0;
+    transform: scale(0);
 }
 
 #cap5cena1detalhes1-img {
-        width: 25vw;
-
+    width: 25vw;
     right: 5vw;
     bottom: 10vh;
-    animation: float 4s ease-in-out infinite;
 }
 
 #cap5cena1detalhes2-img {
-        width: 10vw;
-
-    left: -10px;
+    width: 30vw;
+    left: -15vw;
     bottom: 40%;
-    animation: float 4s ease-in-out infinite 1s; /* 1s delay */
 }
 
 #cap5cena1detalhes3-img {
-        width: 15vw;
-
+    width: 15vw;
     left: 20vw;
     bottom: 5vh;
-    animation: float 4s ease-in-out infinite 2s; /* 2s delay */
 }
 
 @keyframes float {
     0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0) rotate(0deg) scale(1);
     }
     25% {
-        transform: translateY(-10px) rotate(2deg);
+        transform: translateY(-10px) rotate(2deg) scale(1);
     }
     50% {
-        transform: translateY(0) rotate(-2deg);
+        transform: translateY(0) rotate(-2deg) scale(1);
     }
     75% {
-        transform: translateY(10px) rotate(1deg);
+        transform: translateY(10px) rotate(1deg) scale(1);
     }
     100% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+}
+
+.popup-appear {
+    animation: popUp 0.3s ease-out forwards, float 4s ease-in-out infinite;
+}
+
+.popup-disappear {
+    animation: popDown 0.3s ease-in forwards;
+}
+
+@keyframes popUp {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes popDown {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
     }
 }
 
@@ -287,4 +317,31 @@ section {
     width: 100vw;
     height: auto;
     z-index: 3;
+}
+#cap5cena2alice-img{
+    position: absolute;
+    left: 50%;
+    bottom: 40vh;
+    transform: translateX(-50%);
+
+    height: auto;
+    width: 30vw;
+    z-index: 2001;
+}
+#cap5cena2cogumelo-img{
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: auto;
+    width: 30vw;
+    z-index: 2000;
+}
+#cap5cena1lagarta2-img {
+    position: absolute;
+    left: 20vw;
+    bottom: -30px;
+    height: auto;
+    width: 30vw;
+    z-index: 2000;
 }
