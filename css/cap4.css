@@ -190,7 +190,7 @@ width: auto;
 #divcoelho {
     position: relative;
     top: 0%;
-    left: 0%;
+    left: 0;
     height: 100vh;
     width: 100%;
     z-index: 0;
@@ -198,19 +198,47 @@ width: auto;
 
 #cap4cena2coelho-img {
     position: absolute;
-    left: 20%;
-    bottom: 0%; /* Changed from top: 50% to bottom: 0 */
-    height: 70vh; /* Ajuste este valor para mudar o tamanho inicial */
+    left: -20%;
+    bottom: 0;
+    height: 50vh;
+    #cap4cena2coelho-img {
+        position: absolute;
+        left: -20%;
+        bottom: 0;
+        height: 50vh;
+        transition: none;
+    }
+    
+    .rabbit-jumping {
+        animation: rabbitJump 2s forwards;
+        animation-fill-mode: forwards !important; /* Ensures it stays at final position */
+    }
+    
+   
+    
+    
+    
+    /* Remove these classes as they're not needed anymore */
+    .jumping {
+        animation: none;
+    }
+    
+    .moved {
+        left: 30vh !important;
+    }    transition: none;
+}
+
+#cap4cena2mao-img {
+    position: absolute;
+    left: -5%;
+    bottom: 40%; /* Changed from top: 50% to bottom: 0 */
+    height: 30vh; /* Ajuste este valor para mudar o tamanho inicial */
     width: auto; /* Ajuste este valor para mudar a largura */
-    transform: translateX(-50%) scale(1); /* Removed translateY since we're using bottom */
+    transform: translateY(-50%) scale(1); /* Removed translateY since we're usando bottom */
     transform-origin: bottom center; /* Changed to grow from bottom */
     transition: transform 0.1s ease-out;
     z-index: 3; /* Acima da imagem de fundo, mas abaixo do texto */
 }
-
-
-
-
 
 
 
@@ -377,6 +405,49 @@ width: auto;
     background-color: #352b29; /* Set background color */
 }
 
+#divcoelho {
+    position: relastive;
+    top: 0%;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 0;
+}
+
+
+
+.rabbit-jumping {
+    animation: rabbitJump 1.4s forwards; /* Changed to 'forwards' to keep final position */
+    animation-fill-mode: forwards !important; /* Ensures it stays at final position */
+}
+
+@keyframes rabbitJump {
+    0% {
+        transform: translateY(0);
+        left: -20%;
+    }
+    25% {
+        transform: translateY(-80px);
+        left: -5vw;
+    }
+    40% {
+        transform: translateY(0);
+        left: 8vw;
+    }
+    60% {
+        transform: translateY(-80px);
+        left: 15vw
+    }
+    80% {
+        transform: translateY(0);
+        left: 23vw;
+    }
+    100% {
+        transform: translateY(0);
+        left: 30vw;
+    }
+}
+
 /* Animate the curiouser text better with the fisheye effect */
 @keyframes growAndFade {
     0% { 
@@ -436,4 +507,16 @@ width: auto;
     transform: translateX(150%);
     opacity: 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

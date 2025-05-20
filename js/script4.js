@@ -79,10 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show curiouser text animation based on scroll
             const curiouserText = document.querySelector('.curiouser-text');
-            if (scrollProgress > 0.3 && scrollProgress < 0.7) {
+            if (curiouserText && scrollProgress > 0.3 && scrollProgress < 0.7) {
                 curiouserText.style.animationPlayState = 'running';
                 curiouserText.style.opacity = '1';
-            } else {
+            } else if (curiouserText) {
                 curiouserText.style.animationPlayState = 'paused';
                 if (scrollProgress <= 0.3) {
                     curiouserText.style.opacity = '0';
@@ -96,21 +96,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const details1 = document.getElementById('cap4cena1detalhes1-img');
         const details2 = document.getElementById('cap4cena1detalhes2-img');
         
-        const containerRect = container.getBoundingClientRect();
-        const containerHeight = container.offsetHeight - window.innerHeight;
-        const scrollProgress = Math.abs(containerRect.top) / containerHeight;
-        
-        if (scrollProgress > 0.5) {
-            // Calculate scale factor (1.0 to 0.5 as scroll goes from 50% to 100%)
-            const scaleProgress = (scrollProgress - 0.5) * 2; // Convert 0.5-1.0 to 0-1
-            const scale = 1 - (scaleProgress * 0.5); // Will go from 1.0 to 0.5
+        if (container && details1 && details2) {
+            const containerRect = container.getBoundingClientRect();
+            const containerHeight = container.offsetHeight - window.innerHeight;
+            const scrollProgress = Math.abs(containerRect.top) / containerHeight;
             
-            details1.style.transform = `scale(${scale})`;
-            details2.style.transform = `scale(${scale})`;
-        } else {
-            // Reset scale
-            details1.style.transform = 'scale(1)';
-            details2.style.transform = 'scale(1)';
+            if (scrollProgress > 0.5) {
+                // Calculate scale factor (1.0 to 0.5 as scroll goes from 50% to 100%)
+                const scaleProgress = (scrollProgress - 0.5) * 2; // Convert 0.5-1.0 to 0-1
+                const scale = 1 - (scaleProgress * 0.5); // Will go from 1.0 to 0.5
+                
+                details1.style.transform = `scale(${scale})`;
+                details2.style.transform = `scale(${scale})`;
+            } else {
+                // Reset scale
+                details1.style.transform = 'scale(1)';
+                details2.style.transform = 'scale(1)';
+            }
         }
     });
     
@@ -120,37 +122,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // Replace the existing scroll event listener for trees
     window.addEventListener('scroll', () => {
         const sectionArvore = document.getElementById('sectionarvore');
-        const rect = sectionArvore.getBoundingClientRect();
-        const scrollEnd = rect.top + rect.height;
-        const viewportHeight = window.innerHeight;
-        
-        const distanceToEnd = scrollEnd - viewportHeight;
-        const leftTree = document.querySelector('.slide-left');
-        const rightTree = document.querySelector('.slide-right');
-        const house = document.getElementById('cap4cena2casa-img');
-        
-        if (distanceToEnd <= 100) {
-            leftTree.classList.add('active');
-            rightTree.classList.add('active');
-            house.classList.add('scale-up');
-        } else if (distanceToEnd > 200) {
-            leftTree.classList.remove('active');
-            rightTree.classList.remove('active');
-            house.classList.remove('scale-up');
+        if (sectionArvore) {
+            const rect = sectionArvore.getBoundingClientRect();
+            const scrollEnd = rect.top + rect.height;
+            const viewportHeight = window.innerHeight;
+            
+            const distanceToEnd = scrollEnd - viewportHeight;
+            const leftTree = document.querySelector('.slide-left');
+            const rightTree = document.querySelector('.slide-right');
+            const house = document.getElementById('cap4cena2casa-img');
+            
+            if (leftTree && rightTree && house) {
+                if (distanceToEnd <= 100) {
+                    leftTree.classList.add('active');
+                    rightTree.classList.add('active');
+                    house.classList.add('scale-up');
+                } else if (distanceToEnd > 200) {
+                    leftTree.classList.remove('active');
+                    rightTree.classList.remove('active');
+                    house.classList.remove('scale-up');
+                }
+            }
         }
     });
 
     function handleLizardAnimation() {
         const lizardImg = document.querySelector('#cap4cena3lagarto-img');
         const container = document.querySelector('#sticky-container2');
-        const containerRect = container.getBoundingClientRect();
-        const scrollPosition = window.pageYOffset;
-        const triggerPoint = containerRect.top + containerRect.height - window.innerHeight;
+        
+        if (lizardImg && container) {
+            const containerRect = container.getBoundingClientRect();
+            const scrollPosition = window.pageYOffset;
+            const triggerPoint = containerRect.top + containerRect.height - window.innerHeight;
 
-        if (scrollPosition >= triggerPoint) {
-            lizardImg.classList.add('lizard-animate');
-        } else {
-            lizardImg.classList.remove('lizard-animate');
+            if (scrollPosition >= triggerPoint) {
+                lizardImg.classList.add('lizard-animate');
+            } else {
+                lizardImg.classList.remove('lizard-animate');
+            }
         }
     }
 
@@ -158,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', handleLizardAnimation);
 
     // Call once on page load to check initial position
-    document.addEventListener('DOMContentLoaded', handleLizardAnimation);
+    handleLizardAnimation();
 
     function animateLizard() {
         const container = document.querySelector('#sticky-container2');
@@ -182,14 +191,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Cleanup old event listeners
-    window.removeEventListener('scroll', animateLizard);
-
-    // Add new event listener
+    // Add event listener for lizard animation
     window.addEventListener('scroll', animateLizard);
 
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', animateLizard);
+    // Initialize lizard animation on load
+    animateLizard();
+    
+    // Remove all existing rabbit-related code and replace with this:
 });
 
 function initFisheyeEffect(image, canvas) {
@@ -260,3 +268,84 @@ function createDistortionControls() {
         window.dispatchEvent(new Event('scroll'));
     });
 }
+
+document.addEventListener('scroll', function() {
+    const sectionArvore = document.getElementById('sectionarvore');
+    const coelho = document.getElementById('cap4cena2coelho-img');
+    const arvoreRect = sectionArvore.getBoundingClientRect();
+    const triggerPoint = window.innerHeight * 0.7; // 70vh
+
+    if (arvoreRect.top <= triggerPoint && !coelho.classList.contains('jump')) {
+        coelho.classList.add('jump');
+        
+        // Remove the class after animation completes to allow it to replay
+        coelho.addEventListener('animationend', function() {
+            coelho.classList.remove('jump');
+        });
+    }
+});
+
+let animationTriggered = false;
+
+function checkScroll() {
+    if (animationTriggered) return;
+
+    const sectionArvore = document.getElementById('sectionarvore');
+    const coelho = document.getElementById('cap4cena2coelho-img');
+    const arvoreRect = sectionArvore.getBoundingClientRect();
+    const triggerPoint = window.innerHeight * 0.7;
+
+    if (arvoreRect.top <= triggerPoint) {
+        animationTriggered = true;
+        coelho.classList.add('slide-in');
+        
+        // Stop jumping after 5 seconds
+        setTimeout(() => {
+            coelho.classList.remove('slide-in');
+            coelho.classList.add('stop-jumping');
+        }, 7000); // 2s for slide + 5s of jumping
+    }
+}
+
+window.addEventListener('scroll', checkScroll);
+document.addEventListener('DOMContentLoaded', checkScroll);
+
+document.addEventListener('DOMContentLoaded', function() {
+    const sectionCoelho = document.getElementById('sectioncoelho');
+    const rabbitImg = document.getElementById('cap4cena2coelho-img');
+    let isAnimating = false;
+    let hasReachedTarget = false;
+    let lastScrollPos = window.pageYOffset;
+
+    window.addEventListener('scroll', function() {
+        const rect = sectionCoelho.getBoundingClientRect();
+        const triggerHeight = window.innerHeight * 0.7;
+        const currentScrollPos = window.pageYOffset;
+        const isScrollingUp = currentScrollPos < lastScrollPos;
+
+        if (rect.top <= triggerHeight && !hasReachedTarget) {
+            // Start jumping animation
+            if (!isAnimating) {
+                rabbitImg.classList.add('rabbit-jumping');
+                isAnimating = true;
+            }
+            
+            // Check if rabbit has reached target position
+            const rabbitRect = rabbitImg.getBoundingClientRect();
+            if (rabbitRect.left >= window.innerWidth * 0.3) { // 30vw
+                rabbitImg.classList.remove('rabbit-jumping');
+                rabbitImg.style.left = '30vw'; // Force position to stay at 30vw
+                hasReachedTarget = true;
+                isAnimating = false;
+            }
+        } else if (rect.top > triggerHeight && isScrollingUp) {
+            // Only reset when scrolling back up AND we're above trigger point
+            rabbitImg.style.left = ''; // Remove forced position
+            rabbitImg.classList.remove('rabbit-jumping');
+            hasReachedTarget = false;
+            isAnimating = false;
+        }
+
+        lastScrollPos = currentScrollPos;
+    });
+});
