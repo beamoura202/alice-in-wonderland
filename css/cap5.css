@@ -3,29 +3,34 @@ body {
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
     color: #c7b689;
+    overflow-x: hidden;
 }
 
-/*                                  geral */
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
 h1 {
-    font-size: 1.2rem; /* Keep as rem for base text */
+    font-size: 1.2rem;
+    /* Keep as rem for base text */
     font-family: "adobe-caslon-pro", serif;
     font-weight: 400;
 }
 
 h2 {
-    font-size: clamp(2.5rem, 5vw, 5.5rem); /* Responsive scaling with minimum and maximum sizes */
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    /* Responsive scaling with minimum and maximum sizes */
     font-family: "adobe-caslon-pro", serif;
     font-weight: 400;
     font-style: italic;
 }
 
 p {
-    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    /* Responsive scaling with minimum and maximum sizes */
     font-family: "adobe-caslon-pro", serif;
     font-style: normal;
     font-weight: 400;
     text-align: center;
-    max-width: 800px;/* AUMENTEI Limite de largura para o texto */
+    max-width: 800px;
+    /* AUMENTEI Limite de largura para o texto */
 }
 
 section {
@@ -51,14 +56,17 @@ section {
     padding: 0;
     background-color: transparent;
 }
- #sticky-container2 {
+
+#sticky-container2 {
     position: relative;
-    height: 1400vh; /* Ajuste a altura conforme necessário */
+    height: 1400vh;
+    /* Ajuste a altura conforme necessário */
     margin: 0;
     padding: 0;
     background-color: transparent;
     z-index: 2;
 }
+
 .sticky {
     position: sticky;
     top: 0;
@@ -66,33 +74,42 @@ section {
     width: 100%;
     overflow: hidden;
 }
+
 #sticky-containers12 {
     position: relative;
     z-index: 1;
 }
+
 /* Modificado para que a imagem determine a altura da seção */
 #cap5cena1 {
-    height: 100vh; /* Altura inicial, será substituída pelo JS */
-}
-#cap5cena2 {
-    height: 100vh; /* Altura inicial, será substituída pelo JS */
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
 }
 
-#fundo-img{
-    position: absolute;  /* Same as other background-image */
+#cap5cena2 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+#fundo-img {
+    position: absolute;
+    /* Same as other background-image */
     opacity: 1;
     z-index: -2;
 
 }
-#fundo2-img{
-    position: absolute;  /* Same as other background-image */
+
+#fundo2-img {
+    position: absolute;
+    /* Same as other background-image */
     opacity: 1;
     z-index: 1;
     width: 100%;
     height: 100%;
 }
+
 .background-image {
-    position: absolute; /* Changed from fixed to absolute */
+    position: absolute;
+    /* Changed from fixed to absolute */
     top: 0;
     left: 0;
     width: 100%;
@@ -100,4 +117,174 @@ section {
     object-fit: cover;
     z-index: -1;
 }
+/*-----------------------------------------------------cena1.----------- */
 
+#containercogumelo {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 90vh;
+    width: 40vw;
+    z-index: 2;
+}
+
+#cap5cena1cogumelo-img {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: auto;
+    width: 30vw;
+    z-index: 2;
+}
+
+#containercogumelocorpo {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+
+    height: 26vw;
+    width: 20vw;
+    z-index: -3;
+}
+
+#cap5cena1corpo-img {
+    position: absolute;
+    left: 50%;
+    top: 27%;
+    transform: translateX(-50%);
+    transform-origin: top center;
+    height: auto;
+    width: 10vw;
+    z-index: -3;
+    animation: rotateOscillate 4s ease-in-out infinite;
+}
+
+@keyframes rotateOscillate {
+    0% {
+        transform: translateX(-50%) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateX(-50%) rotate(5deg);
+    }
+
+    100% {
+        transform: translateX(-50%) rotate(-5deg);
+    }
+}
+
+#sectioncogumelos {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 1410vh;
+    width: 100vw;
+    z-index: 100;
+}
+
+#cogumelos {
+    position: sticky;
+    top: 0%;
+    /* 40% */
+    height: 100vh;
+    width: 100%;
+    z-index: 30;
+}
+
+#divcogumelos {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100%;
+    z-index: 30;
+
+
+}
+
+#cap5cena1detalhes1-img,
+#cap5cena1detalhes2-img,
+#cap5cena1detalhes3-img {
+    position: absolute;
+    height: auto;
+    z-index: 300;
+}
+
+#cap5cena1detalhes1-img {
+        width: 25vw;
+
+    right: 5vw;
+    bottom: 10vh;
+    animation: float 4s ease-in-out infinite;
+}
+
+#cap5cena1detalhes2-img {
+        width: 10vw;
+
+    left: -10px;
+    bottom: 40%;
+    animation: float 4s ease-in-out infinite 1s; /* 1s delay */
+}
+
+#cap5cena1detalhes3-img {
+        width: 15vw;
+
+    left: 20vw;
+    bottom: 5vh;
+    animation: float 4s ease-in-out infinite 2s; /* 2s delay */
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+    50% {
+        transform: translateY(0) rotate(-2deg);
+    }
+    75% {
+        transform: translateY(10px) rotate(1deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+
+/*-----------------------------------------------------cena2.----------- */
+#sectionfolhas {
+    position: absolute;
+    left: 0;
+    top:900vh;
+    height: 1300vh;
+    width: 100vw;
+    z-index: 100;
+}
+#folhas {
+    position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+#divfolhas {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+#cap5cena2detalhes1-img{
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: auto;
+    z-index: 3;
+}
