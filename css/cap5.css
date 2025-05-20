@@ -118,6 +118,49 @@ section {
     z-index: -1;
 }
 /*-----------------------------------------------------cena1.----------- */
+#sectionfumo {
+    position: absolute;
+    left: 0;
+    top: 20vh;
+    height: 100vh;
+    width: 100vw;
+    z-index: 100;
+}
+#fumo {
+    position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+#divfumo {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+#cap5fumo1-img {
+    position: absolute;
+    left: 0%;
+    bottom: 0;
+    height: auto;
+    width: 40vw;
+    z-index: 2;
+}
+#cap5fumo2-img {
+    position: absolute;
+    right: 0%;
+    bottom: 0;
+    height: 70vh;
+    width: 40vw;
+    z-index: 2;
+}
+
+
+
 
 #containercogumelo {
     position: absolute;
@@ -339,7 +382,7 @@ section {
 }
 #cap5cena1lagarta2-img {
     position: absolute;
-    left: 20vw;
+    left: 10vw;
     bottom: -30px;
     height: auto;
     width: 30vw;
