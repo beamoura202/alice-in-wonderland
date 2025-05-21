@@ -121,8 +121,8 @@ section {
 #sectionfumo {
     position: absolute;
     left: 0;
-    top: 20vh;
-    height: 100vh;
+    top: 80vw;
+    height: 1000vh;
     width: 100vw;
     z-index: 100;
 }
@@ -142,22 +142,7 @@ section {
     width: 100vw;
     z-index: 0;
 }
-#cap5fumo1-img {
-    position: absolute;
-    left: 0%;
-    bottom: 0;
-    height: auto;
-    width: 40vw;
-    z-index: 2;
-}
-#cap5fumo2-img {
-    position: absolute;
-    right: 0%;
-    bottom: 0;
-    height: 70vh;
-    width: 40vw;
-    z-index: 2;
-}
+
 
 
 
@@ -178,7 +163,7 @@ section {
     bottom: 0;
     transform: translateX(-50%);
     height: auto;
-    width: 30vw;
+    width: 100vw;
     z-index: 2;
 }
 
