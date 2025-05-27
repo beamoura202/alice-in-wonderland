@@ -207,7 +207,7 @@ section {
 #sectioncogumelos {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 100vh;
     height: 1410vh;
     width: 100vw;
     z-index: 100;
@@ -381,7 +381,7 @@ section {
 
 #cap5cena2fumo-img {
     position: absolute;
-    bottom: -10vh;
+    bottom: 0vh;
     left: -100vw;
     width: 70vw;
     height: auto;
@@ -421,7 +421,8 @@ section {
 
 @keyframes butterflyFlight {
     0% {
-        left: -20vw;
+        left: -2
+        0vw;
         top: 20vh;
         transform: rotate(15deg) scaleX(1);
     }
@@ -445,4 +446,26 @@ section {
         top: -30vh;
         transform: rotate(0deg) scaleX(1);
     }
+}
+
+#cogumelo-animation {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animation-frame {
+    position: absolute;
+    width: 100vw;
+    height: auto;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.animation-frame.active {
+    opacity: 1;
 }

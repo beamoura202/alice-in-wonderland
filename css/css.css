@@ -508,9 +508,12 @@ width: 100%;
 /*                                  geral */
 
 h1 {
-    font-size: 1.2rem; /* Keep as rem for base text */
-    font-family: "adobe-caslon-pro", serif;
-    font-weight: 400;
+    letter-spacing: 0.15em; /* Increases space between letters */
+    text-align: center;
+    font-family: "Libre Caslon Text", serif;
+        font-weight: 400;
+    font-size: 1.2rem;
+
 }
 
 h2 {

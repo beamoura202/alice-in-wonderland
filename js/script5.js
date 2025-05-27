@@ -73,4 +73,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    // Get all frames
+    const frames = document.querySelectorAll('.animation-frame');
+    let currentFrame = 0;
+    
+    // Function to change active frame
+    function changeFrame() {
+        // Remove active class from all frames
+        frames.forEach(frame => frame.classList.remove('active'));
+        
+        // Add active class to current frame
+        frames[currentFrame].classList.add('active');
+        
+        // Update current frame
+        currentFrame = (currentFrame + 1) % frames.length;
+    }
+    
+    // Start animation
+    setInterval(changeFrame, 500); // Change frame every 100ms (10 frames per second)
 });

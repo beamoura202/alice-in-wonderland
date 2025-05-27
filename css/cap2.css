@@ -7,8 +7,12 @@ body {
 
 h1 {
     font-size: 1.2rem;
+        text-align: center;
+
     font-family: "adobe-caslon-pro", serif;
     font-weight: 400;
+        letter-spacing: 0.15em; /* Increases space between letters */
+
 }
 
 h2 {
