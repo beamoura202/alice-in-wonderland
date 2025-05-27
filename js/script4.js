@@ -251,14 +251,13 @@ function updateCanvasSize(canvas) {
 }
 
 function createDistortionControls() {
-    // Create control panel
     const controlPanel = document.createElement('div');
     controlPanel.className = 'distortion-controls';
     controlPanel.innerHTML = `
         <div class="control-row">
             <label for="red-distortion">Red:</label>
-            <input type="range" id="red-distortion" min="0" max="2" step="0.1" value="0.8">
-            <span id="red-value">0.8</span>
+            <input type="range" id="red-distortion" min="0" max="2" step="0.1" value="0">
+            <span id="red-value">0</span>
         </div>
         <div class="control-row">
             <label for="green-distortion">Green:</label>
@@ -267,29 +266,40 @@ function createDistortionControls() {
         </div>
         <div class="control-row">
             <label for="blue-distortion">Blue:</label>
-            <input type="range" id="blue-distortion" min="0" max="2" step="0.1" value="0.8">
-            <span id="blue-value">0.8</span>
+            <input type="range" id="blue-distortion" min="0" max="2" step="0.1" value="0">
+            <span id="blue-value">0</span>
         </div>
     `;
     
     document.body.appendChild(controlPanel);
-    
-    // Add event listeners to update values
-    document.getElementById('red-distortion').addEventListener('input', function(e) {
-        document.getElementById('red-value').textContent = e.target.value;
-        // Trigger scroll to update the effect
-        window.dispatchEvent(new Event('scroll'));
-    });
-    
-    document.getElementById('green-distortion').addEventListener('input', function(e) {
-        document.getElementById('green-value').textContent = e.target.value;
-        window.dispatchEvent(new Event('scroll'));
-    });
-    
-    document.getElementById('blue-distortion').addEventListener('input', function(e) {
-        document.getElementById('blue-value').textContent = e.target.value;
-        window.dispatchEvent(new Event('scroll'));
-    });
+
+    // Set initial distortion values
+    if (window.fisheyeInstance) {
+        window.fisheyeInstance.setDistortion(0, 0.8, 0);
+    }
+
+    // Add event listeners for updates
+    const redSlider = document.getElementById('red-distortion');
+    const greenSlider = document.getElementById('green-distortion');
+    const blueSlider = document.getElementById('blue-distortion');
+
+    redSlider.addEventListener('input', updateDistortion);
+    greenSlider.addEventListener('input', updateDistortion);
+    blueSlider.addEventListener('input', updateDistortion);
+}
+
+function updateDistortion() {
+    const redValue = parseFloat(document.getElementById('red-distortion').value);
+    const greenValue = parseFloat(document.getElementById('green-distortion').value);
+    const blueValue = parseFloat(document.getElementById('blue-distortion').value);
+
+    document.getElementById('red-value').textContent = redValue.toFixed(1);
+    document.getElementById('green-value').textContent = greenValue.toFixed(1);
+    document.getElementById('blue-value').textContent = blueValue.toFixed(1);
+
+    if (window.fisheyeInstance) {
+        window.fisheyeInstance.setDistortion(redValue, greenValue, blueValue);
+    }
 }
 
 document.addEventListener('scroll', function() {
@@ -345,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', function() {
         const container2Height = stickyContainer2.offsetHeight;
         const scrollPosition = window.pageYOffset;
-        const startTrigger = container2Height * 0.6; // 90% of container
+        const startTrigger = container2Height * 0.8; // 90% of container
         const reverseTrigger = container2Height*2; // 100% of container
         const scrollPercentage = (scrollPosition / container2Height) * 100;
         
@@ -364,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (rabbitRect.left >= window.innerWidth * 0.3) {
                 hasReachedTarget = true;
                 // Keep the rabbit at 30vw position
-                rabbitImg.style.left = '30vw';
+                rabbitImg.style.left = '20vw';
             }
         }
         
@@ -391,3 +401,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function handleCanvasResize() {
+    const canvas = document.querySelector('.fisheye-canvas');
+    const details1 = document.getElementById('cap4cena1detalhes1-img');
+    const details2 = document.getElementById('cap4cena1detalhes2-img');
+    const stickyContainer = document.getElementById('sticky-container');
+    
+    if (!canvas || !details1 || !details2 || !stickyContainer) return;
+
+    const containerRect = stickyContainer.getBoundingClientRect();
+    const details1Rect = details1.getBoundingClientRect();
+    
+    // Get the computed scale of the details images
+    const details1Style = window.getComputedStyle(details1);
+    const details1Transform = details1Style.transform;
+    const matrix = new DOMMatrix(details1Transform);
+    const scale = matrix.a; // Get the scale factor from the transform matrix
+    
+    // Calculate canvas size based on details scale
+    if (containerRect.top <= 0 && containerRect.bottom >= 0) {
+        // Map the scale (1 to 0.6) to canvas size (100% to 60%)
+        const canvasSize = 100 - ((1 - scale) * 100);
+        const size = Math.max(60, Math.min(100, canvasSize));
+        
+        canvas.style.width = `${size}%`;
+        canvas.style.height = `${size}%`;
+        
+        // Center the canvas
+        const offset = (100 - size) / 2;
+        canvas.style.left = `${offset}%`;
+        canvas.style.top = `${offset}%`;
+    }
+}
+
+// Add scroll event listener
+window.addEventListener('scroll', handleCanvasResize);
