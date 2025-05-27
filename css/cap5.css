@@ -381,9 +381,9 @@ section {
 
 #cap5cena2fumo-img {
     position: absolute;
-    bottom: 0;
+    bottom: -10vh;
     left: -100vw;
-    width: 60vw;
+    width: 70vw;
     height: auto;
     z-index: 3000;
     transition: left 3s ease-out, opacity 2s ease-out;
@@ -421,7 +421,7 @@ section {
 
 @keyframes butterflyFlight {
     0% {
-        left: -10vw;
+        left: -20vw;
         top: 20vh;
         transform: rotate(15deg) scaleX(1);
     }
