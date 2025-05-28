@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Distorção RGB com Scroll</title>
+  <style>
+    body {
+      margin: 0;
+      height: 300vh;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+    }
+    canvas {
+      position: sticky;
+      top: 20px;
+      margin-top: 50px;
+      border: 2px solid #fff;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    img.src = "../imgcap2/cena2fundo2.png"; // Substitua pelo caminho correto da imagem
+
+    const lowResCanvas = document.createElement('canvas');
+    const lowCtx = lowResCanvas.getContext('2d');
+
+    let currentFactor = 0;
+    let targetFactor = 0;
+
+    const scaleFactor = 0.25;
+
+    function applySpiralEffect(factor) {
+      const width = Math.floor(img.width * scaleFactor);
+      const height = Math.floor(img.height * scaleFactor);
+
+      lowResCanvas.width = width;
+      lowResCanvas.height = height;
+      lowCtx.drawImage(img, 0, 0, width, height);
+
+      const imageData = lowCtx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+      const result = lowCtx.createImageData(width, height);
+
+      const cx = width / 2;
+      const cy = height / 2;
+
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          const dx = x - cx;
+          const dy = y - cy;
+          const r = Math.sqrt(dx * dx + dy * dy);
+          const angle = Math.atan2(dy, dx) + r * factor;
+
+          const sx = Math.round(cx + r * Math.cos(angle));
+          const sy = Math.round(cy + r * Math.sin(angle));
+
+          const srcIdx = (y * width + x) * 4;
+          const srcR = srcIdx;
+          const srcG = srcIdx + 1;
+          const srcB = srcIdx + 2;
+          const srcA = srcIdx + 3;
+
+          // Índice distorcido
+          let distortedIdx;
+          if (sx >= 0 && sx < width && sy >= 0 && sy < height) {
+            distortedIdx = (sy * width + sx) * 4;
+
+            // Aplica distorção apenas em R e B
+            result.data[srcR] = data[distortedIdx];       // Red
+            result.data[srcG] = data[srcG];               // Green (sem distorção)
+            result.data[srcB] = data[distortedIdx + 2];   // Blue
+            result.data[srcA] = data[srcA];               // Alpha (sem distorção)
+          } else {
+            // Fora da imagem — usa cor preta transparente
+            result.data[srcR] = 0;
+            result.data[srcG] = 0;
+            result.data[srcB] = 0;
+            result.data[srcA] = 255;
+          }
+        }
+      }
+
+      // Mostra imagem distorcida
+      lowCtx.putImageData(result, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(lowResCanvas, 0, 0, canvas.width, canvas.height);
+    }
+
+    function animate() {
+      currentFactor += (targetFactor - currentFactor) * 0.05;
+      applySpiralEffect(currentFactor);
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      targetFactor = scrollY * 0.00006;
+    });
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      animate();
+    };
+  </script>
+</body>
+</html>

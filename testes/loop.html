@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Distorção Suave e Leve com Scroll</title>
+  <style>
+    body {
+      margin: 0;
+      height: 300vh;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+    }
+    canvas {
+      position: sticky;
+      top: 20px;
+      margin-top: 50px;
+      border: 2px solid #fff;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    img.src = "../imgcap2/cena2fundo2.png"; // sua imagem aqui
+
+    // Canvas de baixa resolução para processamento
+    const lowResCanvas = document.createElement('canvas');
+    const lowCtx = lowResCanvas.getContext('2d');
+
+    let currentFactor = 0;
+    let targetFactor = 0;
+
+    const scaleFactor = 0.25; // 25% da resolução original
+
+    function applySpiralEffect(factor) {
+      const width = Math.floor(img.width * scaleFactor);
+      const height = Math.floor(img.height * scaleFactor);
+
+      lowResCanvas.width = width;
+      lowResCanvas.height = height;
+      lowCtx.drawImage(img, 0, 0, width, height);
+
+      const imageData = lowCtx.getImageData(0, 0, width, height);
+      const data = imageData.data;
+      const result = lowCtx.createImageData(width, height);
+
+      const cx = width / 2;
+      const cy = height / 2;
+
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          const dx = x - cx;
+          const dy = y - cy;
+          const r = Math.sqrt(dx * dx + dy * dy);
+          const angle = Math.atan2(dy, dx) + r * factor;
+
+          const sx = Math.round(cx + r * Math.cos(angle));
+          const sy = Math.round(cy + r * Math.sin(angle));
+
+          if (sx >= 0 && sx < width && sy >= 0 && sy < height) {
+            const destIdx = (y * width + x) * 4;
+            const srcIdx = (sy * width + sx) * 4;
+
+            result.data[destIdx]     = data[srcIdx];
+            result.data[destIdx + 1] = data[srcIdx + 1];
+            result.data[destIdx + 2] = data[srcIdx + 2];
+            result.data[destIdx + 3] = data[srcIdx + 3];
+          }
+        }
+      }
+
+      // Desenha o resultado final em baixa resolução, escalado para o canvas principal
+      lowCtx.putImageData(result, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(lowResCanvas, 0, 0, canvas.width, canvas.height);
+    }
+
+    function animate() {
+      currentFactor += (targetFactor - currentFactor) * 0.05;
+      applySpiralEffect(currentFactor);
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      targetFactor = scrollY * 0.00007; // ajustar intensidade
+    });
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      animate();
+    };
+  </script>
+</body>
+</html>

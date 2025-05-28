@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Roda com Scroll</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 300vh; /* rolagem longa */
+      background: #111;
+      overflow-y: scroll;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      display: block;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      padding: 100px;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="content">
+  <h1>Scroll para girar círculos</h1>
+  <p>As camadas circulares giram em velocidades diferentes conforme você rola a página.</p>
+</div>
+
+<!-- PIXI.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.5.8/browser/pixi.min.js"></script>
+
+<script>
+  const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    transparent: true,
+    autoDensity: true,
+    resolution: window.devicePixelRatio || 1
+  });
+  document.body.appendChild(app.view);
+
+  const container = new PIXI.Container();
+  app.stage.addChild(container);
+
+  const cores = [0xff0055, 0x00ffff, 0xffff00];
+  const tamanhos = [80, 140, 200];
+  const camadas = [];
+
+  for (let i = 0; i < 3; i++) {
+    const g = new PIXI.Graphics();
+    g.beginFill(cores[i], 0.4);
+    g.drawCircle(0, 0, tamanhos[i]);
+    g.endFill();
+    g.x = app.screen.width / 2;
+    g.y = app.screen.height / 2;
+
+    container.addChild(g);
+    camadas.push(g);
+  }
+
+  function atualizarRotacao() {
+    const scrollY = window.scrollY;
+    camadas.forEach((c, i) => {
+      c.rotation = scrollY * 0.002 * (i + 1);
+    });
+  }
+
+  window.addEventListener('scroll', atualizarRotacao);
+  window.addEventListener('resize', () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+    camadas.forEach(c => {
+      c.x = app.screen.width / 2;
+      c.y = app.screen.height / 2;
+    });
+  });
+
+  atualizarRotacao(); // inicia com scroll atual
+</script>
+
+</body>
+</html>

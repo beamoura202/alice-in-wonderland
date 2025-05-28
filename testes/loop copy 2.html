@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Distorção RGB com Delay</title>
+  <style>
+    body {
+      margin: 0;
+      height: 300vh;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+    }
+
+    canvas {
+      position: sticky;
+      top: 20px;
+      margin-top: 50px;
+      border: 2px solid #fff;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    img.src = "../imgcap2/cena2fundo2.png"; // Substitua com seu caminho
+
+    const lowResCanvas = document.createElement('canvas');
+    const lowCtx = lowResCanvas.getContext('2d');
+
+    let baseFactor = 0;
+    let targetFactor = 0;
+    const scaleFactor = 0.25;
+
+    function applyRGBSpiralEffect(time) {
+      const width = Math.floor(img.width * scaleFactor);
+      const height = Math.floor(img.height * scaleFactor);
+
+      lowResCanvas.width = width;
+      lowResCanvas.height = height;
+      lowCtx.drawImage(img, 0, 0, width, height);
+
+      const original = lowCtx.getImageData(0, 0, width, height).data;
+      const result = lowCtx.createImageData(width, height);
+
+      const cx = width / 2;
+      const cy = height / 2;
+
+      const redFactor   = baseFactor + Math.sin(time * 0.001) * 0.0008;
+      const greenFactor = baseFactor + Math.sin(time * 0.001 + 1.5) * 0.0008;
+      const blueFactor  = baseFactor + Math.sin(time * 0.001 + 3.0) * 0.0008;
+
+      function getDistortedColor(x, y, factor, channelOffset) {
+        const dx = x - cx;
+        const dy = y - cy;
+        const r = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) + r * factor;
+
+        const sx = Math.round(cx + r * Math.cos(angle));
+        const sy = Math.round(cy + r * Math.sin(angle));
+
+        if (sx >= 0 && sx < width && sy >= 0 && sy < height) {
+          const idx = (sy * width + sx) * 4 + channelOffset;
+          return original[idx];
+        }
+        return 0;
+      }
+
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          const i = (y * width + x) * 4;
+          result.data[i]     = getDistortedColor(x, y, redFactor, 0);   // R
+          result.data[i + 1] = getDistortedColor(x, y, greenFactor, 1); // G
+          result.data[i + 2] = getDistortedColor(x, y, blueFactor, 2);  // B
+          result.data[i + 3] = 255;
+        }
+      }
+
+      lowCtx.putImageData(result, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(lowResCanvas, 0, 0, canvas.width, canvas.height);
+    }
+
+    function animate(time) {
+      baseFactor += (targetFactor - baseFactor) * 0.05;
+      applyRGBSpiralEffect(time);
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      targetFactor = scrollY * 0.00003;
+    });
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      animate(0);
+    };
+  </script>
+</body>
+</html>
