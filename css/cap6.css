@@ -199,17 +199,44 @@ section {
     transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#gato {
+
+.class-gato {
     position: absolute;
     height: 60vh;
     width: auto;
-   top: -10vh;
+    top: -5vh;
     left: 30vw;
     z-index: 3;
     transform-origin: center center;
     transition: transform 2.4s ease-out;
-}
 
+    transform: rotate(-10deg) scale(0.7);
+ 
+
+
+}
+#gato-corpo {
+    position: absolute;
+    height: 60vh;
+    width: auto;
+    top: 0vh;
+    left: 00vw;
+    z-index: 3;
+    transform-origin: center center;
+    transition: transform 2.4s ease-out;
+    display: none;
+
+}
+#gato-cabeca {
+    position: absolute;
+    height: 60vh;
+    width: auto;
+    top: 00vh;
+    left: 00vw;
+    z-index: 3;
+    transition: transform 2.4s ease-out;
+    
+}
 #alice {
     position: absolute;
     height: 35vh;
@@ -299,5 +326,49 @@ section {
 
 .move-right2al {
     transform: translate(20vw, 10vh) scale(1.4) scaleX(-1)  !important;
+}
+
+
+
+.hide {
+    opacity: 0;
+    
+}
+.show {
+   opacity: 1;
+}
+
+
+#gato {
+    position: absolute;
+    height: 60vh;
+    width: auto;
+     top: -10vh;
+    left: 30vw;
+    z-index: 3;
+    transform-origin: center center;
+        transition: transform 2.5s ease-out, opacity 1.2s ease-in-out;
+
+    pointer-events: none; /* evita interações enquanto escondido */
+}
+
+
+.fade-out {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+@keyframes oscilacao-cabeca {
+    0%   { transform: rotate(25deg); }
+    40%  { transform: rotate(-10deg); }
+    100% { transform: rotate(25deg); }
+}
+
+.oscilando {
+    animation: oscilacao-cabeca 3s cubic-bezier(0.65, -0.25, 0.35, 1.2) infinite;
+    transform-origin: 80% 90%;
 }
 
