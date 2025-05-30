@@ -1,0 +1,300 @@
+body {
+    background-color: #a36172;
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+    color: #c7b689;
+    overflow-x: hidden;
+}
+
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
+h1 {
+    font-size: 1.2rem;
+    /* Keep as rem for base text */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+}
+
+h2 {
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+p {
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    max-width: 800px;
+    /* AUMENTEI Limite de largura para o texto */
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#chapter6 {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #a36172;
+}
+
+/* Container para a seção sticky e o espaço de scroll */
+/*                                                 cena 1 */
+#sticky-container {
+    position: relative;
+    height: 2400vh;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+#sticky-container2 {
+    position: relative;
+    height: 1400vh;
+    /* Ajuste a altura conforme necessário */
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    z-index: 2;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+#sticky-containers12 {
+    position: relative;
+    z-index: 1;
+}
+
+/* Modificado para que a imagem determine a altura da seção */
+#cap6cena1 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+
+#cap6cena2 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+#fundo-img {
+    position: absolute;
+    /* Same as other background-image */
+    opacity: 1;
+    z-index: -2;
+
+}
+
+#fundo2-img {
+    position: absolute;
+    /* Same as other background-image */
+    opacity: 1;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.background-image {
+    position: absolute;
+    /* Changed from fixed to absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+                                               /* arvores */
+ 
+#vegetacao-container {
+     
+    position: absolute;
+    left: 0;
+    top: 100vh;
+    height: 2600vh;
+    width: 100vw;
+    z-index: 300;
+}
+#vegetacao {
+    position: sticky;
+    top: 0%;
+    /* 40% */
+    height: 100vh;
+    width: 100%;
+    z-index: 30;
+}
+.divvegetacao {
+  position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 30;
+
+}
+#arvoredir {
+    position: absolute;
+    height: 180vh;
+    width: auto;
+    z-index: 2;
+    right: 0;
+    bottom: -10vh;
+    transform-origin: center center;
+    transition: transform 2s ease-out;
+    
+}
+
+#arvoreesq {
+    position: absolute;
+    height: 170vh;
+    width: auto;
+    z-index: 2;
+    left: -20vw;
+    top: -30vh;
+    transform-origin: center center;
+    transition: transform 2s ease-out;
+}
+
+#planta {
+    position: absolute;
+    height: 50vh;
+    width: auto;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    transform-origin: center center;
+    transition: transform 2.4s ease-out;
+}
+
+
+
+.move-ae {
+    transform: rotate(-10deg) translate(-10vw, 0) scale(0.8) !important;
+}
+.move-p {
+    transform: rotate(-10deg) translate(-10vw, 20vh) scale(0.9) !important;
+}
+.move-ad {
+    transform: rotate(-10deg) translate(10vw, 20vh) scale(0.8) !important;
+}
+#arvoredir, #arvoreesq, #planta {
+    transform-origin: center center;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#gato {
+    position: absolute;
+    height: 60vh;
+    width: auto;
+   top: -10vh;
+    left: 30vw;
+    z-index: 3;
+    transform-origin: center center;
+    transition: transform 2.4s ease-out;
+}
+
+#alice {
+    position: absolute;
+    height: 35vh;
+    width: auto;
+    bottom: 10vh;
+    left: 40vw;
+    z-index: 0;
+    transform-origin: center center;
+    transition: transform 2.4s ease-out;
+}
+/* Gato se move como a arvore esquerda (para a esquerda, menor) */
+.move-g {
+    transform: rotate(-10deg) translate(-100px, 0) scale(0.7) !important;
+}
+
+/* Alice se move para a esquerda e cresce */
+.move-a {
+    transform: rotate(-5deg) translate(20vw, 10vh) scale(1.4) scaleX(-1) !important;
+}
+
+
+
+                                                            /* arvore segundo plano */
+
+#arvorefundo-container {
+    position:fixed;
+    left: 10vw;
+    top: 0vh;
+    height: 100vh;
+    width: 100vw;
+    z-index: 200;
+}
+
+
+#fundo-arvore {
+    position: absolute;
+    height: 105vh;
+    width: auto;
+    z-index: 2;
+    left: 0;
+    bottom: -5vh;
+    transition: transform 2s ease-out;
+}
+
+
+.move-left2p {
+    transform: translate(-20vw, 0)scale(0.9)  !important;
+}
+.move-left2g {
+    transform: translate(-20vw, 0)scale(0.7)  !important;
+}
+.move-left2alice {
+    transform: translate(20vw, 0)scale(1.4)  !important;
+}
+.move-left2a {
+    transform:rotate(40deg) translate(20vw, 3vh) scale(0.8) !important;
+}
+
+.move-left3 {
+    transform: translate(-5vw, 0)  !important;
+}
+.move-left4 {
+    transform: translate(-1vw, 0)  !important;
+}
+
+
+
+
+.move-right2 {
+    transform: translate(20vw, 20vh) scale(0.8) !important;
+}
+.move-right2g {
+    transform: translate(-20vw, 0) scale(0.8) !important;
+}
+.move-right2e{
+    transform: rotate(20deg) translate(-20vw, 0) scale(0.8) !important;
+}
+.move-right2p {
+    transform: translate(0vw, 60vh)  !important;
+}
+.move-right3 {
+    transform: translate(5vw, 0)  !important;
+}
+.move-right4 {
+    transform: translate(1vw, 0)  !important;
+}
+
+.move-right2al {
+    transform: translate(20vw, 10vh) scale(1.4) scaleX(-1)  !important;
+}
+
