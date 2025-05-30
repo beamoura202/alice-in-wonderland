@@ -51,7 +51,7 @@ section {
 /*                                                 cena 1 */
 #sticky-container {
     position: relative;
-    height: 2400vh;
+    height: 3000vh;
     margin: 0;
     padding: 0;
     background-color: transparent;
@@ -125,9 +125,10 @@ section {
     position: absolute;
     left: 0;
     top: 100vh;
-    height: 2600vh;
+    height: 3000vh;
     width: 100vw;
     z-index: 300;
+
 }
 #vegetacao {
     position: sticky;
@@ -136,6 +137,8 @@ section {
     height: 100vh;
     width: 100%;
     z-index: 30;
+        overflow: hidden;
+
 }
 .divvegetacao {
   position: relative;

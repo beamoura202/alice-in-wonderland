@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const containerRect = vegetacaoContainer.getBoundingClientRect();
         const scrollProgress = Math.abs(containerRect.top) / (containerRect.height - window.innerHeight);
 
-        if (scrollProgress >= 0.2) {
+        if (scrollProgress >= 0.1) {
             arvoreDir.classList.add('move-ad');
             arvoreEsq.classList.add('move-ae');
             planta.classList.add('move-p');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const containerRect = vegetacaoContainer.getBoundingClientRect();
         const scrollProgress = Math.abs(containerRect.top) / (containerRect.height - window.innerHeight);
 
-        if (scrollProgress >= 0.4 && scrollProgress <= 0.6) {
+        if (scrollProgress >= 0.3 && scrollProgress <= 0.4) {
             
             arvoreDir.classList.add('move-left2a');
             planta.classList.add('move-left2p');
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const containerRect = vegetacaoContainer.getBoundingClientRect();
         const scrollProgress = Math.abs(containerRect.top) / (containerRect.height - window.innerHeight);
 
-    if (scrollProgress >= 0.7 && scrollProgress <= 0.9) {
+    if (scrollProgress >= 0.4 && scrollProgress <= 0.5) {
         arvoreDir.classList.add('move-right2');
         arvoreEsq.classList.add('move-right2e');
         planta.classList.add('move-right2p');
