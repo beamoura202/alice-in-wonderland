@@ -103,13 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Cabeça aparece suavemente
             // Gato desaparece suavemente
             gato.classList.add('fade-out');
-            gatoCab.classList.add('show');
+            gatoCab.classList.add('fade-in');
 
 
 
 
         } else {
-            gatoCab.classList.remove('show');
+            gatoCab.classList.remove('fade-in');
 
             gato.classList.remove('fade-out');
             gato.classList.add('show');

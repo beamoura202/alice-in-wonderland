@@ -208,9 +208,9 @@ section {
     left: 30vw;
     z-index: 3;
     transform-origin: center center;
-    transition: transform 2.4s ease-out;
+    transition: transform 3.4s ease-out;
 
-    transform: rotate(-10deg) scale(0.7);
+    transform: rotate(-10deg) scale(0.67);
  
 
 
@@ -234,7 +234,7 @@ section {
     top: 00vh;
     left: 00vw;
     z-index: 3;
-    transition: transform 2.4s ease-out;
+    transition: transform 2.4s ease-out, opacity 2.4s ease-out;
     
 }
 #alice {
@@ -347,7 +347,7 @@ section {
     left: 30vw;
     z-index: 3;
     transform-origin: center center;
-        transition: transform 2.5s ease-out, opacity 1.2s ease-in-out;
+        transition: transform 2.5s ease-out, opacity 2.2s ease-in-out;
 
     pointer-events: none; /* evita interações enquanto escondido */
 }
@@ -372,3 +372,36 @@ section {
     transform-origin: 80% 90%;
 }
 
+
+#sinais {
+    position: absolute;
+    height: 100vh;
+    width:100vw;
+    top: 0vh;
+    left: 0vw;
+    z-index: 1;
+    transform-origin: center center;
+    transition: transform 2.4s ease-out;
+}
+#sinal1 {
+    position: absolute;
+    height: auto;
+    width: 10vw;
+    top: 20vh;
+    right: 2vw;
+    z-index: 0;
+    transform-origin: center center;
+    transition: transform 2.4s ease-out;
+}
+
+#sinal2 {
+    position: absolute;
+    height: auto;
+    width: 7vw;
+   top: 40vh;
+    left: 2vw;
+    z-index: 3;
+    transform-origin: center center;
+    transition: transform 2.4s ease-out;
+    transform: rotate(-40deg)    ;
+}
