@@ -278,7 +278,7 @@ section {
     /* Exemplo: left: 10vw; para cha1, left: 20vw; para cha2, etc. */
 }
 /* Mantenha os posicionamentos básicos se necessário */
-#cha1, #cha2, #cha3, #cha4 {
+#cha1, #cha2, #cha3, #cha4, #cha5 {
   position: absolute;
   width: auto;
   height: auto;
@@ -315,7 +315,49 @@ section {
   bottom: 35vh;
   z-index: 22;
 }
+#cha5 {
+    position: absolute;
+    bottom: 0;
+  width: 10vw;
+  height: 50vh;
+  left: 47vw;
+  z-index: 22;
 
+}
+#cha5base {
+    position: absolute;
+    bottom: 10vh;
+    width: 10vw;
+    height: auto;
+    left: 0vw;
+    z-index: 24;
+      animation: saltitar-cha5 1.2s infinite;
+        transform-origin: center bottom;
+
+
+}
+#cha5cima{
+    position: absolute;
+    bottom: 10vh;
+    width: 10vw;
+    height: auto;
+    left: 0vw;
+    z-index: 24;
+      animation: saltitar-cha5 1.2s infinite;
+        transition: bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+
+}
+#relogio {
+    position: absolute;
+    bottom: 10vh;
+    width: 10vw;
+    height: auto;
+    left: 0vw;
+    z-index: 23;
+      transition: bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
 .divmesa2 {
     position: absolute;
     right: -100vw; /* valor inicial */
@@ -362,24 +404,22 @@ section {
     55%     { transform: translateY(-14px) rotate(-10deg);}
     75%     { transform: translateY(0) rotate(0deg);}
 }
-@keyframes saltitar-cha31 {
+@keyframes saltitar-cha5 {
     0%,100% { transform: translateY(0) rotate(0deg);}
     18%     { transform: translateY(-12px) rotate(18deg);}
     38%     { transform: translateY(0) rotate(0deg);}
     65%     { transform: translateY(-7px) rotate(-12deg);}
     85%     { transform: translateY(0) rotate(0deg);}
 }
-@keyframes saltitar-cha41 {
-    0%,100% { transform: translateY(0) rotate(0deg);}
-    8%      { transform: translateY(-28px) rotate(-16deg);}
-    28%     { transform: translateY(0) rotate(0deg);}
-    50%     { transform: translateY(-11px) rotate(11deg);}
-    70%     { transform: translateY(0) rotate(0deg);}
-}
 
-#cha1, #cha2, #cha3, #cha4 {
+
+#cha1, #cha2, #cha3, #cha4, #cha5 {
   transition: transform 0.4s ease-out;
   animation: none !important;
   will-change: transform;
   transform-origin: center bottom;
+}
+
+#cha5.saltitar {
+  animation: saltitar-cha5 2.2s infinite;
 }

@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', applyPerspectiveEffect);
 ////////////////////////cena2///////////////////////////////////////////////
 // Configuração do efeito da mesa2
 const MESA2_EFFECT = {
-    startPercent: 70,
-    endPercent: 80,
+    startPercent: 10,
+    endPercent: 20,
     startRight: -100, // em vw
     endRight: 0
 };
@@ -151,10 +151,10 @@ const jellyState = chaElements.map(() => ({
 }));
 
 const jellyConfig = {
-  maxDistort: 0.9,
+  maxDistort: 0.4,
   maxRotation: 5,
   damping: 0.9,
-  delays: [0, 1, 2, 500],
+  delays: [0, 100, 200, 500],
   jumpAmplitude: 18,   // ligeiramente mais alto
   jumpSpeed: 0.25      // MUITO mais rápido
 };
@@ -201,48 +201,16 @@ function applyJellyScrollEffect() {
   });
 }
 
-function normalizeJellyScroll() {
-  jellyState.forEach((s) => {
-    s.scaleX = 1 + (s.scaleX - 1) * jellyConfig.damping;
-    s.scaleY = 1 + (s.scaleY - 1) * jellyConfig.damping;
-    s.rotation *= jellyConfig.damping;
-  });
-
-  updateJellyTransforms();
-
-  if (
-    jellyState.some(
-      (s) =>
-        Math.abs(s.scaleX - 1) > 0.01 ||
-        Math.abs(s.scaleY - 1) > 0.01 ||
-        Math.abs(s.rotation) > 0.1
-    )
-  ) {
-    requestAnimationFrame(normalizeJellyScroll);
-  }
-}
-
-let scrollTimeout;
-window.addEventListener('scroll', () => {
-  applyJellyScrollEffect();
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    normalizeJellyScroll();
-  }, 100);
-});
-
-// ---- ANIMAÇÃO CONTÍNUA DE SALTOS ----
 function animateJump() {
   chaElements.forEach((el, i) => {
     if (!el) return;
     const s = jellyState[i];
 
     s.jumpPhase += jellyConfig.jumpSpeed;
-    // Aumente o espaçamento entre saltos multiplicando i por um valor maior (ex: 1.5)
-    const phase = s.jumpPhase + i * 1.5;
+    s.translateY = Math.sin(s.jumpPhase + i) * jellyConfig.jumpAmplitude;
 
-    s.translateY = Math.sin(phase) * jellyConfig.jumpAmplitude;
-    s.rotation = Math.sin(phase * 0.5) * 20;
+    // Rotação mais lenta
+    s.rotation = Math.sin((s.jumpPhase + i) * 0.5) * 20;
 
     updateJellyTransforms();
   });
@@ -253,3 +221,32 @@ function animateJump() {
 document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(animateJump);
 });
+
+
+function handleCha5AnimationOnScroll() {
+    const cha5base = document.getElementById('cha5base');
+    const cha5cima = document.getElementById('cha5cima');
+    const relogio = document.getElementById('relogio');
+    if (!cha5base || !cha5cima || !relogio) return;
+
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+    if (scrollPercent >= 90) {
+        cha5base.style.animation = 'none';
+        cha5cima.style.animation = 'none';
+        cha5cima.style.bottom = '15vh';
+        relogio.style.bottom = '15vh';
+    } else {
+        cha5base.style.animation = '';
+        cha5cima.style.animation = '';
+        cha5cima.style.bottom = '0vh';
+        relogio.style.bottom = '0vh';
+    }
+}
+
+window.addEventListener('scroll', handleCha5AnimationOnScroll);
+window.addEventListener('scroll', applyJellyScrollEffect);
+
+document.addEventListener('DOMContentLoaded', handleCha5AnimationOnScroll);
