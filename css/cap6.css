@@ -401,7 +401,7 @@ section {
    top: 40vh;
     left: 2vw;
     z-index: 3;
-    transform-origin: center center;
+    transform-origin: center center;   
     transition: transform 2.4s ease-out;
     transform: rotate(-40deg)    ;
 }
