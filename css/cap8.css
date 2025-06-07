@@ -1,0 +1,245 @@
+body {
+    background-color:#011602;
+
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+    color: #BE4444;
+    overflow-x: hidden;
+}
+
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
+h1 {
+    font-size: 1.2rem;
+    /* Keep as rem for base text */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+}
+
+h2 {
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+p {
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    max-width: 800px;
+    /* AUMENTEI Limite de largura para o texto */
+}
+#chapter8 {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #410202;
+}
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#sticky-container {
+    position: relative;
+    height: 1000vh;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+#sticky-container2 {
+    position: relative;
+    height: 1000vh;
+    /* Ajuste a altura conforme necessário */
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    z-index: 2;
+}
+#sticky-container3 {
+    position: relative;
+    height: 1000vh;
+    /* Ajuste a altura conforme necessário */
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    z-index: 1;
+}
+.sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+#sticky-container12 {
+    position: relative;
+    z-index: 1;
+}
+
+/* Modificado para que a imagem determine a altura da seção */
+#cap7cena1 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+
+#cap7cena2 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+#fundo-img {
+    position: absolute;
+    /* Same as other background-image */
+    opacity: 1;
+    z-index: -2;
+
+}
+
+#fundo2-img {
+    position: absolute;
+    /* Same as other background-image */
+    opacity: 1;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.background-image {
+    position: absolute;
+    /* Changed from fixed to absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+/* ------------------------------------------------------------)cena 1 */
+#carta1 {
+    position: absolute;
+    bottom: 0;
+    left: 15vw;
+    height: 40vh;
+    width: auto;
+
+}
+
+#carta23 {
+    position: absolute;
+    bottom: 0;
+    right: 25vw;
+    height: 44vh;
+    width: auto;
+
+}
+#rainha1 {
+    position: absolute;
+    bottom: -70vh;
+    right: 25vw;
+    height: 55vh;
+    width: auto;
+
+}
+/* ------------------------------------------------------------)cena 2 */
+
+#cena2-container {
+    position: absolute;
+    left: 0;
+    top: 990vh; /* valor que faz aparecer em cima do container*/
+    height: 100vh; 
+    width: 100vw;
+    z-index: 100;
+}
+#cena2div{
+    position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+#divcena2 {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+#cena2{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    z-index: 3;
+}
+
+/* ------------------------------------------------------------)cena 3 */
+
+#alicecena3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  height: 10vh;
+    width: auto;
+    z-index: 3;
+}
+
+
+
+#cartascena3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 20vh;
+    width: auto;
+    z-index: 4;
+}
+
+/* ------------------------------------------------------------)cena 4 */
+
+#rainha2 {
+    position: absolute;
+    bottom: 0vh;
+    right: 0vw;
+    height: 80vh;
+    width: auto;
+
+}
+#personagem {
+    position: absolute;
+    bottom: 25vh;
+    left: 30vw;
+    height: 40vh;
+    width: auto;
+
+}
+#gato {
+       position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+  height: 20vh;
+    width: auto;
+    z-index: 3;
+    animation: balancoGato 1.5s infinite;
+}
+
+
+@keyframes balancoGato {
+  0% { transform: translateX(-50%) rotate(-5deg);}
+  50% { transform: translateX(-50%) rotate(5deg);}
+  100% { transform: translateX(-50%) rotate(-5deg);}
+}
