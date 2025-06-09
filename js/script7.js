@@ -236,13 +236,15 @@ function handleCha5AnimationOnScroll() {
     if (scrollPercent >= 90) {
         cha5base.style.animation = 'none';
         cha5cima.style.animation = 'none';
-        cha5cima.style.bottom = '15vh';
+        cha5cima.style.bottom = '20vh';
         relogio.style.bottom = '15vh';
+        relogio.classList.add('subindo'); // <-- Adiciona a classe quando sobe
     } else {
         cha5base.style.animation = '';
         cha5cima.style.animation = '';
         cha5cima.style.bottom = '0vh';
         relogio.style.bottom = '0vh';
+        relogio.classList.remove('subindo'); // <-- Remove a classe quando desce
     }
 }
 
@@ -250,3 +252,8 @@ window.addEventListener('scroll', handleCha5AnimationOnScroll);
 window.addEventListener('scroll', applyJellyScrollEffect);
 
 document.addEventListener('DOMContentLoaded', handleCha5AnimationOnScroll);
+
+// Adiciona a classe quando começa a subir
+
+// Remove a classe quando terminar de subir
+// document.getElementById('relogio').classList.remove('subindo');

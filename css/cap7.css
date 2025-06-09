@@ -90,6 +90,7 @@ section {
     height: 100vh;
     /* Altura inicial, será substituída pelo JS */
 }
+
 #fundo-img {
     position: absolute;
     /* Same as other background-image */
@@ -118,10 +119,10 @@ section {
     z-index: -1;
 }
 
-                                               /* cean1*/
- 
+/* cean1*/
+
 #mesa1-container {
-     
+
     position: absolute;
     left: 0;
     top: 0vh;
@@ -130,6 +131,7 @@ section {
     z-index: 300;
 
 }
+
 #mesa1div {
     position: sticky;
     top: -100vh;
@@ -137,7 +139,7 @@ section {
     height: 300vh;
     width: 100%;
     z-index: 30;
-        overflow: hidden;
+    overflow: hidden;
 
 }
 
@@ -151,16 +153,17 @@ section {
     transform: translate(-50%, -50%);
     left: 50vw;
     top: 60vh;
-    
+
     /* Adiciona transição suave para o efeito */
     transition: transform 0.3s ease-out, top 0.3s ease-out;
-    
+
     /* Melhora a qualidade da renderização durante transformações */
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
 }
+
 /* Adicione este CSS ao seu arquivo cap7.css */
 /* Adicione este CSS ao seu arquivo cap7.css */
 /* Adicione este CSS ao seu arquivo cap7.css */
@@ -170,14 +173,15 @@ section {
     height: 60vh;
     width: auto;
     z-index: 2;
-    transform-origin: center top; /* Alterado para top - pontos superiores ficam fixos */
+    transform-origin: center top;
+    /* Alterado para top - pontos superiores ficam fixos */
     transform: translate(-50%, -50%);
     left: 50vw;
     top: 60vh;
-    
+
     /* Adiciona transição suave para o efeito */
     transition: transform 0.3s ease-out, top 0.3s ease-out;
-    
+
     /* Melhora a qualidade da renderização durante transformações */
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -193,7 +197,7 @@ section {
     height: 100vh;
     width: 100vw;
     z-index: 30;
-    
+
     /* Adiciona contexto 3D ao container */
     perspective: 1000px;
     -webkit-perspective: 1000px;
@@ -203,36 +207,198 @@ section {
 #mesa1.perspective-active {
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
 }
+
 #personagens1 {
     position: absolute;
     height: 15vh;
     width: auto;
     z-index: -2;
     transform-origin: center bottom;
-    right: 30vw;   /* Centraliza horizontalmente */
-    top: 25vh;    /* Mantém a posição vertical */
-        transition: transform 0.3s ease-out;
+    right: 30vw;
+    /* Centraliza horizontalmente */
+    top: 25vh;
+    /* Mantém a posição vertical */
+    transition: transform 0.3s ease-out;
 }
+
 #alice1 {
     position: absolute;
     height: 30vh;
     width: auto;
     z-index: 2;
     transform-origin: center center;
-    left: 40vw;   /* Centraliza horizontalmente */
-    bottom: 10vh;    /* Mantém a posição vertical */
-        transition: transform 0.3s ease-out;
+    left: 40vw;
+    /* Centraliza horizontalmente */
+    bottom: 10vh;
+    /* Mantém a posição vertical */
+    transition: transform 0.3s ease-out;
 }
 
 
+#lamp1 {
+    position: absolute;
+    height: 20vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 5vw;
+    /* Centraliza horizontalmente */
+    top: 0vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
 
+#lamp2 {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 0vw;
+    /* Centraliza horizontalmente */
+    top: 25vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
 
+#lamp3 {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 40vw;
+    /* Centraliza horizontalmente */
+    top: 0vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+#lamp4 {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 35vw;
+    /* Centraliza horizontalmente */
+    top: 15vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+#lamp5 {
+    position: absolute;
+    height: 15vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 45vw;
+    /* Centraliza horizontalmente */
+    top: 0vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+#lamp6 {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 50vw;
+    /* Centraliza horizontalmente */
+    top: 15vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+#lamp7 {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 55vw;
+    /* Centraliza horizontalmente */
+    top: 0vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+#lamp8 {
+    position: absolute;
+    height: 10vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 55vw;
+    /* Centraliza horizontalmente */
+    top: 10vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+
+#lamp9 {
+    position: absolute;
+    height: 20vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 65vw;
+    /* Centraliza horizontalmente */
+    top: 0vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+#lamp10 {
+    position: absolute;
+    height: 15vh;
+    width: auto;
+    z-index: 2;
+    transform-origin: center top;
+    left: 75vw;
+    /* Centraliza horizontalmente */
+    top: 10vh;
+    /* Mantém a posição vertical */
+    transition: transform 4.3s ease-out;
+}
+/* Animação de baloiçar para as lâmpadas */
+@keyframes baloicar-lampada {
+    0%   { transform: rotate(0deg); }
+    15%  { transform: rotate(-12deg); }
+    30%  { transform: rotate(10deg); }
+    50%  { transform: rotate(-8deg); }
+    70%  { transform: rotate(8deg); }
+    85%  { transform: rotate(-6deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Aplica a animação a todas as lâmpadas */
+#lamp1,
+#lamp2,
+#lamp3,
+#lamp4,
+#lamp5,
+#lamp6,
+#lamp7,
+#lamp8,
+#lamp9,
+#lamp10 {
+    animation: baloicar-lampada 3.5s ease-in-out infinite;
+    /* Mantém o transform-origin já definido como center top */
+    animation-delay: 0s;
+}
+#lamp2 { animation-delay: 0.3s; }
+#lamp3 { animation-delay: 0.6s; }
+#lamp4 { animation-delay: 0.9s; }
+#lamp5 { animation-delay: 1.2s; }
+#lamp6 { animation-delay: 1.5s; }
+#lamp7 { animation-delay: 1.8s; }
+#lamp8 { animation-delay: 2.1s; }
+#lamp9 { animation-delay: 2.4s; }
+#lamp10 { animation-delay: 2.7s; }
 /*                                               cena 2                   */
 
 
 
 #mesa2-container {
-     
+
     position: absolute;
     left: 0;
     top: 0vh;
@@ -241,6 +407,7 @@ section {
     z-index: 300;
 
 }
+
 #mesa2div {
     position: sticky;
     top: 0vh;
@@ -248,7 +415,7 @@ section {
     height: 100vh;
     width: 100%;
     z-index: 30;
-        overflow: hidden;
+    overflow: hidden;
 
 }
 
@@ -256,170 +423,280 @@ section {
 #mesa2 {
     position: absolute;
     height: auto;
-    width: 100vw;
+    width: 70vw;
     z-index: 2;
     transform-origin: right bottom;
-    right: 0vw; /* valor inicial */
+    right: 0vw;
+    /* valor inicial */
     bottom: 0vh;
     transition: right 2.2s linear;
 }
+
 #chavenas {
     position: absolute;
-    bottom: 17vw;
-    width: 100vw;
-    height: 20vh; /* ajuste conforme necessário */
+    bottom: 11vw;
+    right: 0;
+    width: 70vw;
+    height: 20vh;
+    /* ajuste conforme necessário */
     /* Outras propriedades que desejar */
 }
 
 #chavenas img {
     position: absolute;
-    bottom: 0; /* Alinha ao topo da div */
+    bottom: 0;
+    /* Alinha ao topo da div */
     /* Mantém a posição horizontal individual */
     /* Exemplo: left: 10vw; para cha1, left: 20vw; para cha2, etc. */
 }
+
 /* Mantenha os posicionamentos básicos se necessário */
-#cha1, #cha2, #cha3, #cha4, #cha5 {
-  position: absolute;
-  width: auto;
-  height: auto;
-  transition: transform 0.4s ease-out;
-  animation: none !important;
-  will-change: transform;
-  transform-origin: center bottom;
+#cha1,
+#cha2,
+#cha3,
+#cha4,
+#cha5 {
+    position: absolute;
+    width: auto;
+    height: auto;
+    transition: transform 0.4s ease-out;
+    will-change: transform;
+    transform-origin: center bottom;
 }
 
-#cha1 {
-  width: 7vw;
-  left: 27vw;
-  bottom: 30vh;
-  z-index: 21;
+/* Só #cha2, #cha3, #cha4, #cha5 ficam sem animação por defeito */
+#cha2,
+#cha3,
+#cha4,
+#cha5 {
+    animation: none !important;
 }
+
+/* #cha1 tem sempre animação diferente */
+#cha1 {
+    width: 4vw;
+    left: 17vw;
+    bottom: 30vh;
+    z-index: 21;
+    animation: saltitar-cha1 2s infinite;
+}
+
 
 #cha2 {
-  width: 15vw;
-  left: 32vw;
-  bottom: 35vh;
-  z-index: 20;
-}
-
-#cha3 {
-  width: 7vw;
-  left: 42vw;
-  bottom: 30vh;
-  z-index: 22;
+    width: 9vw;
+    left: 22vw;
+    bottom: 35vh;
+    z-index: 20;
 }
 
 #cha4 {
-  width: 10vw;
-  left: 90vw;
-  bottom: 35vh;
-  z-index: 22;
+    width: 6vw;
+    right: 0vw;
+    bottom: 35vh;
+    z-index: 22;
 }
+
 #cha5 {
     position: absolute;
     bottom: 0;
-  width: 10vw;
-  height: 50vh;
-  left: 47vw;
-  z-index: 22;
+    width: 5vw;
+    height: 35vh;
+    left: 30vw;
+    z-index: 22;
 
 }
+
 #cha5base {
     position: absolute;
     bottom: 10vh;
-    width: 10vw;
+    width: 6vw;
     height: auto;
     left: 0vw;
     z-index: 24;
-      animation: saltitar-cha5 1.2s infinite;
-        transform-origin: center bottom;
+    animation: saltitar-cha5 1.2s infinite;
+    transform-origin: center bottom;
 
 
 }
-#cha5cima{
+
+#cha5cima {
     position: absolute;
     bottom: 10vh;
-    width: 10vw;
+    width: 6vw;
     height: auto;
     left: 0vw;
     z-index: 24;
-      animation: saltitar-cha5 1.2s infinite;
-        transition: bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: saltitar-cha5 1.2s infinite;
+    transition: bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
 
 }
+
 #relogio {
     position: absolute;
     bottom: 10vh;
-    width: 10vw;
+    width: 6vw;
     height: auto;
     left: 0vw;
     z-index: 23;
-      transition: bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-
+    transition: 
+        bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Quando estiver a subir, aumenta a escala */
+#relogio.subindo {
+    transform: scale(2);
+}
+
 .divmesa2 {
     position: absolute;
-    right: -100vw; /* valor inicial */
+    right: -100vw;
+    /* valor inicial */
     top: 0;
     width: 100vw;
     height: 100vh;
     transition: right 0.5s linear;
 }
 
-@keyframes saltitar-cha {
-    0%   { transform: translateY(0) rotate(0deg);}
-    10%  { transform: translateY(-18px) rotate(10deg);}
-    20%  { transform: translateY(0) rotate(0deg);}
-    30%  { transform: translateY(-12px) rotate(-8deg);}
-    40%  { transform: translateY(0) rotate(0deg);}
-    100% { transform: translateY(0) rotate(0deg);}
-}
 
 @keyframes saltitar-cha1 {
-    0%,100% { transform: translateY(0) rotate(0deg);}
-    15%     { transform: translateY(-20px) rotate(12deg);}
-    30%     { transform: translateY(0) rotate(0deg);}
-    50%     { transform: translateY(-10px) rotate(-8deg);}
-    70%     { transform: translateY(0) rotate(0deg);}
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-20deg);
+    }
+
+    15% {
+        transform: translateY(-20px) rotate(0deg);
+    }
+
+    30% {
+        transform: translateY(0) rotate(20deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(0deg);
+    }
+
+    70% {
+        transform: translateY(0) rotate(18deg);
+    }
 }
+
 @keyframes saltitar-cha2 {
-    0%,100% { transform: translateY(0) rotate(0deg);}
-    10%     { transform: translateY(-30px) rotate(-10deg);}
-    25%     { transform: translateY(0) rotate(0deg);}
-    60%     { transform: translateY(-12px) rotate(8deg);}
-    80%     { transform: translateY(0) rotate(0deg);}
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    10% {
+        transform: translateY(-30px) rotate(-10deg);
+    }
+
+    25% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    60% {
+        transform: translateY(-12px) rotate(8deg);
+    }
+
+    80% {
+        transform: translateY(0) rotate(0deg);
+    }
 }
+
 @keyframes saltitar-cha3 {
-    0%,100% { transform: translateY(0) rotate(0deg);}
-    20%     { transform: translateY(-16px) rotate(7deg);}
-    40%     { transform: translateY(0) rotate(0deg);}
-    60%     { transform: translateY(-8px) rotate(-6deg);}
-    80%     { transform: translateY(0) rotate(0deg);}
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    20% {
+        transform: translateY(-16px) rotate(7deg);
+    }
+
+    40% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    60% {
+        transform: translateY(-8px) rotate(-6deg);
+    }
+
+    80% {
+        transform: translateY(0) rotate(0deg);
+    }
 }
+
 @keyframes saltitar-cha4 {
-    0%,100% { transform: translateY(0) rotate(0deg);}
-    12%     { transform: translateY(-24px) rotate(14deg);}
-    30%     { transform: translateY(0) rotate(0deg);}
-    55%     { transform: translateY(-14px) rotate(-10deg);}
-    75%     { transform: translateY(0) rotate(0deg);}
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    12% {
+        transform: translateY(-24px) rotate(14deg);
+    }
+
+    30% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    55% {
+        transform: translateY(-14px) rotate(-10deg);
+    }
+
+    75% {
+        transform: translateY(0) rotate(0deg);
+    }
 }
+
 @keyframes saltitar-cha5 {
-    0%,100% { transform: translateY(0) rotate(0deg);}
-    18%     { transform: translateY(-12px) rotate(18deg);}
-    38%     { transform: translateY(0) rotate(0deg);}
-    65%     { transform: translateY(-7px) rotate(-12deg);}
-    85%     { transform: translateY(0) rotate(0deg);}
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    18% {
+        transform: translateY(-12px) rotate(18deg);
+    }
+
+    38% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    65% {
+        transform: translateY(-7px) rotate(-12deg);
+    }
+
+    85% {
+        transform: translateY(0) rotate(0deg);
+    }
 }
 
 
-#cha1, #cha2, #cha3, #cha4, #cha5 {
-  transition: transform 0.4s ease-out;
-  animation: none !important;
-  will-change: transform;
-  transform-origin: center bottom;
+#cha1,
+#cha2,
+#cha3,
+#cha4,
+#cha5 {
+    transition: transform 0.4s ease-out;
+    will-change: transform;
+    transform-origin: center bottom;
 }
 
-#cha5.saltitar {
-  animation: saltitar-cha5 2.2s infinite;
+/* Só #cha2, #cha3, #cha4, #cha5 ficam sem animação por defeito */
+#cha2,
+#cha3,
+#cha4,
+#cha5 {
+    animation: none !important;
 }
+
+
