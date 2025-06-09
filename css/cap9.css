@@ -175,9 +175,10 @@ section {
 #personagem1cena2 {
     position: absolute;
     bottom: 10vh;
-    left: 5vw;
+    left: -50vw; /* posição inicial */
     height: 40vh;
     width: auto;
+    transition: left 0.3s linear;
 }#personagem2cena2 {
     position: absolute;
     bottom: 30vh;
@@ -239,10 +240,26 @@ section {
 }#personagem2cena3 {
     position: absolute;
     bottom: 30vh;
- left: 60%;
+    left: 60%;
     transform: translateX(-50%);
-    width:15vw;
+    width: 15vw;
     height: auto;
     z-index: 200;
+    animation: puppet-falar 4.5s infinite;
+    transform-origin: 50% 100%; /* centro bottom */
+}
+
+@keyframes puppet-falar {
+    0%   { transform: translateX(-50%) rotate(0deg); }
+    10%  { transform: translateX(-50%) rotate(-3deg); }
+    20%  { transform: translateX(-50%) rotate(2deg); }
+    30%  { transform: translateX(-50%) rotate(-2deg); }
+    40%  { transform: translateX(-50%) rotate(3deg); }
+    50%  { transform: translateX(-50%) rotate(0deg); }
+    60%  { transform: translateX(-50%) rotate(-2deg); }
+    70%  { transform: translateX(-50%) rotate(2deg); }
+    80%  { transform: translateX(-50%) rotate(-1deg); }
+    90%  { transform: translateX(-50%) rotate(1deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
 }
 
