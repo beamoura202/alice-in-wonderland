@@ -135,16 +135,22 @@ section {
     z-index: 0;
 }
 #divfumo {
-    position: relative;
-    top: 0%;
-    left: 0%;
-    height: 100vh;
-    width: 100vw;
-    z-index: 0;
+ width: 25vw;
+    right: 5vw;
+    bottom: 10vh;
 }
 
 
-
+#fumo-gif {
+  position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: auto;
+    width: 100vw;
+    z-index: 2;
+    animation: fumoFade 6s infinite ease-in-out;
+}
 
 
 #containercogumelo {
@@ -372,26 +378,19 @@ section {
     width: 33vw;
     height: auto;
     z-index: 2000;
-    transition: opacity 1s ease-out;
+    transition: left 8s ease-in; /* Adicione esta linha */
 }
 
 .hide-caterpillar {
-    opacity: 0 !important;
+    left: -50vw !important;
+    opacity: 1;
 }
 
-#cap5cena2fumo-img {
-    position: absolute;
-    bottom: 0vh;
-    left: -100vw;
-    width: 70vw;
-    height: auto;
-    z-index: 3000;
-    transition: left 3s ease-out, opacity 2s ease-out;
-}
+
 
 #cap5cena2bor-img {
     position: absolute;
-    left: -10vw;
+    left: -15vw;
     top: 20vh;
     width: 15vw;
     height: auto;
@@ -468,4 +467,10 @@ section {
 
 .animation-frame.active {
     opacity: 1;
+}
+
+@keyframes fumoFade {
+    0% { opacity: 0; }
+    50% { opacity: 0.9; }
+    100% { opacity: 0; }
 }

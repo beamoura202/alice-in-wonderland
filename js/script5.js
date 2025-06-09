@@ -29,67 +29,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start the random toggling
     randomToggle();
 
-
     const sectionFolhas = document.getElementById('sectionfolhas');
-    const fumo = document.getElementById('cap5cena2fumo-img');
     const lagarta = document.getElementById('cap5cena1lagarta2-img');
     let animationTriggered = false;
 
     window.addEventListener('scroll', function() {
-        if (animationTriggered) return;
-
         const folhasRect = sectionFolhas.getBoundingClientRect();
-        
-        // Calculate section-specific scroll progress
         const sectionTop = folhasRect.top;
         const sectionHeight = sectionFolhas.offsetHeight;
         const viewportHeight = window.innerHeight;
-        
-        // Calculate how far we've scrolled through the section
         const scrollProgress = Math.abs(sectionTop) / (sectionHeight - viewportHeight);
 
-        if (scrollProgress >= 0.90) { // Changed to 30% of section scroll
+        if (scrollProgress >= 0.90 && !animationTriggered) {
             animationTriggered = true;
-            
+
             requestAnimationFrame(() => {
-                // 1. Move smoke in
-                fumo.classList.add('smoke-move');
-                
+                // 1. Hide caterpillar
+                lagarta.classList.add('hide-caterpillar');
+
+                // 2. Show butterfly after delay
                 setTimeout(() => {
-                    // 2. Hide caterpillar
-                    lagarta.classList.add('hide-caterpillar');
-                    
-                    // 3. Start smoke fade
-                    setTimeout(() => {
-                        fumo.classList.add('smoke-fade');
-                        
-                        // 4. Wait for smoke to fade completely before showing butterfly
-                        setTimeout(() => {
-                            const butterfly = document.getElementById('cap5cena2bor-img');
-                            butterfly.classList.add('butterfly-flying');
-                        }, 2000);
-                    }, 1500); // Increased delay for smoke fade
-                }, 2000);
+                    const butterfly = document.getElementById('cap5cena2bor-img');
+                    butterfly.classList.add('butterfly-flying');
+                }, 6000);
             });
+        } else if (scrollProgress < 0.90 && animationTriggered) {
+            animationTriggered = false;
+
+            // 1. Show caterpillar
+            lagarta.classList.remove('hide-caterpillar');
+
+            // 2. Hide butterfly
+            const butterfly = document.getElementById('cap5cena2bor-img');
+            butterfly.classList.remove('butterfly-flying');
         }
     });
 
-    // Get all frames
-    const frames = document.querySelectorAll('.animation-frame');
-    let currentFrame = 0;
     
-    // Function to change active frame
-    function changeFrame() {
-        // Remove active class from all frames
-        frames.forEach(frame => frame.classList.remove('active'));
-        
-        // Add active class to current frame
-        frames[currentFrame].classList.add('active');
-        
-        // Update current frame
-        currentFrame = (currentFrame + 1) % frames.length;
-    }
-    
-    // Start animation
-    setInterval(changeFrame, 500); // Change frame every 100ms (10 frames per second)
 });
