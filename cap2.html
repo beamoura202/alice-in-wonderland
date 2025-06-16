@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+<div id="chapter-transition-block"></div>´
     <section id="chapter2">
         <h1>CHAPTER II</h1>
         <h2>The Pool of Tears</h2>
@@ -61,9 +62,40 @@
    
     
     <div class="scroll-height-marker"></div>
+    <div id="next-chapter-block"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/liquidEffect.js"></script>
     <script src="js/script2.js"></script>
+    <script>
+let hasRedirected = false;
+
+// Redireciona para cap3.html ao chegar ao final do bloco colorido
+window.addEventListener('scroll', function() {
+    const block = document.getElementById('next-chapter-block');
+    if (!block) return;
+    const rect = block.getBoundingClientRect();
+    if (
+        rect.top <= window.innerHeight &&
+        rect.bottom <= window.innerHeight + 10 &&
+        !hasRedirected
+    ) {
+        hasRedirected = true;
+        window.location.href = 'cap3.html';
+    }
+});
+
+// Scroll automático para o bloco se veio do capítulo anterior
+window.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash === '#next-chapter-block') {
+        const block = document.getElementById('next-chapter-block');
+        if (block) {
+            block.scrollIntoView({ behavior: 'instant' });
+        }
+    }
+});
+
+
+</script>
 </body>
 </html>

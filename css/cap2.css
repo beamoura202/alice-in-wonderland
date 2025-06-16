@@ -2,33 +2,42 @@ body {
     background-color: #040317; /* Cor de fundo da próxima seção */
     margin: 0;
     font-family: 'Libre Caslon Text', serif; /* Fonte */
+    overflow-x: hidden;
 }
 /*                                  geral */
+ #chapter2 {
+     
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #040317; /* Cor de fundo da próxima seção */
+    color: #5AA3E7; /* Texto */
 
-h1 {
+}h1 {
+    letter-spacing: 0.15em; /* Increases space between letters */
+    text-align: center;
+    font-family: "Libre Caslon Text", serif;
+        font-weight: 400;
     font-size: 1.2rem;
-        text-align: center;
-
-    font-family: "adobe-caslon-pro", serif;
-    font-weight: 400;
-        letter-spacing: 0.15em; /* Increases space between letters */
 
 }
 
 h2 {
-    font-size: 3.5rem;
+    font-size: clamp(2.5rem, 5vw, 5rem); /* Responsive scaling with minimum and maximum sizes */
     font-family: "adobe-caslon-pro", serif;
     font-weight: 400;
     font-style: italic;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+
 }
 
 p {
-    font-size: 1.2rem;
+    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
     font-family: "adobe-caslon-pro", serif;
     font-style: normal;
     font-weight: 400;
     text-align: center;
-    max-width: 600px;
+    max-width: 60%;/* AUMENTEI Limite de largura para o texto */
 }
 section {
     min-height: 100vh; /* Altura mínima para cada seção */
@@ -56,6 +65,7 @@ section {
     padding: 0;
     background-color: transparent;
 }
+
 
 .sticky {
     position: sticky;
@@ -258,20 +268,6 @@ width: 100%;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #cena3detalhes {
     position: absolute;
     bottom: 15%; /* Position from bottom instead of top */
@@ -283,7 +279,7 @@ width: 100%;
 
 #sticky-container-3 {
     position: relative;
-    height: 300vh; /* Reduced from 600vh to make the transition smoother */
+    height: 350vh; /* Reduced from 600vh to make the transition smoother */
     margin: 0;
     padding: 0;
     z-index: 10000;
@@ -329,4 +325,14 @@ width: 100%;
     transition: transform 0.5s ease-out;
     z-index: 2;
     overflow: hidden;
+}
+#chapter-transition-block {
+    height: 100vh;
+    background: #040317; /* Ou a cor desejada */
+    width: 100vw;
+}
+#next-chapter-block {
+    height: 300vh;
+    background: #433521; /* Escolha a cor do próximo capítulo */
+    width: 100vw;
 }

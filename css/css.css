@@ -2,6 +2,7 @@ body {
     background-color: #011309; /* Fundo */
     margin: 0;
     font-family: 'Libre Caslon Text', serif; /* Fonte */
+    overflow-x: hidden;
 }
 
 section {
@@ -12,22 +13,15 @@ section {
     align-items: center;
 }
 
-#chapter1, #chapter2, #chapter3, #chapter4 {
-    
+
+#chapter1 {
+     
     padding: 4rem 2rem;
     text-align: center;
-    
-
-}
-#chapter1 {
     background-color: #011309; /* Fundo */
     color: #836C43; /* Texto */
 }
- #chapter2 {
-    background-color: #040317; /* Cor de fundo da próxima seção */
-    color: #5AA3E7; /* Texto */
 
-}
 /* Container para a seção sticky e o espaço de scroll */
 /*                                                 cena         1 */
 #sticky-container {
@@ -259,7 +253,7 @@ width: 100%;
 
 #sticky-container-3 {
     position: relative;
-    height: 400vh;
+    height: 1000vh;
     z-index: 1;
 }
 
@@ -646,4 +640,11 @@ img.background-image {
     height: 100vh;
     z-index: 1000;
     pointer-events: none;
+}
+
+#next-chapter-block {
+    height: 100vh;
+    background: #040317; /* Escolha a cor do próximo capítulo */
+    width: 100vw;
+    z-index: 1000000;
 }

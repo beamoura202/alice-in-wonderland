@@ -1,38 +1,38 @@
 body {
-    background-color: #a36172;
+    background-color: #080011;
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
-    color: #c7b689;
+    color: #613D93;
     overflow-x: hidden;
 }
 
-/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
-h1 {
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */h1 {
+    letter-spacing: 0.15em; /* Increases space between letters */
+    text-align: center;
+    font-family: "Libre Caslon Text", serif;
+        font-weight: 400;
     font-size: 1.2rem;
-    /* Keep as rem for base text */
-    font-family: "adobe-caslon-pro", serif;
-    font-weight: 400;
+
 }
 
 h2 {
-    font-size: clamp(2.5rem, 5vw, 5.5rem);
-    /* Responsive scaling with minimum and maximum sizes */
+    font-size: clamp(2.5rem, 5vw, 5rem); /* Responsive scaling with minimum and maximum sizes */
     font-family: "adobe-caslon-pro", serif;
     font-weight: 400;
     font-style: italic;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+
 }
 
 p {
-    font-size: clamp(1.2rem, 2vw, 2rem);
-    /* Responsive scaling with minimum and maximum sizes */
+    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
     font-family: "adobe-caslon-pro", serif;
     font-style: normal;
     font-weight: 400;
     text-align: center;
-    max-width: 800px;
-    /* AUMENTEI Limite de largura para o texto */
+    max-width: 60%;/* AUMENTEI Limite de largura para o texto */
 }
-
 section {
     min-height: 100vh;
     display: flex;
@@ -44,7 +44,7 @@ section {
 #chapter6 {
     padding: 4rem 2rem;
     text-align: center;
-    background-color: #a36172;
+    background-color: #080011;
 }
 
 /* Container para a seção sticky e o espaço de scroll */
@@ -124,7 +124,7 @@ section {
      
     position: absolute;
     left: 0;
-    top: 100vh;
+    top: 200vh;
     height: 3000vh;
     width: 100vw;
     z-index: 300;
@@ -404,4 +404,18 @@ section {
     transform-origin: center center;   
     transition: transform 2.4s ease-out;
     transform: rotate(-40deg)    ;
+}
+
+
+
+
+#chapter-transition-block {
+    height: 100vh;
+    background: #080011; /* Ou a cor desejada */
+    width: 100vw;
+}
+#next-chapter-block {
+    height: 300vh;
+    background: #20360B; /* Escolha a cor do próximo capítulo */
+    width: 100vw;
 }

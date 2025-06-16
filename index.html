@@ -105,14 +105,40 @@
         </section>
     </div>
 
-    <!-- Add missing container for scene 4 -->
-    <div id="sticky-container-4">
-        <section id="cena4"></section>
-    </div>
+  
 
     <div id="black-transition"></div>
 
+    <!-- Bloco de transição para o próximo capítulo -->
+    <div id="next-chapter-block"></div>
+ 
     <script src="js/script.js"></script>
+    <script>
+    let hasRedirected = false;
+
+    // Redireciona para cap2.html ao chegar ao final do bloco colorido
+    window.addEventListener('scroll', function() {
+        const block = document.getElementById('next-chapter-block');
+        const rect = block.getBoundingClientRect();
+        if (
+            rect.top <= window.innerHeight &&
+            rect.bottom <= window.innerHeight + 10 &&
+            !hasRedirected
+        ) {
+            hasRedirected = true;
+            window.location.href = 'cap2.html';
+        }
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        if (window.location.hash === '#next-chapter-block') {
+            const block = document.getElementById('next-chapter-block');
+            if (block) {
+                block.scrollIntoView({ behavior: 'instant' });
+            }
+        }
+    });
+    </script>
 </body>
 
 </html>

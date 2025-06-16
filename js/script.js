@@ -775,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
             handlePopupAnimation(scrollProgress3);
 
             // Inside your scroll event listener, where you handle the popup animation
-            if (scrollProgress3 >= 0.8) {
+            if (scrollProgress3 >= 0.6) {
                 const popupProgress = calculateTransitionProgress(scrollProgress3, 0.8, 0.2);
                 const popup = document.getElementById('detalhesc42-img');
                 const frase3 = document.getElementById('frasec3');

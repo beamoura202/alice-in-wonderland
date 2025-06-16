@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <div id="chapter-transition-block"></div>´
+
     <section id="chapter5">
         <h1>CHAPTER V</h1>
         <h2>The Rabbit Sends in a Little Bill</h2>
@@ -72,9 +74,40 @@
 
 
     </div>
+    <div id="next-chapter-block"></div>
 
 
     <script type="text/javascript" src="js/script5.js"></script>
+        <script>
+let hasRedirected = false;
+
+// Redireciona para cap3.html ao chegar ao final do bloco colorido
+window.addEventListener('scroll', function() {
+    const block = document.getElementById('next-chapter-block');
+    if (!block) return;
+    const rect = block.getBoundingClientRect();
+    if (
+        rect.top <= window.innerHeight &&
+        rect.bottom <= window.innerHeight + 10 &&
+        !hasRedirected
+    ) {
+        hasRedirected = true;
+        window.location.href = 'cap6.html';
+    }
+});
+
+// Scroll automático para o bloco se veio do capítulo anterior
+window.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash === '#next-chapter-block') {
+        const block = document.getElementById('next-chapter-block');
+        if (block) {
+            block.scrollIntoView({ behavior: 'instant' });
+        }
+    }
+});
+
+
+</script>
 </body>
 
 </html>
