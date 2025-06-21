@@ -1,0 +1,310 @@
+body {
+    background-color: #032C36;
+
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+    color: #59BACA;
+    overflow-x: hidden;
+}
+
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
+h1 {
+    letter-spacing: 0.15em;
+    /* Increases space between letters */
+    text-align: center;
+    font-family: "Libre Caslon Text", serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+
+}
+
+h2 {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+
+}
+
+p {
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    /* Responsive scaling with minimum and maximum sizes */
+    font-family: "adobe-caslon-pro", serif;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    max-width: 60%;
+    /* AUMENTEI Limite de largura para o texto */
+}
+
+#chapter9 {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #032C36;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+#sticky-container1 {
+    position: relative;
+    height: 3000vh;
+    /* Ajuste a altura conforme necessário */
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    z-index: 2;
+}
+
+#sticky-container2 {
+    position: relative;
+    height: 300vh;
+    /* Ajuste a altura conforme necessário */
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    z-index: 1;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+#sticky-container12 {
+    position: relative;
+    z-index: 1;
+}
+
+/* Modificado para que a imagem determine a altura da seção */
+#cap12cena1 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+
+#cap12cena2 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+
+#cap12cena3 {
+    height: 100vh;
+    /* Altura inicial, será substituída pelo JS */
+}
+
+#fundo-img {
+    position: absolute;
+    /* Same as other background-image */
+    opacity: 1;
+    z-index: -2;
+
+}
+
+#fundo2-img {
+    position: absolute;
+    /* Same as other background-image */
+    opacity: 1;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.background-image {
+    position: absolute;
+    /* Changed from fixed to absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+
+/*------------------------------------------------------------------------cena1-------------------------------- */
+#alice-container {
+    position: absolute;
+    left: 0;
+    top: 300vh;
+    /* valor que faz aparecer em cima do container*/
+    height: 1000vh;
+    width: 100vw;
+    z-index: 100;
+
+}
+
+#alicediv {
+    position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+#divalice {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+
+#alicecena1 {
+    position: absolute;
+    bottom: 0vh;
+    left: 0;
+    width: 70vw;
+    height: auto;
+    z-index: 100;
+    transition: none;
+}
+
+
+/*------------------------------------------------------------------------cena2-------------------------------- */
+
+#rainha-container {
+    position: absolute;
+    left: 0;
+    top: 1000vh;
+    /* valor que faz aparecer em cima do container*/
+    height: 2000vh;
+    width: 100vw;
+    z-index: 100;
+
+}
+
+#rainhadiv {
+    position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+#divrainha {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+
+#rainhacena2 {
+    position: absolute;
+    bottom: 0vh;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+    width: auto;
+    z-index: 100;
+    transition: none;
+}
+
+
+
+
+
+/*------------------------------------------------------------------------cena3-------------------------------- */
+#alice2-container {
+    position: absolute;
+    left: 0;
+   top: 2960vh;
+    height: 340vh;
+    width: 100vw;
+    z-index: 100;
+
+}
+
+#alice2div {
+    position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+.divalice2 {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+
+
+
+#alicecena3 {
+    position: absolute;
+    top: 0vh;
+    left:15vw;
+    height: 95vh;
+    width: auto;
+    z-index: 100;
+    transition: none;
+    transform:  scaleX(-1); /* Centraliza e inverte horizontalmente */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#chapter-transition-block {
+    height: 100vh;
+    background: #032C36;
+    /* Ou a cor desejada */
+    width: 100vw;
+}
+
+#next-chapter-block {
+    height: 300vh;
+    background: #312B15;
+    /* Escolha a cor do próximo capítulo */
+    width: 100vw;
+}
