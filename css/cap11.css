@@ -177,18 +177,55 @@ section {
     transition: none;
 }
 
+/*------------------------------------------------------------------------cena2-------------------------------- */
+
+
+#mesa-container {
+    position: absolute;
+    left: 0;
+    top: 1000vh; /* valor que faz aparecer em cima do container*/
+    height: 1000vh; 
+    width: 100vw;
+    z-index: 100;
+
+}
+
+#mesadiv {
+   position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+#divmesa {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+
+#detalhecena2 {
+    position: absolute;
+    bottom: 0vh;
+    right: 50%;
+    width: 90vw;
+    height: auto;
+    transform: translateX(50%);
+}
 
 
 
 
-
-
-
+/*------------------------------------------------------------------------cena3-------------------------------- */
 #chapeleiro-container {
     position: absolute;
     left: 0;
-    bottom: 0vh; /* valor que faz aparecer em cima do container*/
-    height: 1000vh; 
+    top: 1000vh; /* valor que faz aparecer em cima do container*/
+    height: 2000vh; 
     width: 100vw;
     z-index: 100;
 
@@ -208,18 +245,34 @@ section {
 #chapeleiro {
     position: absolute;
     bottom: 0vh;
-    left: 0vw;
-    width:20vw;
+    left: -50vw; /* Estado inicial fora do ecrã à esquerda */
+    width: 20vw;
     height: auto;
-    transform: scaleX(-1); /* Inverte horizontalmente */
+    transform: scaleX(-1);
+    transition: left 1s cubic-bezier(0.77,0,0.18,1);
 }
 
-
-
-
-
-
-
+#sape {
+   position: absolute;
+    bottom: 0vh;
+    left: -35vw; /* Estado inicial fora do ecrã à esquerda */
+    width: 4vw;
+    height: auto;
+    transform: scaleX(-1);
+    transition: left 1s cubic-bezier(0.77,0,0.18,1);
+}
+#sapd {
+ position: absolute;
+    bottom: 0vh;
+    left: -40vw; /* Estado inicial fora do ecrã à esquerda */
+    width: 4vw;
+    height: auto;
+    transform: scaleX(-1);
+    transition: left 1s cubic-bezier(0.77,0,0.18,1);
+}
+.chapeleiro-entra {
+    left: 0vw !important;
+}
 
 
 #chapter-transition-block {
@@ -231,6 +284,131 @@ section {
     height: 300vh;
     background: #312B15; /* Escolha a cor do próximo capítulo */
     width: 100vw;
+}
+
+.detalhe-hide-anim {
+    animation: detalheDescer 1s forwards;
+}
+
+@keyframes detalheDescer {
+    to {
+        /* Mantém o translateX(50%) para centralizar, só anima o Y */
+        transform: translateX(50%) translateY(120vh);
+        opacity: 0;
+    }
+}
+
+.detalhe-hidden {
+    display: none !important;
+}
+.detalhe-show-anim {
+    animation: detalheSubir 1s forwards;
+}
+
+@keyframes detalheSubir {
+    from {
+        /* Começa fora do ecrã, centralizado */
+        transform: translateX(50%) translateY(120vh);
+        opacity: 0;
+    }
+    to {
+        /* Volta ao centro, sem deslocamento vertical */
+        transform: translateX(50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Para detalhecena1 (direita, sem translateX) */
+.detalhe1-hide-anim {
+    animation: detalhe1Descer 1s forwards;
+}
+@keyframes detalhe1Descer {
+    to {
+        transform: translateY(120vh);
+        opacity: 0;
+    }
+}
+.detalhe1-show-anim {
+    animation: detalhe1Subir 1s forwards;
+}
+@keyframes detalhe1Subir {
+    from {
+        transform: translateY(120vh);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Para detalhecena2 (centralizada, com translateX(50%)) */
+.detalhe2-hide-anim {
+    animation: detalhe2Descer 1s forwards;
+}
+@keyframes detalhe2Descer {
+    to {
+        transform: translateX(50%) translateY(120vh);
+        opacity: 0;
+    }
+}
+.detalhe2-show-anim {
+    animation: detalhe2Subir 1s forwards;
+}
+@keyframes detalhe2Subir {
+    from {
+        transform: translateX(50%) translateY(120vh);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+.sape-entra {
+    left: 30vw !important;
+}
+.sapd-entra {
+    left: 20vw !important;
+}
+
+/* Animação para o sapato esquerdo (sape) */
+.sape-saltar {
+    animation: sapeSaltar 4s cubic-bezier(0.77,0,0.18,1) forwards;
+}
+
+@keyframes sapeSaltar {
+    0%   { left: -35vw; bottom: 0vh; }
+    10%  { left: 0vw;   bottom: 8vh; }
+    20%  { left: 10vw;  bottom: 0vh; }
+    30%  { left: 20vw;  bottom: 8vh; }
+    40%  { left: 30vw;  bottom: 0vh; }
+    50%  { left: 40vw;  bottom: 8vh; }
+    60%  { left: 50vw;  bottom: 0vh; }
+    70%  { left: 60vw;  bottom: 8vh; }
+    80%  { left: 70vw;  bottom: 0vh; }
+    90%  { left: 80vw;  bottom: 8vh; }
+    100% { left: 110vw; bottom: 0vh; }
+}
+
+/* Animação para o sapato direito (sapd), começa um pouco depois */
+.sapd-saltar {
+    animation: sapdSaltar 4s cubic-bezier(0.77,0,0.18,1) forwards;
+}
+
+@keyframes sapdSaltar {
+    0%   { left: -40vw; bottom: 0vh; }
+    5%   { left: -20vw; bottom: 0vh; }
+    15%  { left: 5vw;   bottom: 8vh; }
+    25%  { left: 15vw;  bottom: 0vh; }
+    35%  { left: 25vw;  bottom: 8vh; }
+    45%  { left: 35vw;  bottom: 0vh; }
+    55%  { left: 45vw;  bottom: 8vh; }
+    65%  { left: 55vw;  bottom: 0vh; }
+    75%  { left: 65vw;  bottom: 8vh; }
+    85%  { left: 75vw;  bottom: 0vh; }
+    100% { left: 120vw; bottom: 0vh }
 }
 
 
