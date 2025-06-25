@@ -1,13 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     const stickyContainer = document.getElementById('sticky-container');
-    const floresImg = document.getElementById('flores');
     const carta1 = document.getElementById('carta1');
     const carta23 = document.getElementById('carta23');
     const rainha1 = document.getElementById('rainha1'); // Adicione esta linha
 
     let cartasTimeout;
 
-    if (!stickyContainer || !floresImg) return;
+    if (!stickyContainer) return;
+
+    // Pegue as flores com ids únicos
+    const floresImgs = [
+        document.getElementById('flor1'),
+        document.getElementById('flor2'),
+        document.getElementById('flor3'),
+        document.getElementById('flor4'),
+        document.getElementById('flor5')
+    ].filter(Boolean);
+
+    let floresTargetOpacity = 1;
+    // Inicializa todas as flores com opacidade 0
+    floresImgs.forEach((img, i) => {
+        img.style.opacity = 0;
+    });
+    let floresCurrentOpacities = floresImgs.map(() => 0);
+    let floresTimeouts = [];
 
     function updateFloresOpacity() {
         const rect = stickyContainer.getBoundingClientRect();
@@ -16,13 +32,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrolled = Math.min(Math.max(windowHeight - rect.top, 0), totalHeight);
         const percent = scrolled / totalHeight;
 
-        if (percent < 0.2) {
-            floresImg.style.opacity = 1;
-        } else if (percent >= 0.2 && percent <= 0.3) {
-            floresImg.style.opacity = 1 - ((percent - 0.2) / 0.1);
-        } else if (percent > 0.3) {
-            floresImg.style.opacity = 0;
-        }
+        // Parâmetros do efeito em cascata
+        const n = floresImgs.length;
+        const start = 0.1; // scroll mínimo para começar a desaparecer a primeira flor
+        const end = 0.6;   // scroll máximo para a última flor estar totalmente invisível
+        const intervalo = (end - start) / n;
+
+        floresImgs.forEach((img, i) => {
+            // Cada flor começa a desaparecer em start + i*intervalo e termina em start + (i+1)*intervalo
+            const inicio = start + i * intervalo;
+            const fim = inicio + intervalo;
+
+            let opacidade = 1;
+            if (percent >= fim) {
+                opacidade = 0;
+            } else if (percent > inicio) {
+                opacidade = 1 - ((percent - inicio) / intervalo);
+            }
+            img.style.opacity = Math.max(0, Math.min(1, opacidade));
+            floresCurrentOpacities[i] = img.style.opacity;
+        });
     }
 
     function updateCartas() {

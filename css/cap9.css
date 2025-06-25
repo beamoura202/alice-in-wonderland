@@ -175,16 +175,18 @@ section {
 #personagem1cena2 {
     position: absolute;
     bottom: 10vh;
-    left: -50vw; /* posição inicial */
+    left: -50vw;
     height: 40vh;
     width: auto;
-    transition: left 0.3s linear;
-}#personagem2cena2 {
+    transition: left 1.5s ;
+}
+
+#personagem2cena2 {
     position: absolute;
     bottom: 30vh;
  left: 60%;
     transform: translateX(-50%);
-    height: 40vh;
+    height: 50vh;
     width: auto;
 }
 
@@ -235,7 +237,7 @@ section {
     position: absolute;
     bottom: 0vh;
     left: 10vw;
-    width: 20vw;
+    width: 25vw;
     height: auto;
 }#personagem2cena3 {
     position: absolute;
@@ -272,7 +274,7 @@ section {
     width: 100vw;
 }
 #next-chapter-block {
-    height: 300vh;
+    height: 100vh;
     background: #312B15; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }

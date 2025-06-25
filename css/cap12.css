@@ -1,9 +1,9 @@
 body {
-    background-color: #032C36;
+    background-color: #230030;
 
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
-    color: #59BACA;
+    color: #CE5288;
     overflow-x: hidden;
 }
 
@@ -40,11 +40,7 @@ p {
     /* AUMENTEI Limite de largura para o texto */
 }
 
-#chapter9 {
-    padding: 4rem 2rem;
-    text-align: center;
-    background-color: #032C36;
-}
+
 
 section {
     min-height: 100vh;
@@ -138,9 +134,9 @@ section {
 #alice-container {
     position: absolute;
     left: 0;
-    top: 300vh;
+    top: 0vh;
     /* valor que faz aparecer em cima do container*/
-    height: 1000vh;
+    height: 2000vh;
     width: 100vw;
     z-index: 100;
 
@@ -168,11 +164,11 @@ section {
 #alicecena1 {
     position: absolute;
     bottom: 0vh;
-    left: 0;
+    left: -100vw; /* Começa fora da tela à esquerda */
     width: 70vw;
     height: auto;
     z-index: 100;
-    transition: none;
+    transition: left 0.5s linear;
 }
 
 
@@ -181,9 +177,9 @@ section {
 #rainha-container {
     position: absolute;
     left: 0;
-    top: 1000vh;
+    top: 0vh;
     /* valor que faz aparecer em cima do container*/
-    height: 2000vh;
+    height: 3000vh;
     width: 100vw;
     z-index: 100;
 
@@ -210,13 +206,13 @@ section {
 
 #rainhacena2 {
     position: absolute;
-    bottom: 0vh;
+    bottom: -100vh; /* Começa fora da tela embaixo */
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(0.5);
     height: 100vh;
     width: auto;
     z-index: 100;
-    transition: none;
+    transition: bottom 0.5s linear, transform 0.5s linear;
 }
 
 
@@ -271,40 +267,29 @@ section {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #chapter-transition-block {
     height: 100vh;
-    background: #032C36;
-    /* Ou a cor desejada */
+    background: #230030; /* Ou a cor desejada */
     width: 100vw;
 }
 
-#next-chapter-block {
-    height: 300vh;
-    background: #312B15;
-    /* Escolha a cor do próximo capítulo */
-    width: 100vw;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -213,9 +213,9 @@ section {
 
 #rainha2 {
     position: absolute;
-    bottom: 0vh;
-    right: 0vw;
-    height: 80vh;
+    bottom: 7vh;
+    right: 10vw;
+    height: 75vh;
     width: auto;
 
 }
@@ -229,10 +229,10 @@ section {
 }
 #gato {
        position: absolute;
-    top: 5vh;
+    top: 0vh;
     left: 50%;
     transform: translateX(-50%);
-  height: 20vh;
+  height: 30vh;
     width: auto;
     z-index: 3;
     animation: balancoGato 1.5s infinite;
@@ -252,7 +252,10 @@ section {
     width: 100vw;
 }
 #next-chapter-block {
-    height: 300vh;
+    height: 100vh;
     background: #032C36; /* Escolha a cor do próximo capítulo */
     width: 100vw;
+}
+#flor1, #flor2, #flor3, #flor4, #flor5 {
+    opacity: 0;
 }

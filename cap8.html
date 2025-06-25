@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="chapter-transition-block"></div>´
+    <div id="chapter-transition-block"></div>
 
     <section id="chapter8">
         <h1>CHAPTER VII</h1>
@@ -23,7 +23,13 @@
             <section id="cap7cena1" class="sticky">
                 <div class="scene-container">
                     <img src="imgcap8/fundocena1.png" alt="Fundo" id="fundo-img" class="background-image">
-                    <img src="imgcap8/flores.png" alt="Fundo" id="flores" class="background-image">
+                   
+                    <img src="imgcap8/flor1.png"  id="flor1" class="background-image">
+                    <img src="imgcap8/flor2.png"  id="flor2" class="background-image">
+                    <img src="imgcap8/flor3.png"  id="flor3" class="background-image">
+                    <img src="imgcap8/flor4.png"  id="flor4" class="background-image">
+                    <img src="imgcap8/flor5.png"  id="flor5" class="background-image">
+
                     <img src="imgcap8/carta1.png" id="carta1">
                     <img src="imgcap8/carta23.png" id="carta23">
                     <img src="imgcap8/rainha5.png" id="rainha1">
@@ -43,13 +49,13 @@
         <div id="sticky-container2">
             <section id="cena3" class="sticky">
                 <div class="scene-container">
-                    
+
                     <img src="imgcap8/alice.png" id="alicecena3">
                     <img src="imgcap8/cartascena3.png" id="cartascena3">
                 </div>
             </section>
         </div>
-        
+
         <div id="sticky-container3">
             <section id="cena4" class="sticky">
                 <div class="scene-container">
@@ -66,39 +72,39 @@
         </div>
 
     </div>
-        <div id="next-chapter-block"></div>
+    <div id="next-chapter-block"></div>
 
     <script type="text/javascript" src="js/script8.js"></script>
-        <script>
-let hasRedirected = false;
+    <script>
+        let hasRedirected = false;
 
-// Redireciona para cap3.html ao chegar ao final do bloco colorido
-window.addEventListener('scroll', function() {
-    const block = document.getElementById('next-chapter-block');
-    if (!block) return;
-    const rect = block.getBoundingClientRect();
-    if (
-        rect.top <= window.innerHeight &&
-        rect.bottom <= window.innerHeight + 10 &&
-        !hasRedirected
-    ) {
-        hasRedirected = true;
-        window.location.href = 'cap9.html';
-    }
-});
+        // Redireciona para cap3.html ao chegar ao final do bloco colorido
+        window.addEventListener('scroll', function () {
+            const block = document.getElementById('next-chapter-block');
+            if (!block) return;
+            const rect = block.getBoundingClientRect();
+            if (
+                rect.top <= window.innerHeight &&
+                rect.bottom <= window.innerHeight + 10 &&
+                !hasRedirected
+            ) {
+                hasRedirected = true;
+                window.location.href = 'cap9.html';
+            }
+        });
 
-// Scroll automático para o bloco se veio do capítulo anterior
-window.addEventListener('DOMContentLoaded', function() {
-    if (window.location.hash === '#next-chapter-block') {
-        const block = document.getElementById('next-chapter-block');
-        if (block) {
-            block.scrollIntoView({ behavior: 'instant' });
-        }
-    }
-});
+        // Scroll automático para o bloco se veio do capítulo anterior
+        window.addEventListener('DOMContentLoaded', function () {
+            if (window.location.hash === '#next-chapter-block') {
+                const block = document.getElementById('next-chapter-block');
+                if (block) {
+                    block.scrollIntoView({ behavior: 'instant' });
+                }
+            }
+        });
 
 
-</script>
+    </script>
 </body>
 
 </html>

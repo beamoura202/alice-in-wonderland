@@ -233,7 +233,7 @@ function handleCha5AnimationOnScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPercent = (scrollTop / scrollHeight) * 100;
 
-    if (scrollPercent >= 90) {
+    if (scrollPercent >= 85) {
         cha5base.style.animation = 'none';
         cha5cima.style.animation = 'none';
         cha5cima.style.bottom = '20vh';

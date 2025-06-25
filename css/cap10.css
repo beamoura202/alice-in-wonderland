@@ -154,7 +154,7 @@ section {
     position: absolute;
     bottom: 0vh;
     left: 10vw;
-    width: 20vw;
+    width: 25vw;
     height: auto;
 }#personagem2cena1 {
     position: absolute;
@@ -183,7 +183,7 @@ section {
     position: absolute;
     display: flex;
         justify-content: center;
-    bottom: 0vh;
+    bottom: -10vh;
     left: -100vw;
     width: 100vw;
     height: auto;
@@ -195,14 +195,22 @@ section {
 
 #personagem1cena2,
 #personagem2cena2,
-#personagem3cena2,
 #personagem4cena2 {
     position: relative;
     bottom: 0vh;
     /* Remova ou comente a linha abaixo */
     /* left: 10vw; */
-    height: 40vh; /* ajuste o valor conforme cada personagem se quiser */
+    height: 50vh; /* ajuste o valor conforme cada personagem se quiser */
     width: auto;
+}
+#personagem3cena2 {
+   position: relative;
+    bottom: 10vh;
+    /* Remova ou comente a linha abaixo */
+    /* left: 10vw; */
+    height: 60vh; /* ajuste o valor conforme cada personagem se quiser */
+    width: auto;
+
 }
 
 .girar {
@@ -224,7 +232,7 @@ section {
     width: 100vw;
 }
 #next-chapter-block {
-    height: 300vh;
-    background: #312B15; /* Escolha a cor do próximo capítulo */
+    height: 100vh;
+    background: #69310D; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }

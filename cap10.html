@@ -51,6 +51,36 @@
         <div id="next-chapter-block"></div>
 
     <script type="text/javascript" src="js/script10.js"></script>
+    <script>
+let hasRedirected = false;
+
+// Redireciona para cap3.html ao chegar ao final do bloco colorido
+window.addEventListener('scroll', function() {
+    const block = document.getElementById('next-chapter-block');
+    if (!block) return;
+    const rect = block.getBoundingClientRect();
+    if (
+        rect.top <= window.innerHeight &&
+        rect.bottom <= window.innerHeight + 10 &&
+        !hasRedirected
+    ) {
+        hasRedirected = true;
+        window.location.href = 'cap11.html';
+    }
+});
+
+// Scroll automático para o bloco se veio do capítulo anterior
+window.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash === '#next-chapter-block') {
+        const block = document.getElementById('next-chapter-block');
+        if (block) {
+            block.scrollIntoView({ behavior: 'instant' });
+        }
+    }
+});
+
+
+</script>
 </body>
 
 </html>

@@ -415,7 +415,7 @@ section {
     width: 100vw;
 }
 #next-chapter-block {
-    height: 300vh;
+    height: 100vh;
     background: #20360B; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }

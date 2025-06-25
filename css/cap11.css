@@ -1,9 +1,11 @@
 body {
-    background-color: #032C36;
+  
+
+      background-color: #69310D;
 
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
-    color: #59BACA;
+    color: #eaa53eb5;
     overflow-x: hidden;
 }
 
@@ -277,12 +279,12 @@ section {
 
 #chapter-transition-block {
     height: 100vh;
-    background: #032C36; /* Ou a cor desejada */
+    background: #69310D; /* Ou a cor desejada */
     width: 100vw;
 }
 #next-chapter-block {
-    height: 300vh;
-    background: #312B15; /* Escolha a cor do próximo capítulo */
+    height: 100vh;
+    background: #230030; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }
 

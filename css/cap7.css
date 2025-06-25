@@ -423,7 +423,7 @@ section {
 #mesa2 {
     position: absolute;
     height: auto;
-    width: 70vw;
+    width: 80vw;
     z-index: 2;
     transform-origin: right bottom;
     right: 0vw;
@@ -434,9 +434,9 @@ section {
 
 #chavenas {
     position: absolute;
-    bottom: 11vw;
+    bottom: 13vw;
     right: 0;
-    width: 70vw;
+    width: 80vw;
     height: 20vh;
     /* ajuste conforme necessário */
     /* Outras propriedades que desejar */
@@ -475,7 +475,7 @@ section {
 /* #cha1 tem sempre animação diferente */
 #cha1 {
     width: 4vw;
-    left: 17vw;
+    left: 19vw;
     bottom: 30vh;
     z-index: 21;
     animation: saltitar-cha1 2s infinite;
@@ -484,7 +484,7 @@ section {
 
 #cha2 {
     width: 9vw;
-    left: 22vw;
+    left: 25vw;
     bottom: 35vh;
     z-index: 20;
 }
@@ -501,7 +501,7 @@ section {
     bottom: 0;
     width: 5vw;
     height: 35vh;
-    left: 30vw;
+    left: 35vw;
     z-index: 22;
 
 }
@@ -706,7 +706,7 @@ section {
     width: 100vw;
 }
 #next-chapter-block {
-    height: 300vh;
+    height: 100vh;
     background: #410202; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }
