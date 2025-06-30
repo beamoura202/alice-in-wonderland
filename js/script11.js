@@ -106,7 +106,7 @@ document.addEventListener('scroll', function () {
         const containerHeight = sticky2.offsetHeight;
         const scrollPercent = Math.min(Math.max((windowHeight - rect.top) / containerHeight, 0), 1);
 
-        if (scrollPercent > 0.6 && !sapatosAnimados) {
+        if (scrollPercent > 0.5 && !sapatosAnimados) {
             // Só anima uma vez
             sape.classList.remove('sape-saltar');
             sapd.classList.remove('sapd-saltar');
@@ -130,10 +130,50 @@ document.addEventListener('scroll', function () {
         const containerHeight = sticky2.offsetHeight;
         const scrollPercent = Math.min(Math.max((windowHeight - rect.top) / containerHeight, 0), 1);
 
-        if (scrollPercent > 0.6) {
+        if (scrollPercent > 0.5 && scrollPercent <= 0.7) {
             chapeleiro.classList.add('chapeleiro-entra');
-        } else {
+            chapeleiro.classList.remove('chapeleiro-sair');
+        } else if (scrollPercent > 0.7) {
             chapeleiro.classList.remove('chapeleiro-entra');
+            chapeleiro.classList.add('chapeleiro-sair');
+        } else {
+            chapeleiro.classList.remove('chapeleiro-entra', 'chapeleiro-sair');
+        }
+    }
+
+    // Alice animation
+    const sticky3 = document.getElementById('alice-container');
+    const alice = document.getElementById('alice');
+    if (sticky3 && alice) {
+        const rect = sticky3.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const containerHeight = sticky3.offsetHeight;
+        const scrollPercent = Math.min(Math.max((windowHeight - rect.top) / containerHeight, 0), 1);
+
+        if (scrollPercent > 0.7) {
+            alice.classList.add('alice-entra');
+        } else {
+            alice.classList.remove('alice-entra');
+        }
+
+        // POP effect: faz pop a cada 5% de scroll acima de 0.7 e aumenta tamanho
+        if (scrollPercent > 0.7) {
+            const popStep = Math.floor((scrollPercent - 0.7) * 20); // 0,1,2,3,4,5...
+            if (alice.dataset.lastPop != popStep) {
+                alice.classList.remove('alice-pop');
+                void alice.offsetWidth;
+                alice.classList.add('alice-pop');
+                alice.dataset.lastPop = popStep;
+
+                // Aumenta progressivamente o tamanho
+                const baseWidth = 40; // vw
+                const newWidth = baseWidth + popStep * 2; // aumenta 2vw por pop
+                alice.style.setProperty('--alice-width', `${newWidth}vw`);
+            }
+        } else {
+            alice.classList.remove('alice-pop');
+            alice.dataset.lastPop = '';
+            alice.style.setProperty('--alice-width', `40vw`);
         }
     }
 });

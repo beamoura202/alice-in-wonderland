@@ -64,7 +64,7 @@ section {
 
 #sticky-container2 {
     position: relative;
-    height: 2000vh;
+    height: 2200vh;
     /* Ajuste a altura conforme necessário */
     margin: 0;
     padding: 0;
@@ -375,6 +375,12 @@ section {
     left: 20vw !important;
 }
 
+/* Adicione ao seu CSS */
+.chapeleiro-sair {
+  left: 110vw !important;
+  transition: left 2.5s cubic-bezier(.77,0,.18,1);
+}
+
 /* Animação para o sapato esquerdo (sape) */
 .sape-saltar {
     animation: sapeSaltar 4s cubic-bezier(0.77,0,0.18,1) forwards;
@@ -413,4 +419,51 @@ section {
     100% { left: 120vw; bottom: 0vh }
 }
 
+/*------------------------------------------------------------------------cena4-------------------------------- */
+#alice-container {
+    position: absolute;
+    left: 0;
+    top: 1100vh; /* valor que faz aparecer em cima do container*/
+    height: 2100vh; 
+    width: 100vw;
+    z-index: 1000;
 
+}
+
+#alicediv {
+   position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+
+
+#alice {
+    position: absolute;
+    bottom: 0vh;
+    left: -50vw;
+    width: var(--alice-width, 30vw); /* Usar variável para width */
+    height: auto;
+    transform: scaleX(-1);
+    transition: left 2.5s cubic-bezier(0.77,0,0.18,1);
+}
+
+.alice-entra {
+  left: 0vw !important;
+  transition: left 2.5s cubic-bezier(.77,0,.18,1);
+}
+
+.alice-pop {
+  animation: alicePop 0.5s cubic-bezier(.77,0,.18,1);
+}
+
+@keyframes alicePop {
+  0%   { transform: scale(1) scaleX(-1); }
+  30%  { transform: scale(1.2) scaleX(-1); }
+  60%  { transform: scale(1.1) scaleX(-1); }
+  80%  { transform: scale(1.2) scaleX(-1); }
+  100% { transform: scale(1) scaleX(-1); }
+}

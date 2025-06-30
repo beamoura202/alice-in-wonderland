@@ -71,6 +71,15 @@ section {
     background-color: transparent;
     z-index: 1;
 }
+#sticky-container3 {
+    position: relative;
+    height: 400vh;
+    /* Ajuste a altura conforme necessário */
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    z-index: 1;
+}
 
 .sticky {
     position: sticky;
@@ -214,9 +223,67 @@ section {
     z-index: 100;
     transition: bottom 0.5s linear, transform 0.5s linear;
 }
+#bule1 {
+     position: absolute;
+    bottom: -100vh; /* Começa fora da tela embaixo */
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    height: 100vh;
+    width: auto;
+    z-index: 110;
+    transition: bottom 0.5s linear, transform 0.5s linear;
+}
+#bule2 {
+     position: absolute;
+    bottom: -100vh; /* Começa fora da tela embaixo */
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    height: 100vh;
+    width: auto;
+    z-index: 110;
+    transition: bottom 0.5s linear, transform 0.5s linear;
+}
+#bule3 {
+     position: absolute;
+    bottom: -100vh; /* Começa fora da tela embaixo */
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    height: 100vh;
+    width: auto;
+    z-index: 110;
+    transition: bottom 0.5s linear, transform 0.5s linear;
+}
+#bule4 {
+     position: absolute;
+    bottom: -100vh; /* Começa fora da tela embaixo */
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    height: 100vh;
+    width: auto;
+    z-index: 110;
+    transition: bottom 0.5s linear, transform 0.5s linear;
+}
 
-
-
+#bule5 {
+     position: absolute;
+    bottom: -100vh; /* Começa fora da tela embaixo */
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    height: 100vh;
+    width: auto;
+    z-index: 110;
+    transition: bottom 0.5s linear, transform 0.5s linear;
+}
+#bule6 {
+     position: absolute;
+    bottom: -100vh; /* Começa fora da tela embaixo */
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    height: 100vh;
+    width: auto;
+    z-index: 110;
+    transition: bottom 0.5s linear, transform 0.5s linear;
+}
 
 
 /*------------------------------------------------------------------------cena3-------------------------------- */
@@ -272,13 +339,132 @@ section {
     background: #230030; /* Ou a cor desejada */
     width: 100vw;
 }
+@keyframes mesa-rotacao {
+  0%   { transform: translateX(-50%) scale(1) rotate(0deg);}
+  20%  { transform: translateX(-50%) scale(1) rotate(-2deg);}
+  40%  { transform: translateX(-50%) scale(1) rotate(2deg);}
+  60%  { transform: translateX(-50%) scale(1) rotate(-2deg);}
+  80%  { transform: translateX(-50%) scale(1) rotate(2deg);}
+  100% { transform: translateX(-50%) scale(1) rotate(0deg);}
+}
+
+.mesa-rotacao {
+  animation: mesa-rotacao 0.5s infinite;
+}
+@keyframes shake {
+  0%   { transform: translateX(-50%) scale(1) rotate(0deg);}
+  20%  { transform: translateX(-50%) scale(1) rotate(-2deg);}
+  40%  { transform: translateX(-50%) scale(1) rotate(2deg);}
+  60%  { transform: translateX(-50%) scale(1) rotate(-2deg);}
+  80%  { transform: translateX(-50%) scale(1) rotate(2deg);}
+  100% { transform: translateX(-50%) scale(1) rotate(0deg);}
+}
+
+.shake {
+  animation: shake 0.5s infinite;
+}
+#rainhacena2,
+#bule1,
+#bule2,
+#bule3,
+#bule4,
+#bule5,
+#bule6 {
+  transform-origin: 50% 100%;
+}
+
+
+/*------------------------------------------------------------------------cena4-------------------------------- */
+#cartas-container {
+    background-color:#1403128f;
+    position: absolute;
+    left: 0;
+   top: 3300vh;
+    height: 300vh;
+    width: 100vw;
+    z-index: 100;
+
+}
+
+#cartasdiv {
+    position: sticky;
+    top: 0vh;
+    /* 40% */
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
+
+.divcartas {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+}
 
 
 
 
+#cartaesq {
+    position: absolute;
+    top: 0vh;
+    right:0vw;
+    height: 100vh;
+    width: auto;
+    z-index: 100;
+    transition: none;
+}
 
+#cartadir {
+    position: absolute;
+    top: 0vh;
+    left:0vw;
+    height: 100vh;
+    width: auto;
+    z-index: 100;
+    transition: none;
+}
 
+#alicecena4{
+    position: absolute;
+    bottom: 0vh;
+    left: 45%;
+    height: 50vh;
+    width: auto;
+    z-index: 100;
+    transition: none;
+    transform: translateX(-45%) scaleY(-1)scaleX(-1); /* Centraliza e inverte verticalmente */
+}
 
+#canvas-loop {
+  position: fixed;
+  left: 0; top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+body.loop-effect #canvas-loop {
+  opacity: 1;
+}
+#fade-black {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+  transition: opacity 1s;
+}
+#fade-black.active {
+  opacity: 1;
+}
 
 
 
