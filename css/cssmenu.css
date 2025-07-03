@@ -1,0 +1,74 @@
+.menu-svg {
+    position: fixed;
+    top: -35vh;
+    right: 5vw;
+    height: 40vh;
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+    cursor: pointer;
+    transform: translateY(0) scale(1);
+}
+
+.menu-svg.animate {
+    animation: menu-drop-bounce 1.5s ease-in-out forwards;
+}
+
+.menu-svg.hide {
+    animation: menu-hide-bounce 1s ease-in-out forwards;
+}
+
+@keyframes menu-drop-bounce {
+    0%   { transform: translateY(0vh) scale(1);}
+    15%  { transform: translateY(35vh) scale(1);}
+    30%  { transform: translateY(25vh) scale(1);}
+    45%  { transform: translateY(32vh) scale(1);}
+    60%  { transform: translateY(29vh) scale(1);}
+    70%  { transform: translateY(35vh) scale(1);}
+    75%  { transform: translateY(35vh) scale(1.7);}
+    80%  { transform: translateY(35vh) scale(1.7);}
+    85%  { transform: translateY(35vh) scale(1.5);}
+    90%  { transform: translateY(35vh) scale(1.5);}
+    95%  { transform: translateY(35vh) scale(1.7);}
+    98%  { transform: translateY(35vh) scale(1.9);}
+    100% { transform: translateY(35vh) scale(2);}
+}
+
+@keyframes menu-hide-bounce {
+    0%   { transform: translateY(35vh) scale(2);}
+    40%  { transform: translateY(35vh) scale(1);}
+    100% { transform: translateY(0vh) scale(1);}
+}
+
+.menu-svg g[id="1"]:hover path,
+.menu-svg g[id="2"]:hover path,
+.menu-svg g[id="3"]:hover path,
+.menu-svg g[id="4"]:hover path,
+.menu-svg g[id="5"]:hover path,
+.menu-svg g[id="6"]:hover path,
+.menu-svg g[id="7"]:hover path,
+.menu-svg g[id="8"]:hover path,
+.menu-svg g[id="9"]:hover path,
+.menu-svg g[id="10"]:hover path,
+.menu-svg g[id="11"]:hover path,
+.menu-svg g[id="12"]:hover path {
+    fill: #ba6ae3 !important;
+    stroke: #ba6ae3 !important;
+}
+
+.menu-svg #horas.animate {
+    transition: transform 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    transform-origin: 214.73px 754.26px; /* centro do id fundo */
+}
+.menu-svg #minutos.animate {
+    transition: transform 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    transform-origin: 214.73px 754.26px;
+}
+
+.numero-roxo text {
+    fill: #ba6ae3 !important;
+}
+
+.numero-roxo path {
+    fill: #ba6ae3 !important;
+    stroke: #ba6ae3 !important;
+}

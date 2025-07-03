@@ -5,6 +5,7 @@ body {
     overflow-x: hidden;
 }
 
+
 section {
     min-height: 100vh; /* Altura mínima para cada seção */
     display: flex;
@@ -648,3 +649,4 @@ img.background-image {
     width: 100vw;
     z-index: 1000000;
 }
+
