@@ -125,7 +125,7 @@ section {
     position: absolute;
     left: 0;
     top: 200vh;
-    height: 3000vh;
+    height: 3030vh;
     width: 100vw;
     z-index: 300;
 
@@ -151,11 +151,11 @@ section {
 }
 #arvoredir {
     position: absolute;
-    height: 180vh;
+    height: 200vh;
     width: auto;
     z-index: 2;
     right: 0;
-    bottom: -10vh;
+    bottom: -20vh;
     transform-origin: center center;
     transition: transform 2s ease-out;
     
@@ -405,6 +405,37 @@ section {
     transition: transform 2.4s ease-out;
     transform: rotate(-40deg)    ;
 }
+
+
+
+
+.move-finalarvoreDir {
+    transform: translate(20vw, 5vh)  scale(0.8) !important;
+}
+
+.move-finalAlice{
+    transform: translate(20vw, 0vh) scaleX(-1) !important;
+}
+
+
+
+.move-finalarvoreEsq {
+    transform: translate(-30vw, 5vh)  scale(0.8) !important;
+}
+
+.move-finalPlanta {
+    transform: translate(-10vw, -5vh) rotate(90deg) scale(1.2) !important;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

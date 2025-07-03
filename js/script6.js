@@ -58,8 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             gato.classList.remove('move-right2g');
             alice.classList.remove('move-left2alice');
 
-            fundoArvore.classList.remove('move-left3');
-            fundoImg.classList.remove('move-left4');
+       
 
 
         }
@@ -87,8 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
             gato.classList.remove('move-right2g');
             alice.classList.remove('move-right2al');
 
-            fundoArvore.classList.remove('move-right3');
-            fundoImg.classList.remove('move-right4');
         }
     });
 
@@ -126,6 +123,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         else {
             gatoCab.classList.remove('oscilando');
+        }
+    });
+
+    window.addEventListener('scroll', function () {
+        const containerRect = vegetacaoContainer.getBoundingClientRect();
+        const scrollProgress = Math.abs(containerRect.top) / (containerRect.height - window.innerHeight);
+
+        if (scrollProgress >= 0.95) {
+            // Remove todas as classes de animação
+           alice.classList.add('move-finalAlice');
+           
+            arvoreDir.classList.add(
+                 'move-finalarvoreDir'
+            );
+            arvoreEsq.classList.add(
+                 'move-finalarvoreEsq'
+            );
+            planta.classList.add(
+                 'move-finalPlanta'
+            );
+
+            // Se necessário, adiciona classes iniciais (ou deixa sem classes para o estado base)
+            // Exemplo: arvoreDir.classList.add('classe-inicial');
+        }else {
+            // Remove as classes de animação quando não estiver na posição final
+            arvoreDir.classList.remove('move-finalarvoreDir');
+            arvoreEsq.classList.remove('move-finalarvoreEsq');
+            planta.classList.remove('move-finalPlanta');
+            alice.classList.remove('move-finalAlice');
         }
     });
 });
