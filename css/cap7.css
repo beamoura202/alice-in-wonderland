@@ -87,7 +87,8 @@ section {
 }
 
 #cap7cena2 {
-    height: 100vh;
+    width: 100%;
+    height: 200vh;
     /* Altura inicial, será substituída pelo JS */
 }
 
@@ -402,7 +403,7 @@ section {
     position: absolute;
     left: 0;
     top: 0vh;
-    height: 1000vh;
+    height: 960vh;
     width: 100vw;
     z-index: 300;
 

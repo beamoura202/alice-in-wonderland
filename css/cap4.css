@@ -1,6 +1,5 @@
 /*  ......................................................geral.................... */
 body {
-    background-color: #a36172;
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
     color: #c7b689;
@@ -58,12 +57,13 @@ section {
     background-color: transparent;
     background-color: #352b29;
 }
- #sticky-container2 {
+ body #sticky-container2 {
+        background-color: #3D1616;
+
     position: relative;
     height: 1400vh; /* Ajuste a altura conforme necessário */
     margin: 0;
     padding: 0;
-    background-color: transparent;
     z-index: 2;
 }
 .sticky {
@@ -82,7 +82,7 @@ section {
     height: 100vh; /* Altura inicial, será substituída pelo JS */
 }
 #cap4cena2 {
-    height: 100vh; /* Altura inicial, será substituída pelo JS */
+    height: 200vh; /* Altura inicial, será substituída pelo JS */
 }
 
 #fundo-img{
@@ -96,7 +96,7 @@ display: none;
     opacity: 1;
     z-index: 1;
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 .background-image {
     position: absolute; /* Changed from fixed to absolute */
@@ -244,7 +244,7 @@ transform-origin: left center;
 .fisheye-canvas {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 30vh;
     width: 100%;
     height: 100%;
     pointer-events: none;
@@ -256,7 +256,7 @@ transform-origin: left center;
 #cap4cena2casa-img {
     position: absolute;
     left: 60%;
-    bottom: 0%;
+    top: 30vh;
     height: 70vh; /* Ajuste este valor para mudar o tamanho inicial */
     width: auto; /* Ajuste este valor para mudar a largura */
     transform: translateX(-50%) translateY(0) scale(1); /* Removed translateY since we're using bottom */

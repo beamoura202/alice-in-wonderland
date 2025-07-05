@@ -96,7 +96,8 @@ section {
     /* Altura inicial, será substituída pelo JS */
 }
 #cap11cena3 {
-    height: 100vh;
+    width: 100%;
+    height: 130vh;
     /* Altura inicial, será substituída pelo JS */
 }
 
@@ -443,7 +444,7 @@ section {
 
 #alice {
     position: absolute;
-    bottom: 0vh;
+    bottom: -10vh;
     left: -50vw;
     width: var(--alice-width, 30vw); /* Usar variável para width */
     height: auto;

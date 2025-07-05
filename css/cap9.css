@@ -7,7 +7,8 @@ body {
     overflow-x: hidden;
 }
 
-/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */h1 {
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
+h1 {
     letter-spacing: 0.15em; /* Increases space between letters */
     text-align: center;
     font-family: "Libre Caslon Text", serif;
@@ -101,7 +102,8 @@ section {
     /* Altura inicial, será substituída pelo JS */
 }
 #cap9cena3 {
-    height: 100vh;
+    width: 100%;
+    height: 200vh;
     /* Altura inicial, será substituída pelo JS */
 }
 
@@ -211,7 +213,7 @@ section {
    position: sticky;
     top: 0vh;
     /* 40% */
-    height: 100vh;
+    height: 120vh;
     width: 100vw;
     z-index: 0;
 }
@@ -235,8 +237,8 @@ section {
 
 #personagem1cena3 {
     position: absolute;
-    bottom: 0vh;
-    left: 10vw;
+    top: 25vh;
+    left: 5vw;
     width: 25vw;
     height: auto;
 }#personagem2cena3 {

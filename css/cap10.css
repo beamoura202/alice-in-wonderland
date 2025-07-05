@@ -83,18 +83,10 @@ section {
     z-index: 1;
 }
 
-/* Modificado para que a imagem determine a altura da seção */
-#cap9cena1 {
-    height: 100vh;
-    /* Altura inicial, será substituída pelo JS */
-}
 
-#cap9cena2 {
-    height: 100vh;
-    /* Altura inicial, será substituída pelo JS */
-}
-#cap9cena3 {
-    height: 100vh;
+#cap10cena1 {
+    width: 100%;
+    height: 130vh;
     /* Altura inicial, será substituída pelo JS */
 }
 
@@ -183,7 +175,7 @@ section {
     position: absolute;
     display: flex;
         justify-content: center;
-    bottom: -10vh;
+    bottom: 20vh;
     left: -100vw;
     width: 100vw;
     height: auto;
