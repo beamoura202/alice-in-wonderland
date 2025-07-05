@@ -270,7 +270,7 @@ width: 100%;
 
 #cena3detalhes {
     position: absolute;
-    bottom: 15%; /* Position from bottom instead of top */
+    bottom: 35%; /* Position from bottom instead of top */
     transform-origin: bottom center;
     width: 300px;
     transition: transform 0.3s ease-out;
@@ -306,7 +306,7 @@ width: 100%;
 #cap2cena3rato-img {
     position: absolute;
     left: 10%;  /* Start more from left */
-    bottom: 10%;
+    bottom: 30%;
     width: 200px;  
     height: auto;
     z-index: 100;
