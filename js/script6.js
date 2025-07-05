@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             gato.classList.add('move-right2g');
             alice.classList.add('move-left2alice');
 
-            fundoArvore.classList.add('move-left3');
+           
             fundoImg.classList.add('move-left4');
             arvoreDir.classList.add('move-ad');
             arvoreEsq.classList.add('move-ae');
@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
             gato.classList.add('move-right2g');
             alice.classList.add('move-right2al');
 
-            fundoArvore.classList.add('move-right3');
             fundoImg.classList.add('move-right4');
 
         } else {

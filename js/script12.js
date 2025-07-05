@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Defina aqui para ficar disponível em todo o escopo
+    const fadeBlack = document.getElementById('fade-black');
+
     window.addEventListener('scroll', function () {
         const sticky = document.getElementById('sticky-container1');
         const alice = document.getElementById('alicecena1');
-        const fadeBlack = document.getElementById('fade-black');
         if (!sticky || !alice) return;
 
         const rect = sticky.getBoundingClientRect();

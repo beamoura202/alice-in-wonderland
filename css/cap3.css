@@ -17,13 +17,12 @@ h1 {
 }
 
 h2 {
-    font-size: clamp(2.5rem, 5vw, 5rem); /* Responsive scaling with minimum and maximum sizes */
-    font-family: "adobe-caslon-pro", serif;
-    font-weight: 400;
+    font-family: 'Libre Caslon Text', serif;
     font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 5rem);
     margin-bottom: 0.5em;
     margin-top: 0.5em;
-
 }
 
 p {
@@ -82,7 +81,7 @@ section {
 
 #cap3rato-img {
     position: absolute;
-    bottom: 15%;
+    bottom: 20%;
     left: 48%;
     z-index: 1;
     transition: left 0.3s ease-out, transform 0.3s ease-out; /* Transição suave */
