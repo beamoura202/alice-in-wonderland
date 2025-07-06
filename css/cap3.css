@@ -104,3 +104,54 @@ section {
     background: #a36172; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }
+#stickytext {
+    position:fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh; /* Altura inicial, será substituída pelo JS */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#frase1, #frase2, #frase3, #frase4 {
+    position: absolute;
+    
+    max-width: 300px;
+    font-size: 2.2rem;
+    font-family: "adobe-caslon-pro", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+    opacity: 0; /* Inicialmente invisível, controlado pelo JS */
+    z-index: 4000;
+    background: none; /* Remova se quiser fundo igual ao #frase */
+    border-radius: 0;
+    padding: 0;
+    text-align: center;
+}
+#frase1 {
+    top: 20%;
+    left: 50%;
+    max-width: 400px;
+
+}
+#frase2 {
+    top: 10%;
+    left: 20%;
+    max-width: 900px;
+
+}
+#frase3 {
+    top: 40%;
+    left: 30%;
+    max-width: 400px;
+
+}
+#frase4 {
+    bottom: 5%;
+    left: 40%;
+    max-width: 400px;
+
+}
