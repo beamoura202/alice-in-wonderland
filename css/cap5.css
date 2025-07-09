@@ -50,7 +50,7 @@ section {
 /*                                                 cena 1 */
 #sticky-container {
     position: relative;
-    height: 900vh;
+    height: 1900vh;
     margin: 0;
     padding: 0;
     background-color: transparent;
@@ -121,7 +121,7 @@ section {
     position: absolute;
     left: 0;
     top: 110vw;
-    height: 1000vh;
+    height: 2000vh;
     width: 100vw;
     z-index: 100;
 }
@@ -323,8 +323,8 @@ section {
 #sectionfolhas {
     position: absolute;
     left: 0;
-    top: 900vh;
-    height: 1300vh;  /* Ensure this is tall enough for proper scrolling */
+    top: 1900vh;
+    height: 2000vh;  /* Ensure this is tall enough for proper scrolling */
     width: 100vw;
     z-index: 100;
 }

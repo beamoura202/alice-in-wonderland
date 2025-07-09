@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             gato.classList.add('show');
 
 
-            gatoCab.classList.add('hide');
+            gatoCab.classList.add('hidee');
 
         }
 
