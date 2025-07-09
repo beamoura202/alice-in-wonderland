@@ -5,7 +5,7 @@ body {
 
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
-    color: #eaa53eb5;
+    color: #ffab2dcf;
     overflow-x: hidden;
 }
 
@@ -136,7 +136,7 @@ section {
     bottom: 0vh; /* valor que faz aparecer em cima do container*/
     height: 2400vh; 
     width: 100vw;
-    z-index: 100;
+    z-index: 10000;
 
 }
 
@@ -160,9 +160,9 @@ section {
 
 #detalhecena1 {
     position: absolute;
-    bottom: 0vh;
+    bottom: -10vh;
     right: 0;
-    width:30vw;
+    width:35vw;
     height: auto;
 }
 
@@ -212,9 +212,9 @@ section {
 
 #detalhecena2 {
     position: absolute;
-    bottom: 0vh;
+    bottom: -10vh;
     right: 50%;
-    width: 90vw;
+    width: 110vw;
     height: auto;
     transform: translateX(50%);
 }

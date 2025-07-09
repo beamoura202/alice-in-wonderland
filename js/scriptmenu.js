@@ -70,9 +70,9 @@ for (let i = 1; i <= 12; i++) {
             // Redireciona após a animação (1200ms)
             setTimeout(() => {
                 if (i === 1) {
-                    window.location.href = 'index.html';
+                    window.location.href = 'index.html#chapter1';
                 } else {
-                    window.location.href = `cap${i}.html`;
+                    window.location.href = `cap${i}.html#chapter${i}`;
                 }
             }, 1200);
         });

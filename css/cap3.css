@@ -2,7 +2,7 @@ body {
     background-color: #433521;
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
-    color: #c7b689;
+    color: #f5e3b0;
     overflow-x: hidden;
 }
 
@@ -81,7 +81,7 @@ section {
 
 #cap3rato-img {
     position: absolute;
-    bottom: 20%;
+    bottom: 23%;
     left: 48%;
     z-index: 1;
     transition: left 0.3s ease-out, transform 0.3s ease-out; /* Transição suave */

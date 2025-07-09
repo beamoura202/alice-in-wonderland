@@ -13,12 +13,12 @@ window.addEventListener('scroll', function() {
     // Animação linear: 0 até 40% do scroll
     if (scrollProgress < 0.4) {
         const t = scrollProgress / 0.4;
-        const left = -50 + t * (15 + 50); // de -50 até 5
-        const height = 40 + t * (60 - 40); // de 40vh até 60vh
+        const left = -20 + t * (15 + 50); // de -50 até 5
+        const height = 40 + t * (80 - 40); // de 40vh até 80vh (aumenta mais)
         personagem.style.left = `${left}vw`;
         personagem.style.height = `${height}vh`;
     } else {
         personagem.style.left = '15vw';
-        personagem.style.height = '60vh';
+        personagem.style.height = '80vh'; // valor final aumentado
     }
 });
