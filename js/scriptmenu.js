@@ -9,10 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
 const menu = document.querySelector('.menu-svg');
 
 document.addEventListener('click', function(e) {
-    if (!menu.contains(e.target)) {
+    if (!menu.contains(e.target) && !menu.classList.contains('hide')) {
         menu.classList.remove('animate');
+        menu.classList.remove('hide');
+        menu.classList.remove('hide-anim');
         void menu.offsetWidth; // força reflow
-        menu.classList.add('hide');
+        menu.classList.add('hide-anim');
+        setTimeout(() => {
+            menu.classList.remove('hide-anim');
+            menu.classList.add('hide');
+        }, 1000); // 1000ms = duração da animação
     }
 });
 
@@ -96,3 +102,6 @@ function atualizaSegundos() {
 
 setInterval(atualizaSegundos, 1000); // Atualiza a cada 1 segundo
 atualizaSegundos();
+
+
+

@@ -14,7 +14,20 @@
 }
 
 .menu-svg.hide {
-    animation: menu-hide-bounce 1s ease-in-out forwards;
+    will-change: filter, transform;
+    pointer-events: auto !important;
+}
+
+.menu-svg.hide * {
+    pointer-events: none !important;
+}
+
+.menu-svg.hide:hover {
+    filter: drop-shadow(0 0 16px #ba6ae3);
+    transform: scale(1.08) !important;
+    transition: filter 0.3s, transform 0.3s !important;
+    cursor: pointer;
+    z-index: 2000;
 }
 
 @keyframes menu-drop-bounce {
@@ -29,7 +42,7 @@
 
 @keyframes menu-hide-bounce {
     0%   { transform: translateY(35vh) scale(2);}
-    40%  { transform: translateY(35vh) scale(1);}
+    40%  { transform: translateY(30vh) scale(1);}
     100% { transform: translateY(0vh) scale(1);}
 }
 
@@ -83,4 +96,39 @@
 .menu-svg g[id^="12"] .hit-area {
     fill: transparent;
     pointer-events: all;
+}
+
+/* Impede hover/click só nos números quando .hide */
+.menu-svg.hide g[id="1"],
+.menu-svg.hide g[id="2"],
+.menu-svg.hide g[id="3"],
+.menu-svg.hide g[id="4"],
+.menu-svg.hide g[id="5"],
+.menu-svg.hide g[id="6"],
+.menu-svg.hide g[id="7"],
+.menu-svg.hide g[id="8"],
+.menu-svg.hide g[id="9"],
+.menu-svg.hide g[id="10"],
+.menu-svg.hide g[id="11"],
+.menu-svg.hide g[id="12"] {
+    pointer-events: none !important;
+}
+
+.menu-svg.hide g[id="1"] .hit-area,
+.menu-svg.hide g[id="2"] .hit-area,
+.menu-svg.hide g[id="3"] .hit-area,
+.menu-svg.hide g[id="4"] .hit-area,
+.menu-svg.hide g[id="5"] .hit-area,
+.menu-svg.hide g[id="6"] .hit-area,
+.menu-svg.hide g[id="7"] .hit-area,
+.menu-svg.hide g[id="8"] .hit-area,
+.menu-svg.hide g[id="9"] .hit-area,
+.menu-svg.hide g[id="10"] .hit-area,
+.menu-svg.hide g[id="11"] .hit-area,
+.menu-svg.hide g[id="12"] .hit-area {
+    pointer-events: none !important;
+}
+
+.menu-svg.hide-anim {
+    animation: menu-hide-bounce 1s cubic-bezier(.68,-0.55,.27,1.55) forwards;
 }
