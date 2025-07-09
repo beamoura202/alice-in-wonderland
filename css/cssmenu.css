@@ -10,7 +10,7 @@
 }
 
 .menu-svg.animate {
-    animation: menu-drop-bounce 1.5s ease-in-out forwards;
+    animation: menu-drop-bounce 1.5s cubic-bezier(.77,0,.18,1) forwards;
 }
 
 .menu-svg.hide {
@@ -19,17 +19,11 @@
 
 @keyframes menu-drop-bounce {
     0%   { transform: translateY(0vh) scale(1);}
-    15%  { transform: translateY(35vh) scale(1);}
-    30%  { transform: translateY(25vh) scale(1);}
-    45%  { transform: translateY(32vh) scale(1);}
-    60%  { transform: translateY(29vh) scale(1);}
-    70%  { transform: translateY(35vh) scale(1);}
-    75%  { transform: translateY(35vh) scale(1.7);}
-    80%  { transform: translateY(35vh) scale(1.7);}
-    85%  { transform: translateY(35vh) scale(1.5);}
-    90%  { transform: translateY(35vh) scale(1.5);}
-    95%  { transform: translateY(35vh) scale(1.7);}
-    98%  { transform: translateY(35vh) scale(1.9);}
+    25%  { transform: translateY(35vh) scale(1);}
+    35%  { transform: translateY(20vh) scale(1.20);}
+    55%  { transform: translateY(35vh) scale(2.55);}
+    70%  { transform: translateY(35vh) scale(1.85);}
+    85%  { transform: translateY(35vh) scale(2.05);}
     100% { transform: translateY(35vh) scale(2);}
 }
 
@@ -71,4 +65,22 @@
 .numero-roxo path {
     fill: #ba6ae3 !important;
     stroke: #ba6ae3 !important;
+}
+
+
+
+.menu-svg g[id^="1"] .hit-area,
+.menu-svg g[id^="2"] .hit-area,
+.menu-svg g[id^="3"] .hit-area,
+.menu-svg g[id^="4"] .hit-area,
+.menu-svg g[id^="5"] .hit-area,
+.menu-svg g[id^="6"] .hit-area,
+.menu-svg g[id^="7"] .hit-area,
+.menu-svg g[id^="8"] .hit-area,
+.menu-svg g[id^="9"] .hit-area,
+.menu-svg g[id^="10"] .hit-area,
+.menu-svg g[id^="11"] .hit-area,
+.menu-svg g[id^="12"] .hit-area {
+    fill: transparent;
+    pointer-events: all;
 }

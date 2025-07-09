@@ -78,3 +78,21 @@ for (let i = 1; i <= 12; i++) {
         });
     }
 }
+
+function atualizaSegundos() {
+  const agora = new Date();
+  const segundos = agora.getSeconds();
+  // 1 volta por minuto = 6 graus por segundo (360/60)
+  const angulo = segundos * 6;
+
+  const ponteiroSegundos = document.getElementById('segundos');
+  if (ponteiroSegundos) {
+    ponteiroSegundos.setAttribute(
+      'transform',
+      'rotate(' + angulo + ' 215.76 755.28)'
+    );
+  }
+}
+
+setInterval(atualizaSegundos, 1000); // Atualiza a cada 1 segundo
+atualizaSegundos();
