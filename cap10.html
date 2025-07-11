@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alice in Wonderland - Chapter X</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
         <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&display=swap" rel="stylesheet">
@@ -189,6 +190,15 @@
   </svg>
     <div id="chapter-transition-block"></div>
 
+    <!-- Botões de teste temporários -->
+    <div style="position: fixed; top: 10px; left: 10px; z-index: 9999; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 5px;">
+        <button onclick="window.debugCap10()" style="margin: 2px; padding: 5px; background: #333; color: white; border: none; border-radius: 3px;">Debug</button>
+        <button onclick="window.forceTestCena1()" style="margin: 2px; padding: 5px; background: #006600; color: white; border: none; border-radius: 3px;">Test Cena1</button>
+        <button onclick="window.forceTestCena2()" style="margin: 2px; padding: 5px; background: #660000; color: white; border: none; border-radius: 3px;">Test Cena2</button>
+        <button onclick="window.stopAllAudio()" style="margin: 2px; padding: 5px; background: #666600; color: white; border: none; border-radius: 3px;">Stop All</button>
+        <button onclick="window.resetAllAudio()" style="margin: 2px; padding: 5px; background: #006666; color: white; border: none; border-radius: 3px;">Reset</button>
+    </div>
+
     <section id="chapter10">
         <h1>CHAPTER 10</h1>
         <h2>The Lobster Quadrille</h2>
@@ -230,7 +240,12 @@
     <script type="text/javascript" src="js/script10.js"></script>
             <script src="js/scriptmenu.js"></script>
 
-    <script>
+        <audio id="intro-audio" src="audio/cap10/cap10_intro.mp3"></audio>
+    <audio id="cena1-audio" src="audio/cap10/cap10_cena1.mp3"></audio>
+    <audio id="cena2-audio" src="audio/cap10/cap10_cena2.mp3"></audio>
+
+    <script type="text/javascript" src="js/audioScripts/audiocap10.js"></script>
+<script>
 let hasRedirected = false;
 
 // Redireciona para cap3.html ao chegar ao final do bloco colorido
