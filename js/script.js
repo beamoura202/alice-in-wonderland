@@ -192,96 +192,158 @@ function calculateOpacityTransition(currentProgress, startPoint, duration) {
 }
 
 function handlePopupAnimation(scrollProgress3) {
-    if (scrollProgress3 >= 0.8) {
-        const transitionProgress = calculateTransitionProgress(scrollProgress3, 0.8, 0.2);
+    // Reset da flag de áudio quando voltar para antes da transição
+    if (scrollProgress3 < 0.6 && window.audioTransitioned) {
+        const audioCena3 = document.getElementById('audio-cena3');
+        const audioCena4 = document.getElementById('audio-cena4');
+        
+        if (audioCena3 && audioCena4) {
+            console.log("Voltando para audio-cena3");
+            audioCena4.pause();
+            audioCena4.currentTime = 0;
+            audioCena3.play();
+            window.audioTransitioned = false;
+        }
+    }
+
+    if (scrollProgress3 >= 0.6) {
+        const transitionProgress = calculateTransitionProgress(scrollProgress3, 0.6, 0.3);
         const fundo3 = document.getElementById('fundo3-img');
         const fundo4 = document.getElementById('fundo4-img');
         
-        // Move backgrounds
-        const translateY = transitionProgress * 100;
-        fundo3.style.transform = `translateY(-${translateY}%)`;
-        fundo3.style.opacity = 1 - transitionProgress;
-        
-        if (transitionProgress >= 1) {
-            fundo4.classList.add('fixed');
-            // Só remove a classe fixed quando o scroll chegar ao fim do container
-            if (scrollProgress3 >= 0.95) {
-                fundo4.classList.remove('fixed');
-                fundo4.style.transform = 'translateY(0)';
+        // Move backgrounds (with safety checks)
+        if (fundo3 && fundo4) {
+            const translateY = transitionProgress * 100;
+            fundo3.style.transform = `translateY(-${translateY}%)`;
+            fundo3.style.opacity = 1 - transitionProgress;
+            
+            // Trocar áudio quando a transição começar (quando fundo4 começa a aparecer)
+            if (transitionProgress > 0 && !window.audioTransitioned) {
+                const audioCena3 = document.getElementById('audio-cena3');
+                const audioCena4 = document.getElementById('audio-cena4');
+                
+                if (audioCena3 && audioCena4) {
+                    console.log("Trocando de audio-cena3 para audio-cena4");
+                    audioCena3.pause();
+                    audioCena3.currentTime = 0;
+                    audioCena4.play();
+                    window.audioTransitioned = true;
+                }
             }
-        } else {
-            fundo4.classList.remove('fixed');
-            fundo4.style.transform = `translateY(${100 - translateY}%)`;
+            
+            if (transitionProgress >= 1) {
+                fundo4.classList.add('fixed');
+                // Só remove a classe fixed quando o scroll chegar ao fim do container
+                if (scrollProgress3 >= 0.95) {
+                    fundo4.classList.remove('fixed');
+                    fundo4.style.transform = 'translateY(0)';
+                }
+            } else {
+                fundo4.classList.remove('fixed');
+                fundo4.style.transform = `translateY(${100 - translateY}%)`;
+            }
+            fundo4.style.opacity = transitionProgress;
         }
-        fundo4.style.opacity = transitionProgress;
         
         // Character transition
         if (transitionProgress > 0.5) {
             const characterTransitionProgress = (transitionProgress - 0.5) * 2;
             
-            // Fade out the old character
-            document.getElementById('personagemc3-img').style.opacity = 1 - characterTransitionProgress;
+            // Fade out the old character (with safety check)
+            const personagem3 = document.getElementById('personagemc3-img');
+            if (personagem3) {
+                personagem3.style.opacity = 1 - characterTransitionProgress;
+            }
             
-            // Show and position new character
+            // Show and position new character (with safety check)
             const personagem4 = document.getElementById('personagemc4-img');
-            personagem4.style.visibility = 'visible';
-            personagem4.style.opacity = characterTransitionProgress;
-            personagem4.style.transform = 'translate(-50%, -50%)';
+            if (personagem4) {
+                personagem4.style.visibility = 'visible';
+                personagem4.style.opacity = characterTransitionProgress;
+                personagem4.style.transform = 'translate(-50%, -50%)';
+            }
             
-            // Fade out scene 3 details
-            document.getElementById('detalhesc3-img').style.opacity = 1 - characterTransitionProgress;
+            // Keep scene 3 details visible (removed fade out)
+            // document.getElementById('detalhesc3-img').style.opacity = 1 - characterTransitionProgress;
             
-            // Fade in scene 4 details
+            // Fade in scene 4 details (with safety check)
             const detalhes4 = document.getElementById('detalhesc4-img');
-            detalhes4.style.visibility = 'visible';
-            detalhes4.style.opacity = characterTransitionProgress;
+            if (detalhes4) {
+                detalhes4.style.visibility = 'visible';
+                detalhes4.style.opacity = characterTransitionProgress;
+            }
         }
         
         // Handle completion of initial transition
         if (transitionProgress >= 1) {
-            // Hide scene 3 elements
-            document.getElementById('personagemc3-img').style.visibility = 'hidden';
-            document.getElementById('detalhesc3-img').style.visibility = 'hidden';
+            // Hide scene 3 elements only during forward transition (with safety check)
+            const personagem3 = document.getElementById('personagemc3-img');
+            if (personagem3) {
+                personagem3.style.visibility = 'hidden';
+                personagem3.style.opacity = '0';
+            }
+            // Keep detalhesc3-img visible (removed hiding)
+            // document.getElementById('detalhesc3-img').style.visibility = 'hidden';
             
-            // Show scene 4 elements
-            document.getElementById('personagemc4-img').style.visibility = 'visible';
-            document.getElementById('personagemc4-img').style.opacity = '1';
-            document.getElementById('detalhesc4-img').style.visibility = 'visible';
-            document.getElementById('detalhesc4-img').style.opacity = '1';
-
-            // Add delay for popup
-            const popup = document.getElementById('detalhesc42-img');
-            const background = document.querySelector('.popup-background');
-            if (!popup.hasAttribute('data-delayed')) {
-                popup.setAttribute('data-delayed', 'true');
-                setTimeout(() => {
-                    popup.style.visibility = 'visible';
-                    popup.style.transform = 'translate(-50%, -50%) scale(1)';
-                    popup.style.opacity = '1';
-                    popup.classList.add('active');
-                    background.style.visibility = 'visible';
-                    background.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-                    background.classList.add('active');
-                }, 2000);
+            // Show scene 4 elements (with safety checks)
+            const personagem4 = document.getElementById('personagemc4-img');
+            const detalhes4 = document.getElementById('detalhesc4-img');
+            if (personagem4) {
+                personagem4.style.visibility = 'visible';
+                personagem4.style.opacity = '1';
+            }
+            if (detalhes4) {
+                detalhes4.style.visibility = 'visible';
+                detalhes4.style.opacity = '1';
+            }
+        } else {
+            // When transition is not complete, ensure scene 3 character can be visible
+            const personagem3 = document.getElementById('personagemc3-img');
+            if (personagem3 && scrollProgress3 < 0.6) {
+                // Before transition starts, make sure character can be visible
+                personagem3.style.visibility = 'visible';
+                personagem3.style.opacity = '1';
             }
         }
-        
-        // Atualizar o z-index do popup e seus elementos relacionados
-        // Garantir que o popup esteja na camada mais alta
+
+        // Add delay for popup (with safety checks) - COMENTADO para evitar conflitos de posição
         const popup = document.getElementById('detalhesc42-img');
         const background = document.querySelector('.popup-background');
-        popup.style.zIndex = '1000';
-        background.style.zIndex = '999';
+        if (popup && background && !popup.hasAttribute('data-delayed')) {
+            popup.setAttribute('data-delayed', 'true');
+            // setTimeout comentado - o popup é controlado pelo scroll progress
+            /*
+            setTimeout(() => {
+                popup.style.visibility = 'visible';
+                popup.style.transform = 'translate(-50%, -50%) scale(1)';
+                popup.style.opacity = '1';
+                popup.classList.add('active');
+                background.style.visibility = 'visible';
+                background.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                background.classList.add('active');
+            }, 2000);
+            */
+        }
         
-        // Garantir que eventos de clique funcionem
-        popup.style.pointerEvents = 'auto';
-        background.style.pointerEvents = 'none';
+        // Atualizar o z-index do popup e seus elementos relacionados (with safety checks)
+        // Garantir que o popup esteja na camada mais alta
+        const popup2 = document.getElementById('detalhesc42-img');
+        const background2 = document.querySelector('.popup-background');
+        if (popup2 && background2) {
+            popup2.style.zIndex = '1000';
+            background2.style.zIndex = '999';
+            
+            // Garantir que eventos de clique funcionem
+            popup2.style.pointerEvents = 'auto';
+            background2.style.pointerEvents = 'none';
+        }
         
     } else {
-        // Reset all elements
+        // Reset all elements (with safety checks)
         const elements = {
             'fundo3-img': { transform: 'translateY(0)', opacity: '1' },
             'fundo4-img': { transform: 'translateY(100%)', opacity: '0' },
+            'personagemc3-img': { visibility: 'visible', opacity: '1' },
             'personagemc4-img': { transform: 'translate(-50%, 100%)', visibility: 'hidden', opacity: '0' },
             'detalhesc4-img': { transform: 'translateY(100%)', visibility: 'hidden', opacity: '0' }
         };
@@ -296,60 +358,80 @@ function handlePopupAnimation(scrollProgress3) {
         });
     }
     
-    // Popup aparece apenas após um scroll adicional (0.85 a 0.95)
+    // Popup aparece mais cedo (0.65 a 0.75) (with safety checks)
     const popup = document.getElementById('detalhesc42-img');
     const background = document.querySelector('.popup-background');
     
-    if (scrollProgress3 >= 0.85 && scrollProgress3 <= 0.95) {
-        const popupProgress = (scrollProgress3 - 0.85) / 0.1;
+    if (popup && background) {
+        // Garantir posição fixa do popup - sempre centralizado
+        const baseTransform = 'translate(-50%, -50%)';
         
-        popup.style.visibility = 'visible';
-        background.style.visibility = 'visible';
-        
-        const scaleValue = Math.min(popupProgress, 1) * 1;
-        popup.style.transform = `translate(-50%, -50%) scale(${scaleValue})`;
-        popup.style.opacity = Math.min(popupProgress, 1);
-        
-        background.style.backgroundColor = `rgba(0, 0, 0, ${Math.min(popupProgress * 0.5, 0.5)})`;
-        
-        if (popupProgress >= 1) {
+        if (scrollProgress3 >= 0.65 && scrollProgress3 <= 0.75) {
+            const popupProgress = (scrollProgress3 - 0.65) / 0.1;
+            
+            popup.style.visibility = 'visible';
+            background.style.visibility = 'visible';
+            
+            const scaleValue = Math.min(popupProgress, 1) * 1;
+            popup.style.transform = ` scale(${scaleValue})`;
+            popup.style.opacity = Math.min(popupProgress, 1);
+            
+            // Garantir posição fixa
+            popup.style.left = '10vw';
+            popup.style.top = '20%';
+            popup.style.position = 'absolute';
+            
+            background.style.backgroundColor = `rgba(0, 0, 0,0)`;
+            
+            if (popupProgress >= 1) {
+                popup.classList.add('active');
+                background.classList.add('active');
+            } else {
+                popup.classList.remove('active');
+                background.classList.remove('active');
+            }
+        } else if (scrollProgress3 > 0.75) {
+            // Manter popup visível com posição fixa
+            popup.style.visibility = 'visible';
+            popup.style.transform = `scale(1)`;
+            popup.style.opacity = '1';
             popup.classList.add('active');
+            
+            // Garantir posição fixa
+            popup.style.left = '10vw';
+            popup.style.top = '20%';
+            popup.style.position = 'absolute';
+            
+            background.style.visibility = 'visible';
+            background.style.backgroundColor = 'rgba(0, 0, 0, 0)';
             background.classList.add('active');
         } else {
+            // Esconder popup
+            popup.style.visibility = 'hidden';
+            popup.style.transform = ` scale(0)`;
+            popup.style.opacity = '0';
             popup.classList.remove('active');
+            
+            background.style.visibility = 'hidden';
+            background.style.backgroundColor = 'rgba(0, 0, 0, 0)';
             background.classList.remove('active');
         }
-    } else if (scrollProgress3 > 0.95) {
-        // Manter popup visível
-        popup.style.visibility = 'visible';
-        popup.style.transform = 'translate(-50%, -50%) scale(1)';
-        popup.style.opacity = '1';
-        popup.classList.add('active');
-        
-        background.style.visibility = 'visible';
-        background.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        background.classList.add('active');
-    } else {
-        // Esconder popup
-        popup.style.visibility = 'hidden';
-        popup.style.transform = 'translate(-50%, -50%) scale(0)';
-        popup.style.opacity = '0';
-        popup.classList.remove('active');
-        
-        background.style.visibility = 'hidden';
-        background.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-        background.classList.remove('active');
     }
     
-    // Frase aparece só depois do popup completamente visível (0.95 a 1.0)
+    // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+    /*
+    // Frase aparece logo após o popup (0.75 a 0.8) (with safety check)
     const frase3 = document.getElementById('frasec3');
     
-    if (scrollProgress3 >= 0.95) {
-        const fraseProgress = (scrollProgress3 - 0.95) / 0.05;
-        frase3.style.opacity = Math.min(fraseProgress, 1);
-    } else {
-        frase3.style.opacity = '0';
+    if (frase3) {
+        if (scrollProgress3 >= 0.75) {
+            const fraseProgress = (scrollProgress3 - 0.75) / 0.05;
+            frase3.style.opacity = Math.min(fraseProgress, 1);
+        } else {
+            frase3.style.opacity = '0';
+        }
     }
+    */
 }
 
 // Add this before your existing code
@@ -359,11 +441,18 @@ function showPopup() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Definir altura do sticky-container-2
+    const stickyContainer2 = document.getElementById('sticky-container-2');
+    if (stickyContainer2) {
+        stickyContainer2.style.height = '2500vh';
+    }
+    
     // Código para a cena 1 (mantido como estava)
     window.addEventListener('scroll', () => {
         const detalhesImg = document.getElementById('detalhes-img');
         const coelhoImg = document.getElementById('coelho-img');
-        const fraseElement = document.getElementById('frase');
+        // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+        // const fraseElement = document.getElementById('frase');
         const stickyContainer = document.getElementById('sticky-container');
         
         // Obter posição e dimensões do container
@@ -412,7 +501,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 coelhoImg.style.bottom = '-50%';
                 coelhoImg.style.opacity = '0';
-                fraseElement.style.opacity = '0';
+                // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                // fraseElement.style.opacity = '0';
             } 
             else if (scrollProgress <= 0.5) {
                 detalhesImg.style.transform = 'translateY(-50%) translateX(0)';
@@ -426,7 +516,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let coelhoOpacity = Math.min(coelhoProgress * 1.5, 1);
                 coelhoImg.style.opacity = coelhoOpacity.toFixed(2);
                 
-                fraseElement.style.opacity = '0';
+                // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                // fraseElement.style.opacity = '0';
             }
             else if (scrollProgress <= 0.75) {
                 detalhesImg.style.transform = 'translateY(-50%) translateX(0)';
@@ -434,15 +525,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 coelhoImg.style.bottom = '20%';
                 coelhoImg.style.opacity = '1';
                 
-                let fraseProgress = (scrollProgress - 0.5) * 4;
-                fraseElement.style.opacity = fraseProgress.toFixed(2);
+                // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                // let fraseProgress = (scrollProgress - 0.5) * 4;
+                // fraseElement.style.opacity = fraseProgress.toFixed(2);
             }
             else {
                 detalhesImg.style.transform = 'translateY(-50%) translateX(0)';
                 detalhesImg.style.opacity = '1';
                 coelhoImg.style.bottom = '20%';
                 coelhoImg.style.opacity = '1';
-                fraseElement.style.opacity = '1';
+                // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                // fraseElement.style.opacity = '1';
             }
             
         } else if (containerTop <= -scrollableSpace) {
@@ -450,13 +543,15 @@ document.addEventListener('DOMContentLoaded', () => {
             detalhesImg.style.opacity = '1';
             coelhoImg.style.bottom = '20%';
             coelhoImg.style.opacity = '1';
-            fraseElement.style.opacity = '1';
+            // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+            // fraseElement.style.opacity = '1';
         } else {
             detalhesImg.style.transform = 'translateY(-50%) translateX(-100%)';
             detalhesImg.style.opacity = '0';
             coelhoImg.style.bottom = '-50%';
             coelhoImg.style.opacity = '0';
-            fraseElement.style.opacity = '0';
+            // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+            // fraseElement.style.opacity = '0';
         }
 
         // -------- CENA 2 - Personagem descendo com o scroll -------- //
@@ -476,6 +571,22 @@ document.addEventListener('DOMContentLoaded', () => {
             // Container da cena 2 está visível e há espaço para scroll
             const scrollProgress2 = Math.abs(container2Top) / scrollableSpace2;
             
+            // Controlar áudio da cena 2 - iniciar quando entrar na cena
+            if (!window.cena2AudioStarted) {
+                const audioCena2 = document.getElementById('audio-cena2');
+                const audioCena1 = document.getElementById('audio-cena1');
+                
+                if (audioCena2) {
+                    console.log("Iniciando audio-cena2");
+                    if (audioCena1) {
+                        audioCena1.pause();
+                        audioCena1.currentTime = 0;
+                    }
+                    audioCena2.play();
+                    window.cena2AudioStarted = true;
+                }
+            }
+            
             // Fazer a personagem aparecer quando entrar na cena 2
             if (scrollProgress2 > 0.05) { // Pequeno atraso antes de mostrar
                 personagemImg.style.opacity = '1';
@@ -483,9 +594,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 personagemImg.style.opacity = '0';
             }
             
-            // Posição vertical da personagem - vindo de cima para baixo
+            // Posição vertical da personagem - vindo de cima para baixo com easing
             // Começar fora da tela (top: -50%) e mover para o centro (top: 50%)
-            const topPosition = -50 + (scrollProgress2 * 100);
+            const easedProgress = easeOutQuad(scrollProgress2); // Aplicar easing para movimento mais natural
+            const topPosition = -50 + (easedProgress * 100);
             
             // Limitamos a posição para que não desça abaixo do centro da tela
             const finalTopPosition = Math.min(topPosition, 50);
@@ -568,6 +680,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Text animation - appears in middle of scroll and stays
+            // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+            /*
             const fraseElement2 = document.getElementById('frasec2');
             if (scrollProgress2 > 0.4 && scrollProgress2 < 0.6) {
                 // Fade in during the middle portion
@@ -580,6 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Hidden before middle
                 fraseElement2.style.opacity = '0';
             }
+            */
         } else if (container2Top <= -scrollableSpace2) {
             // Já scrollou além do container da cena 2
             personagemImg.style.opacity = '1';
@@ -591,7 +706,8 @@ document.addEventListener('DOMContentLoaded', () => {
             backgroundImg.style.transform = `translateY(-${maxBgShift}%)`;
 
             // Keep text visible at end of scene
-            document.getElementById('frasec2').style.opacity = '1';
+            // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+            // document.getElementById('frasec2').style.opacity = '1';
         } else {
             // Ainda não chegou ao container da cena 2
             personagemImg.style.opacity = '0';
@@ -599,12 +715,25 @@ document.addEventListener('DOMContentLoaded', () => {
             personagemImg.style.transform = 'translateX(-50%) translateY(-50%)';
             backgroundImg.style.transform = 'translateY(0)';
 
+            // Reset do áudio quando sair da cena 2
+            if (window.cena2AudioStarted) {
+                const audioCena2 = document.getElementById('audio-cena2');
+                
+                if (audioCena2) {
+                    audioCena2.pause();
+                    audioCena2.currentTime = 0;
+                    console.log("Saindo da cena 2 - parando áudio");
+                }
+                window.cena2AudioStarted = false;
+            }
+
             // Reset when above viewport
-            document.getElementById('frasec2').style.opacity = '0';
+            // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+            // document.getElementById('frasec2').style.opacity = '0';
         }
 
         // -------- CENA 3 - Detalhes com animação -------- //
-        const stickyContainer3 = document.getElementById('sticky-container-3');
+        const stickyContainer3 = document.getElementById('sticky-container3');
         const container3Rect = stickyContainer3.getBoundingClientRect();
         const container3Top = container3Rect.top;
         const container3Height = stickyContainer3.offsetHeight;
@@ -614,24 +743,70 @@ document.addEventListener('DOMContentLoaded', () => {
             const scrollProgress3 = Math.abs(container3Top) / scrollableSpace3;
             const personagem = document.getElementById('personagemc3-img');
 
-            // Controla o fade-in do personagem a partir dos 45% do scroll da cena 3
-            if (scrollProgress3 < 0.45) {
-                personagem.classList.remove('visible');
-                personagem.style.opacity = '0';
-            } else if (scrollProgress3 < 0.95) {
-                // Calcula o progresso de 0 a 1 entre 45% e 95%
-                const progress = (scrollProgress3 - 0.45) / 0.5;
-                personagem.classList.add('visible');
-                personagem.style.opacity = progress;
+            // Controlar áudio da cena 3 - iniciar quando entrar na cena
+            if (!window.cena3AudioStarted) {
+                const audioCena3 = document.getElementById('audio-cena3');
+                const audioCena2 = document.getElementById('audio-cena2');
+                
+                if (audioCena3) {
+                    console.log("Iniciando audio-cena3");
+                    if (audioCena2) {
+                        audioCena2.pause();
+                        audioCena2.currentTime = 0;
+                    }
+                    audioCena3.play();
+                    window.cena3AudioStarted = true;
+                    window.cena2AudioStarted = false; // Reset da flag da cena 2
+                    window.audioTransitioned = false; // Reset da flag de transição
+                }
+            }
+
+            // Controla o personagem da cena 3 - sempre visível quando na cena
+            const detalhesc3 = document.getElementById('detalhesc3-img');
+            // Personagem sempre visível quando estamos na cena 3
+            personagem.classList.add('visible');
+            personagem.style.opacity = '1';
+            personagem.style.visibility = 'visible'; // Garantir que está visível
+            
+            // Mesa aparece quase imediatamente - resetando transformações
+            detalhesc3.style.transform = 'scale(1)'; // Reset any scale
+            detalhesc3.style.filter = 'none'; // Reset any filters
+            
+            if (scrollProgress3 < 0.05) {
+                // 0% - 5%: Completamente invisível (preparando para animação)
+                detalhesc3.style.opacity = '0';
+                detalhesc3.style.visibility = 'visible'; // Mantém visível para animação
             } else {
-                personagem.classList.add('visible');
-                personagem.style.opacity = '1';
+                // 5% +: Animação controlada no código abaixo
+                detalhesc3.style.visibility = 'visible';
             }
         } else {
-            // Esconde o personagem quando está fora da cena 3
+            // Quando fora da cena 3, esconde o personagem temporariamente e para áudios
             const personagem = document.getElementById('personagemc3-img');
-            personagem.classList.remove('visible');
-            personagem.style.opacity = '0';
+            if (personagem) {
+                personagem.classList.remove('visible');
+                personagem.style.opacity = '0';
+                // NÃO definir visibility = 'hidden' para permitir reaparecimento
+            }
+
+            // Reset dos áudios quando sair da cena 3
+            if (window.cena3AudioStarted) {
+                const audioCena3 = document.getElementById('audio-cena3');
+                const audioCena4 = document.getElementById('audio-cena4');
+                
+                if (audioCena3) {
+                    audioCena3.pause();
+                    audioCena3.currentTime = 0;
+                }
+                if (audioCena4) {
+                    audioCena4.pause();
+                    audioCena4.currentTime = 0;
+                }
+                
+                window.cena3AudioStarted = false;
+                window.audioTransitioned = false;
+                console.log("Saindo da cena 3 - parando áudios");
+            }
         }
 
         if (container3Top <= 0 && container3Top > -scrollableSpace3) {
@@ -728,13 +903,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Initialize details visibility
-            if (scrollProgress3 < 0.4) {
-                detalhesc3.style.visibility = 'hidden';
-            } else {
-                detalhesc3.style.visibility = 'visible';
+            // Mesa visibility é controlada no código acima
+            // Animação da mesa ultra rápida com fade-in
+            
+            // Mesa animation - ultra rápida (5% to 9% of scroll)
+            if (scrollProgress3 > 0.05 && scrollProgress3 < 0.09) {
+                const detailsProgress = (scrollProgress3 - 0.05) / 0.04; // 5% to 9% (ultra rápida)
+                const easedProgress = easeOutElasticExaggerated(detailsProgress);
+                
+                // Scale from 0.1 to 1.5 then back to 1
+                const scale = 0.1 + (easedProgress * 1.4);
+                
+                // Fade-in opacity from 0 to 1
+                const opacity = detailsProgress;
+                
+                detalhesc3.style.transform = `scale(${scale})`;
+                detalhesc3.style.opacity = opacity;
+                
+                // Shadow effect durante animação - mais intenso e dramático
+                const shadowIntensity = Math.sin(detailsProgress * Math.PI) * 100;
+                detalhesc3.style.filter = `drop-shadow(0px ${shadowIntensity}px ${shadowIntensity/2}px rgba(0,0,0,0.8))`;
+            } else if (scrollProgress3 >= 0.09) {
+                // Keep details in final state after animation
+                detalhesc3.style.transform = 'scale(1)';
+                detalhesc3.style.opacity = '1';
+                detalhesc3.style.filter = 'none';
             }
-
+            // Comentado para evitar conflito:
+            /*
             // Details animation (starts at 40% of scroll)
             if (scrollProgress3 > 0.4 && scrollProgress3 < 0.8) {
                 const detailsProgress = (scrollProgress3 - 0.4) / 0.4;
@@ -760,7 +956,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 detalhesc3.style.opacity = '1';
                 detalhesc3.style.filter = 'none';
             }
+            */
 
+            // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+            /*
             // Fade in frase3 when scrollProgress3 is between 0.3 and 0.4
             if (scrollProgress3 > 0.3 && scrollProgress3 < 0.4) {
                 const fraseProgress = (scrollProgress3 - 0.3) / 0.1;
@@ -770,15 +969,17 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.getElementById('frasec3').style.opacity = '0';
             }
+            */
 
             // Transition to scene 4
             handlePopupAnimation(scrollProgress3);
 
             // Inside your scroll event listener, where you handle the popup animation
             if (scrollProgress3 >= 0.6) {
-                const popupProgress = calculateTransitionProgress(scrollProgress3, 0.8, 0.2);
+                const popupProgress = calculateTransitionProgress(scrollProgress3, 0.6, 0.3);
                 const popup = document.getElementById('detalhesc42-img');
-                const frase3 = document.getElementById('frasec3');
+                // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                // const frase3 = document.getElementById('frasec3');
                 
                 if (popupProgress > 0) {
                     popup.style.visibility = 'visible';
@@ -786,22 +987,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (popupProgress >= 1) {
                         popup.classList.add('active');
                         
+                        // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                        /*
                         // Add delay before showing frase3
                         setTimeout(() => {
                             frase3.style.opacity = '1';
-                        }, 500); // 500ms delay zafter popup is active
+                        }, 500); // 500ms delay after popup is active
+                        */
                     }
                 }
             } else {
                 const popup = document.getElementById('detalhesc42-img');
-                const frase3 = document.getElementById('frasec3');
+                // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                // const frase3 = document.getElementById('frasec3');
                 popup.classList.remove('active');
                 popup.style.visibility = 'hidden';
-                frase3.style.opacity = '0';
+                // COMENTADO: Agora controlado pelo áudio em audiocap1.js
+                // frase3.style.opacity = '0';
             }
 
             // Inside your scroll event listener, after the details transition completes
-            if (scrollProgress3 >= 0.9) { // Adjust this value as needed
+            if (scrollProgress3 >= 0.7) { // Adjusted for earlier transition
                 const popup = document.getElementById('detalhesc42-img');
                 if (!popup.classList.contains('active')) {
                     setTimeout(showPopup, 500); // Add a small delay
@@ -843,11 +1049,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             // ...existing code...
         } else {
-            // Reset both elements when outside scene
-            document.getElementById('personagemc3-img').style.opacity = '0';
-            const detalhesc3 = document.getElementById('detalhesc3-img');
-            detalhesc3.style.opacity = '0';
-            detalhesc3.style.visibility = 'hidden';
+            // Reset character when outside scene 3 but allow it to reappear when returning
+            const personagem3 = document.getElementById('personagemc3-img');
+            if (personagem3) {
+                personagem3.style.opacity = '0';
+                personagem3.classList.remove('visible');
+            }
+            // Keep the table (detalhesc3-img) visible after leaving scene 3
+            // const detalhesc3 = document.getElementById('detalhesc3-img');
+            // detalhesc3.style.opacity = '0';
+            // detalhesc3.style.visibility = 'hidden';
         }
     });
     
@@ -879,7 +1090,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Definir altura do container com base na imagem e viewport
             // Usamos 2 * viewport + altura ajustada para garantir espaço suficiente para o efeito
             const alturaContainer = (2 * window.innerHeight) + alturaAjustada;
-            stickyContainer2.style.height = alturaContainer + 'px';
+            // COMENTADO: A altura agora é definida estaticamente no início
+            // stickyContainer2.style.height = alturaContainer + 'px';
             
             // Ajustar o estilo do fundo2-img para exibir a imagem completa
             fundo2Img.style.height = alturaAjustada + 'px';
@@ -901,13 +1113,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Executar no carregamento e ao redimensionar a janela
-    ajustarAlturaContainer2();
-    window.addEventListener('resize', ajustarAlturaContainer2);
+    // COMENTADO: A altura agora é definida estaticamente no início
+    // ajustarAlturaContainer2();
+    // window.addEventListener('resize', ajustarAlturaContainer2);
 
     // Add scene 4 setup function
     function setupScene4() {
-        const stickyContainer3 = document.getElementById('sticky-container-3');
+        const stickyContainer3 = document.getElementById('sticky-container');
         const stickyContainer4 = document.getElementById('sticky-container-4');
         
         if (stickyContainer3 && stickyContainer4) {
