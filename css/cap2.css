@@ -157,35 +157,52 @@ position: absolute;
 }
 
 
-#cap2cena1frase1,#cap2cena1frase2{
+#cap2cena1frase1, #cap2cena1frase2, #cap2cena1frase3, #cap2cena3frase1, #cap2cena3frase2, #cap2cena3frase3 {
+
     position: absolute;
-    top: 20%;  /* Posicionado no topo da tela */
-    right: 10%;  /* Alinhado à direita */
-    
     max-width: 400px;
     font-size: 2.2rem;
     font-family: "adobe-caslon-pro", serif;
     font-style: italic;
     font-weight: 400;
-    color: #fff;  /* Texto branco para melhor contraste */
-    opacity: 0;  /* Inicialmente invisível */
-    transition: opacity 0.5s ease-out;  /* Apenas transição de opacidade */
-    z-index: 10;  /* Acima das outras imagens */
-}
-
-
-.message {
-    position: absolute;
-    color: white;
-    font-size: 2rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    color: #fff;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
     z-index: 10;
+    pointer-events: none; /* Evita interferência com interações */
 }
+
+#cap2cena1frase1 {
+    top: 20%;
+    right: 10%;
+}
+
 #cap2cena1frase2 {
     top: 80%;
-    right: 20%;  
+    right: 20%;
 }
+#cap2cena1frase3 {
+    top: 50%;
+    left: 15%;
+}
+
+
+#cap2cena3frase1 {
+    top: 15%;
+    left: 20%;
+}
+
+#cap2cena3frase2 {
+    top: 60%;
+    left: 30%;
+}
+#cap2cena3frase3 {
+    top: 40%;
+    right: 20%;
+}
+
+
 #cap2cena2 {
     margin-top: 0; /* Remove negative margin */
 }
@@ -278,10 +295,10 @@ width: 100%;
 
 #sticky-container-3 {
     position: relative;
-    height: 350vh; /* Reduced from 600vh to make the transition smoother */
+    height: 1000vh; /* Reduced from 600vh to make the transition smoother */
     margin: 0;
     padding: 0;
-    z-index: 10000;
+    z-index: 100;
 }
 
 .floating-bottle {
@@ -333,5 +350,10 @@ width: 100%;
 #next-chapter-block {
     height: 300vh;
     background: #433521; /* Escolha a cor do próximo capítulo */
+    width: 100vw;
+}
+#space {
+    height: 800vh;
+    background: #21486d; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }

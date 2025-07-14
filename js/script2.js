@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const container2 = document.getElementById('sticky-container-2');
     const container3 = document.getElementById('sticky-container-3');
     const aliceImage = document.getElementById('cap2cena1alice-img');
-    const frase1 = document.getElementById('cap2cena1frase1');
-    const frase2 = document.getElementById('cap2cena1frase2');
     const detalhes2 = document.getElementById('cena2detalhes');
     const detalhes3 = document.getElementById('cena3detalhes');
     const fundo2 = document.getElementById('fundo-img2');
@@ -72,20 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const scale = initialScale + (progress * 2);
             
             aliceImage.style.transform = `translateX(-50%) scale(${scale})`;
-            
-            // Text animations
-            if (progress > 0.3) {
-                frase1.style.opacity = '1';
-            } else {
-                frase1.style.opacity = '0';
-            }
-            
-            if (progress > 0.6) {
-                frase2.style.opacity = '1';
-                frase1.style.opacity = '0';
-            } else if (progress <= 0.6) {
-                frase2.style.opacity = '0';
-            }
         }
         
         // Handle container transitions
