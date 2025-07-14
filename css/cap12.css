@@ -177,7 +177,15 @@ section {
     z-index: 100;
     transition: left 0.5s linear;
 }
-
+#important {
+    position: absolute;
+    bottom: 0vh;
+    right: 0vw; /* Começa fora da tela à esquerda */
+    width: 50vw;
+    height: auto;
+    z-index: 100;
+    transition: left 0.5s linear;
+}
 
 /*------------------------------------------------------------------------cena2-------------------------------- */
 
@@ -374,18 +382,17 @@ section {
 
 /*------------------------------------------------------------------------cena4-------------------------------- */
 #cartas-container {
-    background-color:#1403128f;
     position: absolute;
     left: 0;
-   top: 3300vh;
-    height: 300vh;
+   top: 3200vh;
+    height: 350vh;
     width: 100vw;
     z-index: 100;
 
 }
 
 #cartasdiv {
-    position: sticky;
+    position: fixed;
     top: 0vh;
     /* 40% */
     height: 100vh;
@@ -408,21 +415,41 @@ section {
 #cartaesq {
     position: absolute;
     top: 0vh;
-    right:0vw;
+    right: -100vw; /* Inicialmente fora do ecrã à direita */
     height: 100vh;
     width: auto;
     z-index: 100;
-    transition: none;
+    transition: right 0.8s ease-out, transform 0.3s ease-out;
+    transform: scale(1);
 }
 
 #cartadir {
     position: absolute;
     top: 0vh;
-    left:0vw;
+    left: -100vw; /* Inicialmente fora do ecrã à esquerda */
     height: 100vh;
     width: auto;
     z-index: 100;
-    transition: none;
+    transition: left 0.8s ease-out, transform 0.3s ease-out;
+    transform: scale(1);
+}
+
+/* Posições finais das cartas quando visíveis */
+#cartaesq.visible {
+    right: 0vw;
+}
+
+#cartadir.visible {
+    left: 0vw;
+}
+
+/* Posições quando as cartas saem do ecrã */
+#cartaesq.hidden {
+    right: -20vw; /* Afasta-se ligeiramente para fora do ecrã à direita */
+}
+
+#cartadir.hidden {
+    left: -20vw; /* Afasta-se ligeiramente para fora do ecrã à esquerda */
 }
 
 #alicecena4{

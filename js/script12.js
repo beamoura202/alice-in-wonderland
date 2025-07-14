@@ -172,14 +172,76 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Ativa/desativa efeito conforme scroll do cartas-container
-    const cartasContainer = document.getElementById('sticky-container3');
+    const cartasContainer = document.getElementById('cartas-container');
+    const stickyContainer3 = document.getElementById('sticky-container3');
+    const cartaEsq = document.getElementById('cartaesq');
+    const cartaDir = document.getElementById('cartadir');
+    
     window.addEventListener('scroll', () => {
-        if (!cartasContainer) return;
-        const rect = cartasContainer.getBoundingClientRect();
+        if (!cartasContainer || !stickyContainer3) return;
+        const rectCartas = cartasContainer.getBoundingClientRect();
+        const rectSticky3 = stickyContainer3.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-        const cartasHeight = cartasContainer.offsetHeight;
+        const containerHeight = cartasContainer.offsetHeight;
+
+        // Verifica se o topo do sticky-container3 está a 50vh do topo da viewport
+        const sticky3At50vh = rectSticky3.top <= windowHeight * 0.5;
+
+        // Verifica se o cartas-container está visível na viewport
+        if (rectCartas.top <= windowHeight && rectCartas.bottom >= 0) {
+            // Calcula o progresso do scroll dentro do container (0 a 1)
+            const scrollTop = Math.max(0, windowHeight - rectCartas.top);
+            const progress = Math.min(1, scrollTop / containerHeight);
+            
+            // Calcula o scale baseado no progresso (de 1 a 2)
+            const scale = 1 + (progress * 1); // 1 + (0 a 1) * 1 = 1 a 2
+            
+            if (sticky3At50vh) {
+                // Se sticky-container3 está a 50vh, recua as cartas
+                if (cartaEsq) {
+                    cartaEsq.classList.remove('visible');
+                    cartaEsq.classList.add('hidden');
+                }
+                if (cartaDir) {
+                    cartaDir.classList.remove('visible');
+                    cartaDir.classList.add('hidden');
+                }
+            } else {
+                // Se sticky-container3 não está a 50vh, mostra as cartas com scale
+                if (cartaEsq) {
+                    cartaEsq.classList.add('visible');
+                    cartaEsq.classList.remove('hidden');
+                    cartaEsq.style.transform = `scale(${scale})`;
+                }
+                if (cartaDir) {
+                    cartaDir.classList.add('visible');
+                    cartaDir.classList.remove('hidden');
+                    cartaDir.style.transform = `scale(${scale})`;
+                }
+            }
+        } else if (rectCartas.top > windowHeight) {
+            // Se o container ainda não entrou na viewport, garante que as cartas estão escondidas
+            if (cartaEsq) {
+                cartaEsq.classList.remove('visible');
+                cartaEsq.classList.remove('hidden');
+                cartaEsq.style.transform = 'scale(1)';
+            }
+            if (cartaDir) {
+                cartaDir.classList.remove('visible');
+                cartaDir.classList.remove('hidden');
+                cartaDir.style.transform = 'scale(1)';
+            }
+        }
+    });
+
+    // Efeito de distorção para o sticky-container3
+    window.addEventListener('scroll', () => {
+        if (!stickyContainer3) return;
+        const rect = stickyContainer3.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const stickyHeight = stickyContainer3.offsetHeight;
         const scrollTop = Math.max(0, windowHeight - rect.top);
-        const progress = Math.min(1, scrollTop / cartasHeight);
+        const progress = Math.min(1, scrollTop / stickyHeight);
 
         // Ativa efeito de distorção quando chega mais cedo no scroll
         if (progress >= 0.3) { // Começa mais cedo

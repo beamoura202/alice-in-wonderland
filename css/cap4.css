@@ -157,6 +157,7 @@ transform-origin: left center;
     height: 50vh;
     width: auto;
     z-index: 2;
+    transition: transform 0.3s ease;
 }
 .details-image {
     position: absolute;
@@ -279,10 +280,10 @@ width: 100vw;
  z-index: 100;
 }
 #arvore {
-position: sticky;
+position: fixed;
 top: 0%;/* 40% */
 height:100vh;  
-width: auto;   
+width: 100vw;   
  z-index: 0;
 }
 #divarvore {
@@ -345,8 +346,8 @@ width: auto;
     bottom: 0;
     height: 150vh;
     width: auto;
-    opacity: 1;
-    transform: translateX(0);
+    opacity: 0;
+    transform: translateX(-100%);
     transition: all 1s ease-in-out;
 }
 
@@ -356,18 +357,28 @@ width: auto;
     bottom: 0;
     height: 150vh;
     width: auto;
-    opacity: 1;
-    transform: translateX(0);
+    opacity: 0;
+    transform: translateX(100%);
     transition: all 1s ease-in-out;
 }
 
-.slide-left.active {
-    transform: translateX(-150%);
+.slide-left.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-right.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-left.hide {
+    transform: translateX(-100%);
     opacity: 0;
 }
 
-.slide-right.active {
-    transform: translateX(150%);
+.slide-right.hide {
+    transform: translateX(100%);
     opacity: 0;
 }
 
@@ -528,6 +539,19 @@ width: auto;
     animation-fill-mode: forwards, forwards;
 }
 
+.hand-move-left {
+    animation: handMoveLeft 1s ease-in-out forwards;
+}
+
+@keyframes handMoveLeft {
+    0% {
+        left: -50%;
+    }
+    100% {
+        left: -80%;
+    }
+}
+
 /* Novo código para o lagarto na cena 3 */
 #lizard-container {
     position: fixed;
@@ -537,16 +561,56 @@ width: auto;
     height: 100vh;
     z-index: 100;
     pointer-events: none;
+    opacity: 0; /* Initial state - invisible */
+    transition: opacity 0.1s ease; /* Smooth transition for opacity changes */
 }
 
 #cap4cena3lagarto-img {
     position: absolute;
     left: 50%;
-    bottom: -100px;
+    bottom: -100vh;
     height: 45vh;
     width: auto;
     transform: translateX(-50%);
+    transform-origin: center center; /* Centro da imagem como ponto de rotação */
     z-index: 100;
+    transition: none; /* Remove any default transitions */
+}
+
+/* Animação do lagarto em trajetória linear com curvas de baixo para cima */
+#cap4cena3lagarto-img.lizard-s-up {
+    animation: lizardLinearUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Animação do lagarto em trajetória linear invertida de cima para baixo */
+#cap4cena3lagarto-img.lizard-s-down {
+    animation: lizardLinearDown 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes lizardLinearUp {
+    0% {
+        left: 50%;
+        bottom: -100vh;
+        transform: translateX(-50%) rotate(0deg) scale(1);
+    }
+    100% {
+        left: 50%;
+        bottom: 150vh;
+        transform: translateX(-50%) rotate(0deg) scale(1);
+    }
+}
+
+@keyframes lizardLinearDown {
+    0% {
+        left: 50%;
+        bottom: 150vh;
+        transform: translateX(-50%) scaleX(-1) scaleY(-1) scale(1.5) rotate(0deg);
+    }
+    100% {
+        left: 50%;
+        bottom: -50vh;
+        transform: translateX(-50%) scaleX(-1) scaleY(-1) scale(1.5) rotate(0deg);
+    }
 }
 
 

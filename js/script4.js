@@ -1,4 +1,10 @@
+// Global variables for hand animation
+let handTimeout = null;
+let treesAreVisible = false;
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('[DEBUG] DOM Content Loaded - Starting initialization');
+    
     // Get references to the elements
     const cap4cena1 = document.getElementById('cap4cena1');
     const backgroundImage = document.querySelector('#cap4cena1 .background-image');
@@ -95,8 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('sticky-container');
         const details1 = document.getElementById('cap4cena1detalhes1-img');
         const details2 = document.getElementById('cap4cena1detalhes2-img');
+        const alice = document.getElementById('cap4alice-img');
         
-        if (container && details1 && details2) {
+        if (container && details1 && details2 && alice) {
             const containerRect = container.getBoundingClientRect();
             const containerHeight = container.offsetHeight - window.innerHeight;
             const scrollProgress = Math.abs(containerRect.top) / containerHeight;
@@ -108,10 +115,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 details1.style.transform = `scale(${scale})`;
                 details2.style.transform = `scale(${scale})`;
+                
+                // Move Alice upward as the details shrink
+                // Calculate the upward movement: 0 to -15vh as scale goes from 1.0 to 0.5
+                const moveUpAmount = scaleProgress * 15; // 0 to 15vh upward movement
+                alice.style.transform = `translateY(-${moveUpAmount}vh)`;
             } else {
-                // Reset scale
+                // Reset scale and position
                 details1.style.transform = 'scale(1)';
                 details2.style.transform = 'scale(1)';
+                alice.style.transform = 'translateY(0)';
             }
         }
     });
@@ -121,45 +134,175 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Replace the existing scroll event listener for trees
     window.addEventListener('scroll', () => {
-        const sectionArvore = document.getElementById('sectionarvore');
-        if (sectionArvore) {
-            const rect = sectionArvore.getBoundingClientRect();
-            const scrollEnd = rect.top + rect.height;
-            const viewportHeight = window.innerHeight;
+        const stickyContainer = document.getElementById('sticky-container');
+        const stickyContainer2 = document.getElementById('sticky-container2');
+        
+        if (stickyContainer && stickyContainer2) {
+            // Calculate scroll progress for sticky-container (for showing trees)
+            const containerRect = stickyContainer.getBoundingClientRect();
+            const containerHeight = stickyContainer.offsetHeight - window.innerHeight;
+            const scrollProgress = Math.abs(containerRect.top) / containerHeight;
             
-            const distanceToEnd = scrollEnd - viewportHeight;
+            // Calculate scroll progress for sticky-container2 (for hiding trees)
+            const container2Rect = stickyContainer2.getBoundingClientRect();
+            const container2Height = stickyContainer2.offsetHeight - window.innerHeight;
+            const scrollProgress2 = Math.abs(container2Rect.top) / container2Height;
+            
             const leftTree = document.querySelector('.slide-left');
             const rightTree = document.querySelector('.slide-right');
             const house = document.getElementById('cap4cena2casa-img');
+            const handImg = document.getElementById('cap4cena2mao-img');
             
             if (leftTree && rightTree && house) {
-                if (distanceToEnd <= 100) {
-                    leftTree.classList.add('active');
-                    rightTree.classList.add('active');
+                // Show trees when sticky-container reaches 80%
+                if (scrollProgress >= 0.9 && scrollProgress2 < 0.5) {
+                    leftTree.classList.add('show');
+                    rightTree.classList.add('show');
+                    leftTree.classList.remove('hide');
+                    rightTree.classList.remove('hide');
                     house.classList.add('scale-up');
-                } else if (distanceToEnd > 200) {
-                    leftTree.classList.remove('active');
-                    rightTree.classList.remove('active');
-                    house.classList.remove('scale-up');
+                    treesAreVisible = true;
+                    
+                    // If hand was forced to exit but rabbit is still active, bring hand back
+                    if (handImg && handImg.classList.contains('hand-reverse')) {
+                        const rabbitImg = document.getElementById('cap4cena2coelho-img');
+                        if (rabbitImg && rabbitImg.classList.contains('rabbit-jumping')) {
+                            handImg.classList.remove('hand-reverse');
+                            handImg.classList.add('hand-forward');
+                        }
+                    }
+                }
+                // Hide trees when sticky-container2 reaches 50% OR sticky-container is below 50%
+                else if (scrollProgress2 >= 0.5 || scrollProgress <= 0.5) {
+                    leftTree.classList.remove('show');
+                    rightTree.classList.remove('show');
+                    leftTree.classList.add('hide');
+                    rightTree.classList.add('hide');
+                    // house.classList.remove('scale-up'); // Removed - casa fica grande permanentemente
+                    treesAreVisible = false;
+                    
+                    // Make hand exit when trees exit - only if hand is currently visible
+                    if (handImg && handImg.classList.contains('hand-forward')) {
+                        handImg.classList.remove('hand-forward');
+                        handImg.classList.add('hand-reverse');
+                    }
+                    
+                    // Clear any pending hand timeout since trees are exiting
+                    if (handTimeout) {
+                        clearTimeout(handTimeout);
+                        handTimeout = null;
+                    }
                 }
             }
         }
     });
 
+    // Lagarto animation logic
+    const lizardImg = document.getElementById('cap4cena3lagarto-img');
+    const lizardContainer = document.querySelector('#lizard-container');
+    let lizardAnimationState = 'idle'; // 'idle', 'first-animation', 'waiting', 'second-animation', 'completed'
+    let lizardTimeout = null;
+
+    console.log('[LIZARD DEBUG] Elements found:', {
+        lizardImg: !!lizardImg,
+        lizardContainer: !!lizardContainer,
+        lizardImgSrc: lizardImg ? lizardImg.src : 'N/A',
+        lizardImgId: lizardImg ? lizardImg.id : 'N/A'
+    });
+
+    // Force lizard to be invisible initially
+    if (lizardContainer) {
+        lizardContainer.style.opacity = '0';
+        console.log('[LIZARD DEBUG] Initial opacity set to 0');
+        console.log('[LIZARD DEBUG] Container computed style:', {
+            opacity: window.getComputedStyle(lizardContainer).opacity,
+            display: window.getComputedStyle(lizardContainer).display,
+            visibility: window.getComputedStyle(lizardContainer).visibility,
+            position: window.getComputedStyle(lizardContainer).position
+        });
+    }
+
     function handleLizardAnimation() {
-        const lizardImg = document.querySelector('#cap4cena3lagarto-img');
         const container = document.querySelector('#sticky-container2');
         
         if (lizardImg && container) {
             const containerRect = container.getBoundingClientRect();
-            const scrollPosition = window.pageYOffset;
-            const triggerPoint = containerRect.top + containerRect.height - window.innerHeight;
+            const containerHeight = container.offsetHeight - window.innerHeight;
+            const scrollProgress = Math.abs(containerRect.top) / containerHeight;
 
-            if (scrollPosition >= triggerPoint) {
-                lizardImg.classList.add('lizard-animate');
-            } else {
-                lizardImg.classList.remove('lizard-animate');
+            // Debug específico para monitorar valores críticos
+            if (scrollProgress > 0.75) { // Só mostra debug quando perto dos 80%
+                console.log('[LIZARD DEBUG] Near trigger zone:', {
+                    scrollProgress: scrollProgress.toFixed(3),
+                    containerTop: containerRect.top.toFixed(1),
+                    containerHeight: containerHeight,
+                    windowHeight: window.innerHeight,
+                    state: lizardAnimationState,
+                    is80Percent: scrollProgress >= 0.8
+                });
             }
+
+            console.log('[LIZARD DEBUG] Scroll progress:', scrollProgress.toFixed(3), 'State:', lizardAnimationState);
+
+            // Keep lizard invisible until exactly 80% scroll
+            if (scrollProgress < 0.8) {
+                const existingContainer = document.querySelector('#lizard-container');
+                if (existingContainer && existingContainer.style.opacity !== '0') {
+                    existingContainer.style.opacity = '0';
+                    console.log('[LIZARD DEBUG] Set opacity to 0 (before 80%)');
+                }
+                if (lizardAnimationState !== 'idle') {
+                    if (lizardTimeout) {
+                        clearTimeout(lizardTimeout);
+                        lizardTimeout = null;
+                    }
+                    lizardAnimationState = 'idle';
+                    lizardImg.classList.remove('lizard-s-up', 'lizard-s-down');
+                    console.log('[LIZARD DEBUG] Reset animation state to idle');
+                }
+                return; // Exit early if not at 80%
+            }
+
+            // Trigger first animation at exactly 80% of container2 scroll
+            if (scrollProgress >= 0.8 && lizardAnimationState === 'idle') {
+                console.log('[LIZARD DEBUG] Triggering animation at 80%!');
+                
+                // Make lizard visible
+                const currentContainer = document.querySelector('#lizard-container');
+                if (currentContainer) {
+                    currentContainer.style.opacity = '1';
+                    console.log('[LIZARD DEBUG] Set opacity to 1 (animation start)');
+                }
+                
+                lizardAnimationState = 'first-animation';
+                lizardImg.classList.add('lizard-s-up');
+                console.log('[LIZARD DEBUG] Started first animation (lizard-s-up)');
+                
+                // Schedule second animation after delay when first completes
+                lizardTimeout = setTimeout(() => {
+                    if (lizardAnimationState === 'first-animation') {
+                        lizardAnimationState = 'second-animation';
+                        lizardImg.classList.remove('lizard-s-up');
+                        lizardImg.classList.add('lizard-s-down');
+                        console.log('[LIZARD DEBUG] Started second animation (lizard-s-down)');
+                        
+                        // Mark as completed after second animation
+                        setTimeout(() => {
+                            lizardAnimationState = 'completed';
+                            const containerToHide = document.querySelector('#lizard-container');
+                            if (containerToHide) {
+                                containerToHide.style.opacity = '0';
+                                console.log('[LIZARD DEBUG] Animation completed, set opacity to 0');
+                            }
+                        }, 1000); // Duration of second animation (1s)
+                    }
+                }, 1300); // 1s animation + 0.3s delay
+            }
+        } else {
+            console.log('[LIZARD DEBUG] Missing elements:', {
+                lizardImg: !!lizardImg,
+                container: !!container
+            });
         }
     }
 
@@ -168,59 +311,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Call once on page load to check initial position
     handleLizardAnimation();
-
-    function animateLizard() {
-        const container = document.querySelector('#sticky-container2');
-        const lizardContainer = document.querySelector('#lizard-container');
-        
-        if (!container || !lizardContainer) return; // Guard clause to prevent null errors
-        
-        const scrollPosition = window.pageYOffset;
-        const containerTop = container.offsetTop;
-        const containerHeight = container.offsetHeight;
-        const startAnimation = containerTop + (containerHeight * 0.8); // Start at 80% of container
     
-        requestAnimationFrame(() => {
-            if (scrollPosition >= startAnimation) {
-                const progress = Math.min((scrollPosition - startAnimation) / (window.innerHeight), 1);
-                const bottomPosition = -70 + (170 * progress); // From -70vh to 100vh
-                lizardContainer.style.bottom = `${bottomPosition}vh`;
-            } else {
-                lizardContainer.style.bottom = '-70vh';
-            }
-        });
-    }
-
-    // Add event listener for lizard animation
-    window.addEventListener('scroll', animateLizard);
-
-    // Initialize lizard animation on load
-    animateLizard();
-    
-    // Remove all existing rabbit-related code and replace with this:
-    
-    const lizardContainer = document.getElementById('lizard-container');
-    const lizardImg = document.getElementById('cap4cena3lagarto-img');
-    let lizardAnimated = false;
-
-    window.addEventListener('scroll', function() {
-        const container2 = document.getElementById('sticky-container2');
-        const container2Rect = container2.getBoundingClientRect();
-        const scrollPosition = window.pageYOffset;
-        const containerHeight = container2.offsetHeight;
-        const triggerPoint = containerHeight * 0.7; // Start at 70% of container2
-
-        if (scrollPosition >= triggerPoint && !lizardAnimated) {
-            lizardImg.classList.add('lizard-climbing');
-            lizardAnimated = true;
-        }
-
-        // Reset animation when scrolling back up
-        if (scrollPosition < triggerPoint) {
-            lizardImg.classList.remove('lizard-climbing');
-            lizardAnimated = false;
-        }
-    });
+    console.log('[LIZARD DEBUG] Event listeners added and initial check completed');
 });
 
 function initFisheyeEffect(image, canvas) {
@@ -355,19 +447,31 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', function() {
         const container2Height = stickyContainer2.offsetHeight;
         const scrollPosition = window.pageYOffset;
-        const startTrigger = container2Height * 0.8; // 90% of container
-        const reverseTrigger = container2Height*2; // 100% of container
+        const startTrigger = container2Height * 0.8; // 80% of container
+        const reverseTrigger = container2Height*2; // 200% of container
         const scrollPercentage = (scrollPosition / container2Height) * 100;
         
-        // Forward animation at 90%
+        // Forward animation at 80%
         if (scrollPosition >= startTrigger && !hasReachedTarget && !isReversing) {
             sectionCoelho.style.opacity = '1';
             sectionCoelho.style.pointerEvents = 'auto';
             
             if (!isAnimating) {
                 rabbitImg.classList.add('rabbit-jumping');
-                handImg.classList.add('hand-forward');
                 isAnimating = true;
+                
+                // Add hand animation with delay (1 second after rabbit starts)
+                // But only if trees are not yet visible or if trees are visible
+                if (handTimeout) {
+                    clearTimeout(handTimeout);
+                }
+                handTimeout = setTimeout(() => {
+                    // Only show hand if trees haven't exited yet
+                    if (treesAreVisible || !handImg.classList.contains('hand-reverse')) {
+                        handImg.classList.add('hand-forward');
+                        handImg.classList.remove('hand-reverse');
+                    }
+                }, 1000);
             }
 
             const rabbitRect = rabbitImg.getBoundingClientRect();
@@ -378,13 +482,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Only trigger reverse animation when reaching 100% of container
-        if (scrollPercentage >= 100 && hasReachedTarget && !isReversing) {
+        // Only trigger reverse animation when reaching 200% of container
+        if (scrollPercentage >= 200 && hasReachedTarget && !isReversing) {
             rabbitImg.style.left = ''; // Remove fixed position before animation
             rabbitImg.classList.remove('rabbit-jumping');
-            handImg.classList.remove('hand-forward');
             rabbitImg.classList.add('rabbit-jumping-reverse');
-            handImg.classList.add('hand-reverse');
             isReversing = true;
         }
         
@@ -395,8 +497,18 @@ document.addEventListener('DOMContentLoaded', function() {
             isAnimating = false;
             hasReachedTarget = false;
             isReversing = false;
+            
+            // Clear timeout if scrolling back up before hand animation triggers
+            if (handTimeout) {
+                clearTimeout(handTimeout);
+                handTimeout = null;
+            }
+            
             rabbitImg.classList.remove('rabbit-jumping', 'rabbit-jumping-reverse');
-            handImg.classList.remove('hand-forward', 'hand-reverse');
+            // Only reset hand if trees are not visible (let trees control hand exit)
+            if (!treesAreVisible) {
+                handImg.classList.remove('hand-forward', 'hand-reverse');
+            }
             rabbitImg.style.left = '-20%'; // Reset to initial position
         }
     });
