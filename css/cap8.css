@@ -4,8 +4,52 @@ body {
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
     color: #d95454;
-    overflow-x: hidden;
+     overflow-x: hidden;
+    overflow-y: scroll;            /* mantém o scroll vertical */
+    scrollbar-width: none;         /* Firefox */
+    -ms-overflow-style: none; 
 }
+
+
+/* Esconde scrollbar nativo */
+::-webkit-scrollbar {
+    display: none;         
+}
+
+/* Scrollbar customizado - posicionado fixed por cima do conteúdo */
+.custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 999999;
+    pointer-events: auto;
+}
+
+.custom-scrollbar-track {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.custom-scrollbar-thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background: #d95454; /* Cor do capítulo 1 mais opaca */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-height: 30px;
+}
+
+
 
 /*!"#$%&/()=???)))))))))))))))))))))))))))))geral */h1 {
     letter-spacing: 0.15em; /* Increases space between letters */

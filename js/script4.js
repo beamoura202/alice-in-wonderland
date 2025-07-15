@@ -549,3 +549,7 @@ function handleCanvasResize() {
 
 // Add scroll event listener
 window.addEventListener('scroll', handleCanvasResize);
+
+
+
+
