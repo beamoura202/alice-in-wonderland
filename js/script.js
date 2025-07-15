@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Definir altura do sticky-container-2
     const stickyContainer2 = document.getElementById('sticky-container-2');
     if (stickyContainer2) {
-        stickyContainer2.style.height = '2500vh';
+        stickyContainer2.style.height = '1500vh';
     }
     
     // Código para a cena 1 (mantido como estava)
