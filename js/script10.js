@@ -7,16 +7,23 @@ window.addEventListener('scroll', function() {
     const personagem = document.querySelector('#personagem1cena1');
     const danca = document.querySelector('.danca');
 
-    // Move .danca proporcional ao scroll de -100vw até 0
-    if (danca) {
-        const left = (-100 + 100 * scrollPercent) + 'vw';
-        danca.style.left = left;
-    }
+    if (scrollPercent >= 0.4) {
+        // Move .danca proporcional ao scroll de -100vw até 0 (só depois dos 40%)
+        if (danca) {
+            // Recalcula a percentagem para começar em 0.4
+            const adjustedPercent = (scrollPercent - 0.4) / 0.6; // 0.6 = 1 - 0.4
+            const left = (-100 + 100 * adjustedPercent) + 'vw';
+            danca.style.left = left;
+        }
 
-    if (scrollPercent >= 0.2) {
         if (divPedra) divPedra.classList.add('move-right');
         if (personagem) personagem.classList.add('move-left');
     } else {
+        // Quando scroll < 40%, mantem danca na posição inicial
+        if (danca) {
+            danca.style.left = '-100vw';
+        }
+        
         if (divPedra) divPedra.classList.remove('move-right');
         if (personagem) personagem.classList.remove('move-left');
     }
