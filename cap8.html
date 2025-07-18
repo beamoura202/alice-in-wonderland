@@ -257,6 +257,8 @@
                 <div class="scene-container">
                     <img src="imgcap8/fundocena4.4.png" id="fundo-img2" class="background-image">
                     <img src="imgcap8/rainha7.png" id="rainha2">
+                    <img src="imgcap8/coracao.png" id="coracao">
+
                     <img src="imgcap8/personagem.png" id="personagem">
                     <img src="imgcap8/gato.png" id="gato">
 
@@ -309,6 +311,19 @@
             }
         });
 
+//---------------------------------------------------------------popup coracao---------------------------------------------------
+    // Adicionar evento de clique à bolha para redirecionar
+    document.addEventListener('DOMContentLoaded', function() {
+      const coracao = document.getElementById('coracao');
+      if (coracao) {
+        coracao.addEventListener('click', function() {
+          window.location.href = 'cap2texto.html';
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        coracao.style.cursor = 'pointer';
+      }
+    });
 
     </script>
 </body>

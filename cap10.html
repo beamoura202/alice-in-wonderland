@@ -335,6 +335,7 @@
 
 
           </div>
+         <img src="imgcap10/carangejo.png" id="caranguejo">
 
       </section>
     </div>
@@ -382,7 +383,19 @@
       }
     });
 
-
+//---------------------------------------------------------------popup caranguejo---------------------------------------------------
+    // Adicionar evento de clique à bolha para redirecionar
+    document.addEventListener('DOMContentLoaded', function() {
+      const caranguejo = document.getElementById('caranguejo');
+      if (caranguejo) {
+        caranguejo.addEventListener('click', function() {
+          window.location.href = 'cap2texto.html';
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        caranguejo.style.cursor = 'pointer';
+      }
+    });
   </script>
 </body>
 
