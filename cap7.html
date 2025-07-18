@@ -310,7 +310,19 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-
+//---------------------------------------------------------------popup relogio---------------------------------------------------
+    // Adicionar evento de clique à bolha para redirecionar
+    document.addEventListener('DOMContentLoaded', function() {
+      const relogio = document.getElementById('relogio');
+      if (relogio) {
+        relogio.addEventListener('click', function() {
+          window.location.href = 'cap2texto.html';
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        relogio.style.cursor = 'pointer';
+      }
+    });
 
 </script>
 </body>

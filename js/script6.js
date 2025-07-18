@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', function () {
         const containerRect = vegetacaoContainer.getBoundingClientRect();
         const scrollProgress = Math.abs(containerRect.top) / (containerRect.height - window.innerHeight);
+        const placa = document.getElementById('placa');
 
         if (scrollProgress >= 0.95) {
             // Remove todas as classes de animação
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
             planta.classList.add(
                  'move-finalPlanta'
             );
-
+placa.classList.add('show');
             // Se necessário, adiciona classes iniciais (ou deixa sem classes para o estado base)
             // Exemplo: arvoreDir.classList.add('classe-inicial');
         }else {
@@ -151,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
             arvoreEsq.classList.remove('move-finalarvoreEsq');
             planta.classList.remove('move-finalPlanta');
             alice.classList.remove('move-finalAlice');
+            placa.classList.remove('show');
         }
     });
 });

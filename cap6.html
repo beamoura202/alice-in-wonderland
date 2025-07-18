@@ -217,6 +217,7 @@
             <section id="cap6cena1" class="sticky">
                 <div class="scene-container">
                     <img src="imgcap6/cena1fundo3.png" alt="Fundo" id="fundo-img" class="background-image">
+
             </section>
         </div>
 
@@ -241,6 +242,7 @@
                         <img src="imgcap6/gato-cabeca.png" id="gato-cabeca">
                     </div>
                     <img src="imgcap6/alice1.png" id="alice">
+                    <img src="imgcap6/placa.png" alt="Fundo" id="placa" >
 
 
 
@@ -298,6 +300,20 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+ //---------------------------------------------------------------popup placa---------------------------------------------------
+    // Adicionar evento de clique à bolha para redirecionar
+    document.addEventListener('DOMContentLoaded', function() {
+      const placa = document.getElementById('placa');
+      if (placa) {
+        placa.addEventListener('click', function() {
+          window.location.href = 'cap2texto.html';
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        placa.style.cursor = 'pointer';
+      }
+    });
 
 </script>
 </body>

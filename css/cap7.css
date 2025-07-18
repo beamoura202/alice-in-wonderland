@@ -748,6 +748,7 @@ section {
 
 
 }
+/* --------------------------------------------------popup-------------- */
 
 #relogio {
     position: absolute;
@@ -759,12 +760,25 @@ section {
     transition: 
         bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1),
         transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer; /* Indica que é clicável */
+  pointer-events: auto; /* Garante que seja clicável */
+          animation: popup-pulse 2s infinite ease-in-out;
+
 }
 
 /* Quando estiver a subir, aumenta a escala */
 #relogio.subindo {
     transform: scale(2);
 }
+
+
+@keyframes popup-pulse {
+    0% { transform: scale(1.9); opacity: 1; }
+    50% { transform: scale(2); opacity: 0.7; }
+    100% { transform: scale(1.9); opacity: 1; }
+}
+
+/* ------------------------------------------------------------- */
 
 .divmesa2 {
     position: absolute;
