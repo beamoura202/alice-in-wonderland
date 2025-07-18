@@ -354,6 +354,8 @@
       <section id="cap2cena3" class="sticky">
         <img src="imgcap2/cena3f.png" alt="Fundo" id="fundo-img3" class="background-image">
         <img src="imgcap2/detalhescena3.png" alt="Detalhes" id="cena3detalhes" class="floating-bottle">
+        <img src="imgcap2/bolha.png" alt="Detalhes" id="bolha" class="popup-image">
+
         <img src="imgcap2/rato.png" alt="Personagem" id="cap2cena3rato-img">
         <div id="cap2cena3frase1" class="message">“I wish I hadn’t cried so much!”</div>
         <div id="cap2cena3frase2" class="message">“I shall be punished for it now, I suppose, by being drowned in my own tears!”</div>
@@ -408,6 +410,19 @@
         if (block) {
           block.scrollIntoView({ behavior: 'instant' });
         }
+      }
+    });
+ //---------------------------------------------------------------popup bolha---------------------------------------------------
+    // Adicionar evento de clique à bolha para redirecionar
+    document.addEventListener('DOMContentLoaded', function() {
+      const bolha = document.getElementById('bolha');
+      if (bolha) {
+        bolha.addEventListener('click', function() {
+          window.location.href = 'cap2texto.html';
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        bolha.style.cursor = 'pointer';
       }
     });
 

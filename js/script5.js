@@ -38,30 +38,58 @@ document.addEventListener('DOMContentLoaded', function() {
         const sectionTop = folhasRect.top;
         const sectionHeight = sectionFolhas.offsetHeight;
         const viewportHeight = window.innerHeight;
-        const scrollProgress = Math.abs(sectionTop) / (sectionHeight - viewportHeight);
+        
+        // Método mais preciso: calcula baseado na posição da seção em relação à viewport
+        // scrollProgress = 0 quando a seção está completamente acima da viewport
+        // scrollProgress = 1 quando a seção está completamente abaixo da viewport
+        let scrollProgress = 0;
+        
+        if (sectionTop <= 0 && sectionTop >= -(sectionHeight - viewportHeight)) {
+            // A seção está parcialmente visível
+            const visibleProgress = Math.abs(sectionTop) / (sectionHeight - viewportHeight);
+            scrollProgress = Math.min(1, Math.max(0, visibleProgress));
+        } else if (sectionTop < -(sectionHeight - viewportHeight)) {
+            // A seção passou completamente
+            scrollProgress = 1;
+        }
+        
+        // Debug: descomente para ver os valores
+        console.log('Progress:', (scrollProgress * 100).toFixed(1) + '%', 'sectionTop:', sectionTop.toFixed(0));
 
-        if (scrollProgress >= 0.90 && !animationTriggered) {
+        if (scrollProgress >= 0.80 && !animationTriggered) {
             animationTriggered = true;
 
             requestAnimationFrame(() => {
-                // 1. Hide caterpillar
+                // 1. Hide caterpillar with animation
+                lagarta.classList.remove('show-caterpillar');
                 lagarta.classList.add('hide-caterpillar');
 
                 // 2. Show butterfly after delay
                 setTimeout(() => {
                     const butterfly = document.getElementById('cap5cena2bor-img');
+                    butterfly.classList.remove('butterfly-returning', 'butterfly-reset');
                     butterfly.classList.add('butterfly-flying');
                 }, 6000);
             });
-        } else if (scrollProgress < 0.90 && animationTriggered) {
+        } else if (scrollProgress < 0.80 && animationTriggered) {
             animationTriggered = false;
 
-            // 1. Show caterpillar
-            lagarta.classList.remove('hide-caterpillar');
+            requestAnimationFrame(() => {
+                // 1. Show caterpillar with return animation
+                lagarta.classList.remove('hide-caterpillar');
+                lagarta.classList.add('show-caterpillar');
 
-            // 2. Hide butterfly
-            const butterfly = document.getElementById('cap5cena2bor-img');
-            butterfly.classList.remove('butterfly-flying');
+                // 2. Return butterfly with reverse animation
+                const butterfly = document.getElementById('cap5cena2bor-img');
+                butterfly.classList.remove('butterfly-flying');
+                butterfly.classList.add('butterfly-returning');
+                
+                // Reset butterfly to initial position after return animation
+                setTimeout(() => {
+                    butterfly.classList.remove('butterfly-returning');
+                    butterfly.classList.add('butterfly-reset');
+                }, 6000);
+            });
         }
     });
 

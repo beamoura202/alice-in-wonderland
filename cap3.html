@@ -217,6 +217,8 @@
       <img src="imgcap3/cap3img4.png" alt="Fundo" id="fundo-img" class="background-image">
       <!--  <img src="imgcap3/detalhe.png" alt="Detalhes" id="cap3detalhe">-->
       <img src="imgcap3/rato.png" alt="Personagem" id="cap3rato-img">
+      <img src="imgcap3/estrela.png"  id="estrela">
+
      <div id="stickytext">
             <div id="frase1"> “Sit down, all of you, and listen to me! I’ll soon make you dry enough!”</div>
             <div id="frase2"> “Ahem! Are you all ready? This is the driest thing I know. Silence all round, if you please! ‘William the Conqueror, whose cause was favoured by the pope, was soon submitted to by the English, who wanted leaders, and had been of late much accustomed to usurpation and conquest.”</div>
@@ -266,7 +268,19 @@
         }
       }
     });
-
+ //---------------------------------------------------------------popup estrela---------------------------------------------------
+    // Adicionar evento de clique à bolha para redirecionar
+    document.addEventListener('DOMContentLoaded', function() {
+      const estrela = document.getElementById('estrela');
+      if (estrela) {
+        estrela.addEventListener('click', function() {
+          window.location.href = 'cap2texto.html';
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        estrela.style.cursor = 'pointer';
+      }
+    });
 
   </script>
 </body>

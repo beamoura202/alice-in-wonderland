@@ -412,6 +412,19 @@
         }
       }
     });
+//---------------------------------------------------------------popup borboleta---------------------------------------------------
+    // Adicionar evento de clique à bolha para redirecionar
+    document.addEventListener('DOMContentLoaded', function() {
+      const borboleta = document.getElementById('cap5cena2bor-img');
+      if (borboleta) {
+        borboleta.addEventListener('click', function() {
+          window.location.href = 'cap2texto.html';
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        borboleta.style.cursor = 'pointer';
+      }
+    });
 
 
   </script>

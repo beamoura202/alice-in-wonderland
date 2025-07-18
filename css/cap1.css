@@ -800,21 +800,9 @@ img.background-image {
     }
 }
 
-/* Popup background */
-.popup-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    visibility: hidden;
-    z-index: 18;
-    transition: all 0.3s ease-out;
-}
 
-.popup-background.active {
-    visibility: visible;
-}
+
+
 
 /* Updated popup styles */
 #detalhesc42-img.active {

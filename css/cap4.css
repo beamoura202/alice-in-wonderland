@@ -425,7 +425,6 @@ transform-origin: left center;
     transform: translateX(-50%) translateY(130%) scale(2) !important; /* Increased scale factor to 2 for more visible effect */
 }
 
-
 /* .......................................arvores flutuantes entre cena1 e 2 */
 #sectionarvore {
  position: absolute;

@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const leftTree = document.querySelector('.slide-left');
             const rightTree = document.querySelector('.slide-right');
             const house = document.getElementById('cap4cena2casa-img');
+
             const handImg = document.getElementById('cap4cena2mao-img');
             
             if (leftTree && rightTree && house) {
@@ -160,7 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     rightTree.classList.add('show');
                     leftTree.classList.remove('hide');
                     rightTree.classList.remove('hide');
-                    house.classList.add('scale-up');
+                    
+
                     treesAreVisible = true;
                     
                     // If hand was forced to exit but rabbit is still active, bring hand back
@@ -180,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     rightTree.classList.add('hide');
                     // house.classList.remove('scale-up'); // Removed - casa fica grande permanentemente
                     treesAreVisible = false;
+                    house.classList.add('scale-up');
                     
                     // Make hand exit when trees exit - only if hand is currently visible
                     if (handImg && handImg.classList.contains('hand-forward')) {
@@ -230,18 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const containerHeight = container.offsetHeight - window.innerHeight;
             const scrollProgress = Math.abs(containerRect.top) / containerHeight;
 
-            // Debug específico para monitorar valores críticos
-            if (scrollProgress > 0.75) { // Só mostra debug quando perto dos 80%
-                console.log('[LIZARD DEBUG] Near trigger zone:', {
-                    scrollProgress: scrollProgress.toFixed(3),
-                    containerTop: containerRect.top.toFixed(1),
-                    containerHeight: containerHeight,
-                    windowHeight: window.innerHeight,
-                    state: lizardAnimationState,
-                    is80Percent: scrollProgress >= 0.8
-                });
-            }
-
+           
             console.log('[LIZARD DEBUG] Scroll progress:', scrollProgress.toFixed(3), 'State:', lizardAnimationState);
 
             // Keep lizard invisible until exactly 80% scroll

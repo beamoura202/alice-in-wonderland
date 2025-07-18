@@ -224,7 +224,8 @@ body {
 }
 
 
-/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */h1 {
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
+h1 {
     letter-spacing: 0.15em; /* Increases space between letters */
     text-align: center;
     font-family: "Libre Caslon Text", serif;
@@ -431,7 +432,7 @@ section {
     position: absolute;
     left: 0;
     top: 200vh;
-    height: 1410vh;
+    height: 2000vh;
     width: 100vw;
     z-index: 100;
 }
@@ -542,7 +543,7 @@ section {
     position: absolute;
     left: 0;
     top: 1900vh;
-    height: 2000vh;  /* Ensure this is tall enough for proper scrolling */
+    height: 1100vh;  /* Ensure this is tall enough for proper scrolling */
     width: 100vw;
     z-index: 100;
 }
@@ -603,6 +604,12 @@ section {
     opacity: 1;
 }
 
+.show-caterpillar {
+    left: 5vw !important;
+    opacity: 1;
+    transition: left 8s ease-out;
+}
+
 
 
 #cap5cena2bor-img {
@@ -614,7 +621,16 @@ section {
     z-index: 3000;
     opacity: 0;
     transform-origin: center;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, left 0.5s ease, top 0.5s ease;
+    cursor: pointer; /* Indica que é clicável */
+    pointer-events: auto; /* Garante que seja clicável */
+}
+
+.butterfly-reset {
+    left: -15vw !important;
+    top: 20vh !important;
+    opacity: 0 !important;
+    transform: rotate(0deg) scaleX(1) !important;
 }
 
 .smoke-move {
@@ -626,8 +642,11 @@ section {
 }
 
 .butterfly-flying {
-    opacity: 1 !important;
     animation: butterflyFlight 6s ease-in-out forwards, wingFlap 0.5s ease-in-out infinite;
+}
+
+.butterfly-returning {
+    animation: butterflyReturn 6s ease-in-out forwards, wingFlap 0.5s ease-in-out infinite;
 }
 
 @keyframes wingFlap {
@@ -637,30 +656,67 @@ section {
 
 @keyframes butterflyFlight {
     0% {
-        left: -2
-        0vw;
+        left: -20vw;
         top: 20vh;
         transform: rotate(15deg) scaleX(1);
+        opacity: 1;
     }
     25% {
         left: 10vw;
         top: 15vh;
-        transform: rotate(-10deg) scaleX(0.8);
+        transform: rotate(-10deg) scaleX(0.5);
+        opacity: 0.8;
     }
     50% {
         left: 25vw;
         top: 25vh;
         transform: rotate(15deg) scaleX(1);
+        opacity: 1;
     }
     75% {
         left: 35vw;
         top: 10vh;
-        transform: rotate(-10deg) scaleX(0.8);
+        transform: rotate(-10deg) scaleX(0.5);
+        opacity: 0.8;
+    }
+     100% {
+        left: 35vw;
+        top: 10vh;
+        transform: rotate(-10deg) scaleX(1);
+        opacity: 1;
+    }
+}
+
+@keyframes butterflyReturn {
+    0% {
+        left: 35vw;
+        top: 10vh;
+        transform: rotate(-10deg) scaleX(-1);
+        opacity: 1;
+    }
+    25% {
+        left: 25vw;
+        top: 25vh;
+        transform: rotate(15deg) scaleX(-0.5);
+        opacity: 0.5;
+    }
+    50% {
+        left: 10vw;
+        top: 15vh;
+        transform: rotate(-10deg) scaleX(-1);
+        opacity: 1;
+    }
+    75% {
+        left: -5vw;
+        top: 20vh;
+        transform: rotate(15deg) scaleX(-0.5);
+        opacity: 0.5;
     }
     100% {
-        left: 50vw;
-        top: -30vh;
-        transform: rotate(0deg) scaleX(1);
+        left: -20vw;
+        top: 20vh;
+        transform: rotate(15deg) scaleX(-1);
+        opacity: 0;
     }
 }
 

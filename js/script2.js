@@ -223,6 +223,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set initial state
     aliceImage.style.transform = `translateX(-50%) scale(${initialScale})`;
+
+
+
+
+
+    
 });
 
 
