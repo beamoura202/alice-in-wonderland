@@ -76,7 +76,7 @@ body {
     top: 0;
     right: 0;
     width: 100%;
-    background: rgba(224, 198, 67, 0.9); /* Cor do capítulo 1 mais opaca */
+    background: #59BACA; /* Cor do capítulo 1 mais opaca */
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
