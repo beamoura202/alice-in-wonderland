@@ -380,22 +380,9 @@ width: 100%;
     z-index: 1500;  /* Set higher than tree */
 }
 
-#frase {
-    position: absolute;
-    bottom: 20%;  /* Posicionado no topo da tela */
-    left: 30%;  /* Alinhado à direita */
-    
-    max-width: 300px;
-    font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
-    font-style: italic;
-    font-weight: 400;
-    color: #fff;  /* Texto branco para melhor contraste */
-    opacity: 0 !important;  /* Inicialmente invisível */
-    visibility: hidden !important;
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;  /* Transições suaves */
-    z-index: 4;  /* Acima das outras imagens */
-}
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
 
 /*                                         cena         2 */
 #sticky-container-2 {
@@ -477,51 +464,7 @@ width: 100%;
     max-height: 80vh;
 }
 
-#frasec2 {
-    position: absolute;
-    bottom: 30%;
-    left: 20%;
-    max-width: 400px;
-    font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
-    font-style: italic;
-    font-weight: 400;
-    color: #fff;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    z-index: 4;
-}
-#frasec22 {
-    position: absolute;
-    bottom: 30%;
-    left: 20%;
-    max-width: 400px;
-    font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
-    font-style: italic;
-    font-weight: 400;
-    color: #fff;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    z-index: 4;
-}
-#frasec23{
-    position: absolute;
-    bottom: 30%;
-    left: 20%;
-    max-width: 400px;
-    font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
-    font-style: italic;
-    font-weight: 400;
-    color: #fff;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    z-index: 4;
-}
+/*-------------------------------------------------------------------------------frases----------------------------------*/
 
 
 /*                                         cena         3 */
@@ -639,11 +582,78 @@ width: 100%;
     cursor: pointer;
     transition: all 0.3s ease-out;
 }
+/*-------------------------------------------------------------------------------frases----------------------------------*/
+
+
+#frase {
+    position: absolute;
+    bottom: 20%;  /* Posicionado no topo da tela */
+    left: 30%;  /* Alinhado à direita */
+    
+    max-width: 300px;
+    font-size: 2.2rem;
+    font-family: "adobe-caslon-pro", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;  /* Texto branco para melhor contraste */
+    opacity: 0 !important;  /* Inicialmente invisível */
+    visibility: hidden !important;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;  /* Transições suaves */
+    z-index: 4;  /* Acima das outras imagens */
+}
+
+
+
+#frasec2 {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    max-width: 500px;
+    font-size: 2.2rem;
+    font-family: "adobe-caslon-pro", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 4;
+}
+#frasec22 {
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    max-width: 500px;
+    font-size: 2.2rem;
+    font-family: "adobe-caslon-pro", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 4;
+}
+#frasec23{
+    position: absolute;
+    bottom: 20%;
+    left: 10%;
+    max-width: 300px;
+    font-size: 2.2rem;
+    font-family: "adobe-caslon-pro", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    z-index: 4;
+}
 
 #frasec3 {
     position: absolute;
     bottom: 20%;
-    left: 30%;
+    left: 25%;
     max-width: 400px;
     font-size: 2.2rem;
     font-family: "adobe-caslon-pro", serif;

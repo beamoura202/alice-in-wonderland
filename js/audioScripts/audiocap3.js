@@ -4,22 +4,19 @@ document.addEventListener("DOMContentLoaded", function () {
         { id: "sticky-container", audioId: "audio-cena1" },
         
     ];
-
     let currentAudio = null;
-    let audioUnlocked = false; // NOVO
+    let audioUnlocked = false; 
 
     const observer = new IntersectionObserver((entries) => {
         if (!audioUnlocked) return; // Só executa se já desbloqueou
         entries.forEach(entry => {
             const scene = scenes.find(s => s.id === entry.target.id);
             const audio = document.getElementById(scene.audioId);
-
             if (entry.isIntersecting) {
                 if (currentAudio && currentAudio !== audio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                 }
-
                 currentAudio = audio;
                 currentAudio.play();
             } else {
@@ -32,14 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }, {
         threshold: 0.1, // Teste com 10% visível
     });
-
     scenes.forEach(scene => {
         const el = document.getElementById(scene.id);
         if (el) {
             observer.observe(el);
         }
     });
-
     // Função para desbloquear todos os áudios
     function unlockAllAudios() {
         scenes.forEach(scene => {
@@ -52,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
     function handleFirstInteraction() {
         unlockAllAudios();
         audioUnlocked = true; // SÓ AGORA libera o play do observer
