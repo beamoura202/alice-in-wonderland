@@ -308,12 +308,12 @@ position: absolute;
     left: 20%;
     z-index: 2;
 }
-
+/*------------------------------------------------------------------------------------------frases-------------------------------------------------- */
 
 #cap2cena1frase1, #cap2cena1frase2, #cap2cena1frase3, #cap2cena3frase1, #cap2cena3frase2, #cap2cena3frase3 {
 
     position: absolute;
-    max-width: 400px;
+    max-width: 600px;
     font-size: 2.2rem;
     font-family: "adobe-caslon-pro", serif;
     font-style: italic;
@@ -332,27 +332,27 @@ position: absolute;
 }
 
 #cap2cena1frase2 {
-    top: 80%;
-    right: 20%;
+    top: 20%;
+    left: 5%;
 }
 #cap2cena1frase3 {
-    top: 50%;
-    left: 15%;
+    bottom: 10%;
+    right: 15%;
 }
 
 
 #cap2cena3frase1 {
-    top: 15%;
+    top: 20%;
     left: 20%;
 }
 
 #cap2cena3frase2 {
-    top: 60%;
-    left: 30%;
+    top: 30%;
+    right: 10%;
 }
 #cap2cena3frase3 {
-    top: 40%;
-    right: 20%;
+    bottom: 40%;
+    right: 25%;
 }
 
 
