@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capítulo 2</title>
+    <title>Chapter 3</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #011309;
-            color: #836C43; /* Texto */
+            background-color: #433521;
+            color: #f5e3b0d9; /* Texto */
             font-family: "adobe-caslon-pro", serif;
             min-height: 100vh;
             display: flex;
@@ -19,7 +19,7 @@
 
         .text-container {
             margin-top: 20vh;
-            max-width: 1000px;
+            max-width: 60vw;
             padding: 2rem;
             text-align: justify;
             font-size: 1.2rem;
@@ -36,16 +36,60 @@
         }
         
         p {
-            font-size: 1.2rem;
+            font-size: 2rem;
             font-family: "adobe-caslon-pro", serif;
             font-style: normal;
             font-weight: 400;
-            margin: 0; /* Remove margin entre parágrafos */
-            text-indent: 2em; /* Adiciona espaço no início do parágrafo */
+            margin: 0;
+            text-indent: 2em;
+            line-height: 1.2; /* Added this line to reduce space between lines */
+        }
+
+        /* Scroll bar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #011309;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #836C43;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0825a;
+        }
+
+        /* Botão de navegação */
+        .nav-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 100px;
+            height: 50px;
+            background-image: url('../botao1.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: none;
+            border-radius: 50%;
+            opacity: 0.3;
+            cursor: pointer;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-button:hover {
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
+    <a href="../cap3.html" class="nav-button" title="Voltar para o capítulo"></a>
     <div class="text-container">
         <h1 id="title"></h1>
         <div id="content"></div>
@@ -61,11 +105,11 @@
             })
             .then(data => {
                 console.log('Data received:', data);
-                if (!data || !data.cap2) {
+                if (!data || !data.cap3) {
                     throw new Error('Invalid JSON structure');
                 }
-                document.getElementById('title').innerHTML = `${data.cap2.chapter}<br>${data.cap2.title}`;
-                const paragraphs = data.cap2.content.split('\n\n');
+                document.getElementById('title').innerHTML = `${data.cap3.chapter}<br>${data.cap3.title}`;
+                const paragraphs = data.cap3.content.split('\n\n');
                 const formattedContent = paragraphs
                     .map(p => `<p>${p.trim()}</p>`)
                     .join('\n');
@@ -86,3 +130,7 @@
     </script>
 </body>
 </html>
+
+
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Transition Usage Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #011309;
+            color: white;
+        }
+        
+        .example-element {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #836C43;
+            border-radius: 8px;
+            display: inline-block;
+            background-color: rgba(131, 108, 67, 0.2);
+        }
+        
+        .example-element:hover {
+            background-color: rgba(131, 108, 67, 0.4);
+        }
+        
+        h1, h2 {
+            color: #836C43;
+        }
+        
+        code {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Black transition overlay for page transitions */
+        #black-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #011309;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transition: opacity 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <h1>Universal Transition Script - Usage Examples</h1>
+    
+    <p>Este script permite adicionar a animação de transição a qualquer elemento simplesmente adicionando o atributo <code>data-transition="url"</code>.</p>
+    
+    <h2>Exemplos de Uso:</h2>
+    
+    <h3>1. Imagens Clicáveis</h3>
+    <div class="example-element" data-transition="./index.html">
+        🖼️ Clique nesta div para ir para index.html
+    </div>
+    
+    <h3>2. Botões</h3>
+    <button class="example-element" data-transition="./cap2.html">
+        📖 Ir para Capítulo 2
+    </button>
+    
+    <h3>3. Elementos de Texto</h3>
+    <span class="example-element" data-transition="./textos/cap1texto.html">
+        📝 Texto clicável para cap1texto.html
+    </span>
+    
+    <h3>4. Links Personalizados</h3>
+    <a href="#" class="example-element" data-transition="./cap3.html">
+        🔗 Link para cap3.html
+    </a>
+    
+    <h2>Como Usar:</h2>
+    <ol>
+        <li>Adicione o div de transição à sua página: <code>&lt;div id="black-transition"&gt;&lt;/div&gt;</code></li>
+        <li>Inclua o CSS para black-transition (veja cap1.css ou cap2.css como referência)</li>
+        <li>Inclua o script: <code>&lt;script src="js/universalTransition.js"&gt;&lt;/script&gt;</code></li>
+        <li>Adicione o atributo a qualquer elemento: <code>data-transition="./sua-pagina.html"</code></li>
+        <li>Pronto! O elemento terá a animação de transição automática</li>
+    </ol>
+    
+    <h2>Funções Disponíveis:</h2>
+    <ul>
+        <li><code>universalPageTransition(url)</code> - Executa a transição para uma URL</li>
+        <li><code>addTransitionToElement(id, url)</code> - Adiciona transição a um elemento específico</li>
+        <li><code>initializeUniversalTransitions()</code> - Reinicializa todos os elementos de transição</li>
+    </ul>
+    
+    <!-- Black transition overlay -->
+    <div id="black-transition"></div>
+    
+    <!-- Include the universal transition script -->
+    <script src="js/universalTransition.js"></script>
+</body>
+</html>

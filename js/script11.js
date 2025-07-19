@@ -144,6 +144,8 @@ document.addEventListener('scroll', function () {
     // Alice animation
     const sticky3 = document.getElementById('alice-container');
     const alice = document.getElementById('alice');
+        const esquilo = document.getElementById('esquilo');
+
     if (sticky3 && alice) {
         const rect = sticky3.getBoundingClientRect();
         const windowHeight = window.innerHeight;
@@ -152,8 +154,12 @@ document.addEventListener('scroll', function () {
 
         if (scrollPercent > 0.7) {
             alice.classList.add('alice-entra');
+           esquilo.classList.add('esquilo-entra');
+
         } else {
             alice.classList.remove('alice-entra');
+                       esquilo.classList.remove('esquilo-entra');
+
         }
 
         // POP effect: faz pop a cada 5% de scroll acima de 0.7 e aumenta tamanho
@@ -161,19 +167,27 @@ document.addEventListener('scroll', function () {
             const popStep = Math.floor((scrollPercent - 0.7) * 20); // 0,1,2,3,4,5...
             if (alice.dataset.lastPop != popStep) {
                 alice.classList.remove('alice-pop');
+                esquilo.classList.remove('esquilo-pop');
+
                 void alice.offsetWidth;
                 alice.classList.add('alice-pop');
+                esquilo.classList.add('esquilo-pop');
+
                 alice.dataset.lastPop = popStep;
 
                 // Aumenta progressivamente o tamanho
                 const baseWidth = 40; // vw
                 const newWidth = baseWidth + popStep * 2; // aumenta 2vw por pop
                 alice.style.setProperty('--alice-width', `${newWidth}vw`);
+
             }
         } else {
             alice.classList.remove('alice-pop');
+            esquilo.classList.remove('esquilo-pop');
+
             alice.dataset.lastPop = '';
-            alice.style.setProperty('--alice-width', `40vw`);
+            alice.style.setProperty('--esquilo-width', `40vw`);
+           
         }
     }
 });

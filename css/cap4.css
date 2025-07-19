@@ -7,6 +7,8 @@ body {
     overflow-y: scroll;            /* mantém o scroll vertical */
     scrollbar-width: none;         /* Firefox */
     -ms-overflow-style: none; 
+    
+background-color:#a36172 ;
 }
 
 

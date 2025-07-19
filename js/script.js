@@ -902,7 +902,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     detalhesc22.style.opacity = '0';
                 }
             }
-
             // Mesa visibility é controlada no código acima
             // Animação da mesa ultra rápida com fade-in
             
@@ -1178,73 +1177,17 @@ transitionStyles.innerHTML = `
 `;
 document.head.appendChild(transitionStyles);
 
-// Add these styles at the end of your existing styles
-const overlayStyles = document.createElement('style');
-overlayStyles.innerHTML = `
-    #transition-overlay {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: #000;
-        z-index: 1000;
-        transition: height 1s ease-in-out;
-    }
-`;
-
-// Create transition overlay element
-function createTransitionOverlay() {
-    const overlay = document.createElement('div');
-    overlay.id = 'transition-overlay';
-    overlay.style.position = 'fixed';
-    overlay.style.bottom = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '0';
-    overlay.style.backgroundColor = '#011309'; // Same as background color
-    overlay.style.zIndex = '1000';
-    overlay.style.transition = 'height 1s ease-in-out';
-    document.body.appendChild(overlay);
-    return overlay;
-}
-
-// Function to handle the transition
-function pageTransition(targetUrl) {
-    const overlay = createTransitionOverlay();
-    
-    // Start animation - expand from bottom to top
-    setTimeout(() => {
-        overlay.style.height = '100%';
-    }, 50);
-    
-    // After animation completes, navigate to the target page
-    setTimeout(() => {
-        window.location.href = targetUrl;
-    }, 1000); // Match this with the transition duration
-}
-
-// Modificar o event listener do popup
+// Modificar o event listener do popup - agora usa universalTransition.js
 document.addEventListener('DOMContentLoaded', () => {
     const popup = document.getElementById('detalhesc42-img');
     
     if (popup) {
-        popup.removeAttribute('onclick');
+        // Adicionar o atributo data-transition para usar o sistema universal
+        popup.setAttribute('data-transition', './textos/cap1texto.html');
         popup.style.cursor = 'pointer';
-        popup.style.pointerEvents = 'auto'; // Garantir que eventos de clique funcionem
+        popup.style.pointerEvents = 'auto';
         
-        // Adicionar logging para debug
-        popup.addEventListener('click', (e) => {
-            console.log('Popup clicked!');
-            e.stopPropagation(); // Impedir propagação do evento
-            pageTransition('./textos/cap1texto.html'); // Updated path to match new folder structure
-        });
-        
-        // Impedir que cliques em outros elementos interfiram
-        document.addEventListener('click', (e) => {
-            if (e.target.id === 'detalhesc42-img') {
-                console.log('Popup clicked through document!');
-            }
-        });
+        console.log('Popup configurado para usar universalTransition.js');
     }
 });
 

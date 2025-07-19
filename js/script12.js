@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Defina aqui para ficar disponível em todo o escopo
     const fadeBlack = document.getElementById('fade-black');
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animate);
     }
 
-    screenshotImg.onload = function() {
+    screenshotImg.onload = function () {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     };
@@ -176,7 +176,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const stickyContainer3 = document.getElementById('sticky-container3');
     const cartaEsq = document.getElementById('cartaesq');
     const cartaDir = document.getElementById('cartadir');
-    
+    const carta = document.getElementById('carta');
+
+
     window.addEventListener('scroll', () => {
         if (!cartasContainer || !stickyContainer3) return;
         const rectCartas = cartasContainer.getBoundingClientRect();
@@ -192,10 +194,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Calcula o progresso do scroll dentro do container (0 a 1)
             const scrollTop = Math.max(0, windowHeight - rectCartas.top);
             const progress = Math.min(1, scrollTop / containerHeight);
-            
+
             // Calcula o scale baseado no progresso (de 1 a 2)
             const scale = 1 + (progress * 1); // 1 + (0 a 1) * 1 = 1 a 2
-            
+
             if (sticky3At50vh) {
                 // Se sticky-container3 está a 50vh, recua as cartas
                 if (cartaEsq) {
@@ -205,6 +207,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (cartaDir) {
                     cartaDir.classList.remove('visible');
                     cartaDir.classList.add('hidden');
+
+                } if (carta) {
+                    carta.classList.remove('visible');
+                    carta.classList.add('hidden');
                 }
             } else {
                 // Se sticky-container3 não está a 50vh, mostra as cartas com scale
@@ -217,6 +223,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     cartaDir.classList.add('visible');
                     cartaDir.classList.remove('hidden');
                     cartaDir.style.transform = `scale(${scale})`;
+                  
+                } if (carta) {
+                      carta.classList.add('visible');
+                    carta.classList.remove('hidden');
+                    carta.style.transform = `scale(${scale})`;
                 }
             }
         } else if (rectCartas.top > windowHeight) {
@@ -230,7 +241,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 cartaDir.classList.remove('visible');
                 cartaDir.classList.remove('hidden');
                 cartaDir.style.transform = 'scale(1)';
+                
+
+            } if (carta) {
+                carta.classList.remove('visible');
+                carta.classList.remove('hidden');
+                carta.style.transform = 'scale(1)';
             }
+            
         }
     });
 

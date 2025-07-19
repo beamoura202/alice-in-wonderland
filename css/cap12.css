@@ -700,6 +700,53 @@ section {
 #cartadir.hidden {
     left: -20vw; /* Afasta-se ligeiramente para fora do ecrã à esquerda */
 }
+ /* ---------------------------------------------------------------------carta popup------------------------------- */
+ #carta{
+     position: absolute;
+    top: 0vh;
+    left: -100vw; 
+    height: 100vh;
+    width: auto;
+    transition: left 0.8s ease-out, transform 0.3s ease-out;
+    transform: scale(1);
+
+    z-index: 1100;
+         cursor: pointer; /* Indica que é clicável */
+    pointer-events: auto; /* Garante que seja clicável */
+            animation: popup-pulse 2s infinite ease-in-out;
+
+ 
+ }
+/* Posições finais das cartas quando visíveis */
+
+#carta.visible {
+    left: 0vw;
+}
+
+
+#carta.hidden {
+    left: -20vw; /* Afasta-se ligeiramente para fora do ecrã à esquerda */
+}
+
+ 
+@keyframes popup-pulse {
+    0% { transform: scale(1.2); opacity: 1; }
+    50% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.2); opacity: 1; }
+}
+/* --------------------------------------------------transition-------------- */
+#black-transition {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    background-color: #230030;
+    z-index: 9999;
+    pointer-events: none;
+    transition: height 0.8s ease-in-out;
+}
+ /* ------------------------------------------------------------------------------------------------ */
 
 #alicecena4{
     position: absolute;

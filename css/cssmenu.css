@@ -132,3 +132,21 @@
 .menu-svg.hide-anim {
     animation: menu-hide-bounce 1s cubic-bezier(.68,-0.55,.27,1.55) forwards;
 }
+
+/* Scroll bar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #011309;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #836C43;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0825a;
+}

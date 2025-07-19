@@ -347,7 +347,7 @@
 
           <!--  <img src="imgcap5/cogumeloAlice2.png" alt="Detalhes" id="cap5cena2cogumelo-img" class="details-image">-->
           <img src="imgcap5/lagarta.png" alt="Detalhes 1" id="cap5cena1lagarta2-img" class="details-image">
-          <img src="imgcap5/borbolrta.png" alt="Detalhes 1" id="cap5cena2bor-img" class="details-image">
+          <img src="imgcap5/borbolrta.png" alt="Detalhes 1" id="cap5cena2bor-img" class="details-image"  data-transition="./textos/cap5texto.html">
 
 
         </div>
@@ -383,6 +383,7 @@
   <script src="js/audioProgressBar.js"></script>
 
   <script src="js/audioScripts/audiocap5.js"></script>
+  <script src="js/universalTransition.js"></script>
 
 
   <script>
@@ -413,21 +414,12 @@
       }
     });
 //---------------------------------------------------------------popup borboleta---------------------------------------------------
-    // Adicionar evento de clique à bolha para redirecionar
-    document.addEventListener('DOMContentLoaded', function() {
-      const borboleta = document.getElementById('cap5cena2bor-img');
-      if (borboleta) {
-        borboleta.addEventListener('click', function() {
-          window.location.href = 'cap2texto.html';
-        });
-        
-        // Adicionar cursor pointer para indicar que é clicável
-        borboleta.style.cursor = 'pointer';
-      }
-    });
+  
 
 
   </script>
+
+<div id="black-transition"></div>
 </body>
 
 </html>

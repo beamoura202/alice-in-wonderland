@@ -760,3 +760,16 @@ section {
     background: #080011; /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }
+
+/* --------------------------------------------------transition-------------- */
+#black-transition {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    background-color: #3D1616;
+    z-index: 9999;
+    pointer-events: none;
+    transition: height 0.8s ease-in-out;
+}

@@ -1,5 +1,5 @@
 body {
-    background-color:#011602;
+    background-color: #410202;
 
     margin: 0;
     font-family: 'Libre Caslon Text', serif;
@@ -226,7 +226,8 @@ body {
 }
 
 
-/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */h1 {
+/*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
+h1 {
     letter-spacing: 0.15em; /* Increases space between letters */
     text-align: center;
     font-family: "Libre Caslon Text", serif;
@@ -468,6 +469,19 @@ top:30vh;
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
+}
+
+/* --------------------------------------------------transition-------------- */
+#black-transition {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    background-color: #410202;
+    z-index: 9999;
+    pointer-events: none;
+    transition: height 0.8s ease-in-out;
 }
  /* -------------------------------------------------------------------------------------------------- */
 

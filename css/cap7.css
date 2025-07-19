@@ -777,7 +777,18 @@ section {
     50% { transform: scale(2); opacity: 0.7; }
     100% { transform: scale(1.9); opacity: 1; }
 }
-
+/* --------------------------------------------------transition-------------- */
+#black-transition {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    background-color: #20360B;
+    z-index: 9999;
+    pointer-events: none;
+    transition: height 0.8s ease-in-out;
+}
 /* ------------------------------------------------------------- */
 
 .divmesa2 {

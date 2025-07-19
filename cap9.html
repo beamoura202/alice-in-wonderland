@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-pt">
 
 <head>
@@ -185,7 +185,7 @@
       <path d="M300.77,659.05c-4.76.63-9.11.19-13.52-1.4,4.36-2.28,11.14-1.64,13.52,1.4Z" />
       <path
         d="M290.6,656.52c2.29-.31,3.48-.3,3.56-2.04.14-2.91-1.24-.24-.78-29.99.04-2.48.12-5.56.67-8.03.24-1.09,1.46-2.65,1.6-4.06-3.94,2.32-7.02,3.07-9.37,1.82,2.36-.95,4.53-1.83,6.7-2.7.23-.09.47-.18.7-.25.64-.19,1.59-.5,1.84-.5,1.9-.04,2,2.31,2.05,3.14,2.57,42.66-5.16,41.29-.29,42.93" />
-      <!-- Área de clique maior: círculo invisível -->
+      <!-- Ãrea de clique maior: cÃ­rculo invisÃ­vel -->
       <circle class="hit-area" cx="295" cy="635" r="28" fill="transparent" pointer-events="all" />
     </g>
     <g id="6">
@@ -291,7 +291,7 @@
 
   <section id="chapter9">
     <h1>CHAPTER 9</h1>
-    <h2>The Mock Turtle’s Story</h2>
+    <h2>The Mock Turtles Story</h2>
     <p>"Curiouser and curiouser!" cried Alice (she was so much surprised, that for the moment she quite forgot how
       to speak good English); "now I'm opening out like the largest telescope that ever was!"</p>
   </section>
@@ -346,7 +346,7 @@
           <img src="imgcap9/detalhecena32.png" alt="Fundo" id="detalhecena3">
           <img src="imgcap9/personagem2cena3.png" id="personagem2cena3">
           <img src="imgcap9/lagrima.png" id="lagrima">
-          <img src="imgcap9/balde.png" id="balde">
+          <img src="imgcap9/balde.png" id="balde" data-transition="./textos/cap9texto.html">
 
 
 
@@ -377,7 +377,8 @@
   <script type="text/javascript" src="js/script9.js"></script>    <script src="js/scrollbar-theme.js"></script>
   <script src="js/audioProgressBar.js"></script>
 
-  <script src="js/scriptmenu.js"></script>
+  <script src="js/scriptmenu.js"></script>  <script src="js/universalTransition.js"></script>
+
 
   <script>
     let hasRedirected = false;
@@ -397,7 +398,7 @@
       }
     });
 
-    // Scroll automático para o bloco se veio do capítulo anterior
+    // Scroll automÃ¡tico para o bloco se veio do capÃ­tulo anterior
     window.addEventListener('DOMContentLoaded', function () {
       if (window.location.hash === '#next-chapter-block') {
         const block = document.getElementById('next-chapter-block');
@@ -408,19 +409,9 @@
     });
 
 //---------------------------------------------------------------popup balde---------------------------------------------------
-    // Adicionar evento de clique à bolha para redirecionar
-    document.addEventListener('DOMContentLoaded', function() {
-      const balde = document.getElementById('balde');
-      if (balde) {
-        balde.addEventListener('click', function() {
-          window.location.href = 'cap2texto.html';
-        });
-        
-        // Adicionar cursor pointer para indicar que é clicável
-        balde.style.cursor = 'pointer';
-      }
-    });
+
   </script>
 </body>
+<div id="black-transition"></div>
 
 </html>

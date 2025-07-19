@@ -217,7 +217,7 @@
       <img src="imgcap3/cap3img4.png" alt="Fundo" id="fundo-img" class="background-image">
       <!--  <img src="imgcap3/detalhe.png" alt="Detalhes" id="cap3detalhe">-->
       <img src="imgcap3/rato.png" alt="Personagem" id="cap3rato-img">
-      <img src="imgcap3/estrela.png"  id="estrela">
+      <img src="imgcap3/estrela.png"  id="estrela" data-transition="./textos/cap3texto.html">
 
      <div id="stickytext">
             <div id="frase1"> “Sit down, all of you, and listen to me! I’ll soon make you dry enough!”</div>
@@ -237,6 +237,7 @@
   <script src="js/scriptmenu.js"></script>
       <script src="js/scrollbar-theme.js"></script>
   <script src="js/audioProgressBar.js"></script>
+  <script src="js/universalTransition.js"></script>
 
     <script src="js/audioScripts/audiocap3.js"></script>
 
@@ -269,20 +270,11 @@
       }
     });
  //---------------------------------------------------------------popup estrela---------------------------------------------------
-    // Adicionar evento de clique à bolha para redirecionar
-    document.addEventListener('DOMContentLoaded', function() {
-      const estrela = document.getElementById('estrela');
-      if (estrela) {
-        estrela.addEventListener('click', function() {
-          window.location.href = 'cap2texto.html';
-        });
-        
-        // Adicionar cursor pointer para indicar que é clicável
-        estrela.style.cursor = 'pointer';
-      }
-    });
+    // Elemento estrela agora usa o sistema universal de transições via data-transition
 
   </script>
+
+  <div id="black-transition"></div>
 </body>
 
 </html>
