@@ -4,15 +4,17 @@ body {
     font-family: 'Libre Caslon Text', serif;
     color: #af661b;
     overflow-x: hidden;
-    overflow-y: scroll;            /* mantém o scroll vertical */
-    scrollbar-width: none;         /* Firefox */
-    -ms-overflow-style: none; 
+    overflow-y: scroll;
+    /* mantém o scroll vertical */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
 }
 
 
 /* Esconde scrollbar nativo */
 ::-webkit-scrollbar {
-    display: none;         
+    display: none;
 }
 
 /* -----------------------------------------------scrollBar implementada--------------------------------------- */
@@ -22,7 +24,7 @@ body {
     right: 0;
     width: 10px;
     height: 100vh;
-   /* background: rgba(0, 0, 0, 0.1);*/
+    /* background: rgba(0, 0, 0, 0.1);*/
     z-index: 999999;
     pointer-events: auto;
 }
@@ -41,7 +43,8 @@ body {
     top: 0;
     right: 0;
     width: 100%;
-    background: #af661b; /* Cor do capítulo 1 mais opaca */
+    background: #af661b;
+    /* Cor do capítulo 1 mais opaca */
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -56,7 +59,7 @@ body {
     width: 40px;
     height: 100%;
     opacity: 0.6;
-    
+
     pointer-events: auto;
 }
 
@@ -65,7 +68,7 @@ body {
     right: 0;
     display: flex;
     align-items: flex-end;
-flex-direction: column-reverse; 
+    flex-direction: column-reverse;
 }
 
 
@@ -93,8 +96,10 @@ flex-direction: column-reverse;
     width: 100%;
     height: 100%;
     z-index: 999999;
-    pointer-events: none; /* Não interfere com interações de mouse */
+    pointer-events: none;
+    /* Não interfere com interações de mouse */
 }
+
 #barra {
     padding: 10px;
     position: fixed;
@@ -102,36 +107,51 @@ flex-direction: column-reverse;
     left: 50%;
     transform: translateX(-50%);
     width: 30%;
-    height: 40px; /* Altura da barra */
-    z-index: 999999; /* Certifique-se de que a barra esteja acima de outros elementos */
-    display: block; /* Sempre visível no DOM */
-    opacity: 0; /* Mas transparente por padrão */
-    transition: opacity 0.3s ease-in-out; /* Transição suave */
+    height: 40px;
+    /* Altura da barra */
+    z-index: 999999;
+    /* Certifique-se de que a barra esteja acima de outros elementos */
+    display: block;
+    /* Sempre visível no DOM */
+    opacity: 0;
+    /* Mas transparente por padrão */
+    transition: opacity 0.3s ease-in-out;
+    /* Transição suave */
 }
 
 /* Classe para mostrar a barra quando há áudio */
 #barra.show {
     opacity: 1 !important;
 }
+
 #barraFundo {
-     position: absolute;
-     bottom: 5px;
+    position: absolute;
+    bottom: 5px;
     width: 100%;
     height: 7px;
-    background-color: rgba(255, 255, 255, 0.3); /* Cor de fundo da barra */
-    z-index: 1; /* Coloca atrás do progresso */
-    border-radius: 10px; /* Bordas arredondadas */
+    background-color: rgba(255, 255, 255, 0.3);
+    /* Cor de fundo da barra */
+    z-index: 1;
+    /* Coloca atrás do progresso */
+    border-radius: 10px;
+    /* Bordas arredondadas */
 }
+
 #barraProgresso {
-  position: absolute;
-  bottom: 5px;
-  left: 0;
-    width: 0%; /* Volta ao inicial */
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 0%;
+    /* Volta ao inicial */
     height: 7px;
-    background-color: rgba(0, 0, 0, 0.69); /* Cor amarela do capítulo */
-    z-index: 2; /* Acima do fundo */
-    border-radius: 10px 0px 0px 10px; /* Bordas arredondadas */
-    transition: width 0.1s linear; /* Transição suave para mudanças programáticas */
+    background-color: rgba(0, 0, 0, 0.69);
+    /* Cor amarela do capítulo */
+    z-index: 2;
+    /* Acima do fundo */
+    border-radius: 10px 0px 0px 10px;
+    /* Bordas arredondadas */
+    transition: width 0.1s linear;
+    /* Transição suave para mudanças programáticas */
 }
 
 /* Classe para animar a barra de progresso via JavaScript */
@@ -144,6 +164,7 @@ flex-direction: column-reverse;
     from {
         width: 0%;
     }
+
     to {
         width: 100%;
     }
@@ -158,7 +179,7 @@ flex-direction: column-reverse;
 }
 
 #gif img {
-    
+
     position: absolute;
     top: 0;
     left: 0;
@@ -188,14 +209,37 @@ flex-direction: column-reverse;
 }
 
 @keyframes gif-sequence {
-    0% { opacity: 0.5; }
-    14.28% { opacity: 0; }
-    28.56% { opacity: 0; }
-    42.84% { opacity: 0; }
-    57.12% { opacity: 0; }
-    71.4% { opacity: 0; }
-    85.68% { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0.5;
+    }
+
+    14.28% {
+        opacity: 0;
+    }
+
+    28.56% {
+        opacity: 0;
+    }
+
+    42.84% {
+        opacity: 0;
+    }
+
+    57.12% {
+        opacity: 0;
+    }
+
+    71.4% {
+        opacity: 0;
+    }
+
+    85.68% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 /* Sequence: 1,2,3,4,3,2,1 - 7 frames total */
@@ -216,61 +260,161 @@ flex-direction: column-reverse;
 }
 
 @keyframes gif-frame1 {
-    0% { opacity: 0.5; }
-    12% { opacity: 0.5; }
-    14% { opacity: 0; }
-    70% { opacity: 0; }
-    72% { opacity: 0.5; }
-    84% { opacity: 0.5; }
-    86% { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0.5;
+    }
+
+    12% {
+        opacity: 0.5;
+    }
+
+    14% {
+        opacity: 0;
+    }
+
+    70% {
+        opacity: 0;
+    }
+
+    72% {
+        opacity: 0.5;
+    }
+
+    84% {
+        opacity: 0.5;
+    }
+
+    86% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes gif-frame2 {
-    0% { opacity: 0; }
-    12% { opacity: 0; }
-    14% { opacity: 0.5; }
-    26% { opacity: 0.5; }
-    28% { opacity: 0; }
-    56% { opacity: 0; }
-    58% { opacity:0.5; }
-    70% { opacity: 0.5; }
-    72% { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 0;
+    }
+
+    14% {
+        opacity: 0.5;
+    }
+
+    26% {
+        opacity: 0.5;
+    }
+
+    28% {
+        opacity: 0;
+    }
+
+    56% {
+        opacity: 0;
+    }
+
+    58% {
+        opacity: 0.5;
+    }
+
+    70% {
+        opacity: 0.5;
+    }
+
+    72% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes gif-frame3 {
-    0% { opacity: 0; }
-    26% { opacity: 0; }
-    28% { opacity: 0.5; }
-    40% { opacity: 0.5; }
-    42% { opacity: 0; }
-    56% { opacity: 0; }
-    58% { opacity: 0.5; }
-    70% { opacity: 0.5; }
-    72% { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    26% {
+        opacity: 0;
+    }
+
+    28% {
+        opacity: 0.5;
+    }
+
+    40% {
+        opacity: 0.5;
+    }
+
+    42% {
+        opacity: 0;
+    }
+
+    56% {
+        opacity: 0;
+    }
+
+    58% {
+        opacity: 0.5;
+    }
+
+    70% {
+        opacity: 0.5;
+    }
+
+    72% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes gif-frame4 {
-    0% { opacity: 0; }
-    40% { opacity: 0; }
-    42% { opacity: 0.5; }
-    56% { opacity: 0.5; }
-    58% { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 0;
+    }
+
+    42% {
+        opacity: 0.5;
+    }
+
+    56% {
+        opacity: 0.5;
+    }
+
+    58% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 
 /*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
 h1 {
-    letter-spacing: 0.15em; /* Increases space between letters */
+    letter-spacing: 0.15em;
+    /* Increases space between letters */
     text-align: center;
     font-family: "Libre Caslon Text", serif;
-        font-weight: 400;
+    font-weight: 400;
     font-size: 1.2rem;
 
 }
+
 h2 {
     font-family: 'Libre Caslon Text', serif;
     font-style: italic;
@@ -281,12 +425,14 @@ h2 {
 }
 
 p {
-    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    /* Responsive scaling with minimum and maximum sizes */
     font-family: "adobe-caslon-pro", serif;
     font-style: normal;
     font-weight: 400;
     text-align: center;
-    max-width: 60%;/* AUMENTEI Limite de largura para o texto */
+    max-width: 60%;
+    /* AUMENTEI Limite de largura para o texto */
 }
 
 section {
@@ -346,6 +492,7 @@ section {
     height: 100vh;
     /* Altura inicial, será substituída pelo JS */
 }
+
 #fundo-img {
     position: absolute;
     /* Same as other background-image */
@@ -373,6 +520,7 @@ section {
     object-fit: cover;
     z-index: -1;
 }
+
 /*-----------------------------------------------------cena1.----------- */
 #sectionfumo {
     position: absolute;
@@ -382,6 +530,7 @@ section {
     width: 100vw;
     z-index: 100;
 }
+
 #fumo {
     position: sticky;
     top: 0vh;
@@ -390,15 +539,16 @@ section {
     width: 100vw;
     z-index: 0;
 }
+
 #divfumo {
- width: 25vw;
+    width: 25vw;
     right: 5vw;
     bottom: 10vh;
 }
 
 
 #fumo-gif {
-  position: absolute;
+    position: absolute;
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
@@ -527,15 +677,19 @@ section {
     0% {
         transform: translateY(0) rotate(0deg) scale(1);
     }
+
     25% {
         transform: translateY(-10px) rotate(2deg) scale(1);
     }
+
     50% {
         transform: translateY(0) rotate(-2deg) scale(1);
     }
+
     75% {
         transform: translateY(10px) rotate(1deg) scale(1);
     }
+
     100% {
         transform: translateY(0) rotate(0deg) scale(1);
     }
@@ -554,10 +708,12 @@ section {
         opacity: 0;
         transform: scale(0);
     }
+
     50% {
         opacity: 0.5;
         transform: scale(1.1);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -569,6 +725,7 @@ section {
         opacity: 1;
         transform: scale(1);
     }
+
     100% {
         opacity: 0;
         transform: scale(0);
@@ -581,10 +738,12 @@ section {
     position: absolute;
     left: 0;
     top: 1900vh;
-    height: 1100vh;  /* Ensure this is tall enough for proper scrolling */
+    height: 1100vh;
+    /* Ensure this is tall enough for proper scrolling */
     width: 100vw;
     z-index: 100;
 }
+
 #folhas {
     position: sticky;
     top: 0vh;
@@ -593,6 +752,7 @@ section {
     width: 100vw;
     z-index: 0;
 }
+
 #divfolhas {
     position: relative;
     top: 0%;
@@ -601,14 +761,16 @@ section {
     width: 100vw;
     z-index: 0;
 }
-#cap5cena2detalhes1-img{
+
+#cap5cena2detalhes1-img {
     position: absolute;
     bottom: 0;
     width: 100vw;
     height: auto;
     z-index: 3;
 }
-#cap5cena2alice-img{
+
+#cap5cena2alice-img {
     position: absolute;
     left: 50%;
     bottom: 40vh;
@@ -618,7 +780,8 @@ section {
     width: 30vw;
     z-index: 2001;
 }
-#cap5cena2cogumelo-img{
+
+#cap5cena2cogumelo-img {
     position: absolute;
     left: 50%;
     bottom: 0;
@@ -627,6 +790,7 @@ section {
     width: 30vw;
     z-index: 2000;
 }
+
 #cap5cena1lagarta2-img {
     position: absolute;
     left: 5vw;
@@ -634,7 +798,8 @@ section {
     width: 33vw;
     height: auto;
     z-index: 2000;
-    transition: left 8s ease-in; /* Adicione esta linha */
+    transition: left 8s ease-in;
+    /* Adicione esta linha */
 }
 
 .hide-caterpillar {
@@ -660,8 +825,10 @@ section {
     opacity: 0;
     transform-origin: center;
     transition: opacity 0.5s ease, left 0.5s ease, top 0.5s ease;
-    cursor: pointer; /* Indica que é clicável */
-    pointer-events: auto; /* Garante que seja clicável */
+    cursor: pointer;
+    /* Indica que é clicável */
+    pointer-events: auto;
+    /* Garante que seja clicável */
 }
 
 .butterfly-reset {
@@ -672,7 +839,8 @@ section {
 }
 
 .smoke-move {
-    left: 0 !important; /* Move to visible position */
+    left: 0 !important;
+    /* Move to visible position */
 }
 
 .smoke-fade {
@@ -688,8 +856,15 @@ section {
 }
 
 @keyframes wingFlap {
-    0%, 100% { transform: scaleX(1); }
-    50% { transform: scaleX(0.8); }
+
+    0%,
+    100% {
+        transform: scaleX(1);
+    }
+
+    50% {
+        transform: scaleX(0.8);
+    }
 }
 
 @keyframes butterflyFlight {
@@ -699,25 +874,29 @@ section {
         transform: rotate(15deg) scaleX(1);
         opacity: 1;
     }
+
     25% {
         left: 10vw;
         top: 15vh;
         transform: rotate(-10deg) scaleX(0.5);
         opacity: 0.8;
     }
+
     50% {
         left: 25vw;
         top: 25vh;
         transform: rotate(15deg) scaleX(1);
         opacity: 1;
     }
+
     75% {
         left: 35vw;
         top: 10vh;
         transform: rotate(-10deg) scaleX(0.5);
         opacity: 0.8;
     }
-     100% {
+
+    100% {
         left: 35vw;
         top: 10vh;
         transform: rotate(-10deg) scaleX(1);
@@ -732,24 +911,28 @@ section {
         transform: rotate(-10deg) scaleX(-1);
         opacity: 1;
     }
+
     25% {
         left: 25vw;
         top: 25vh;
         transform: rotate(15deg) scaleX(-0.5);
         opacity: 0.5;
     }
+
     50% {
         left: 10vw;
         top: 15vh;
         transform: rotate(-10deg) scaleX(-1);
         opacity: 1;
     }
+
     75% {
         left: -5vw;
         top: 20vh;
         transform: rotate(15deg) scaleX(-0.5);
         opacity: 0.5;
     }
+
     100% {
         left: -20vw;
         top: 20vh;
@@ -781,21 +964,32 @@ section {
 }
 
 @keyframes fumoFade {
-    0% { opacity: 0; }
-    50% { opacity: 0.9; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 
 
 #chapter-transition-block {
     height: 100vh;
-    background: #3D1616; /* Ou a cor desejada */
+    background: #3D1616;
+    /* Ou a cor desejada */
     width: 100vw;
 }
+
 #next-chapter-block {
     height: 1300vh;
-    background: #080011; /* Escolha a cor do próximo capítulo */
+    background: #080011;
+    /* Escolha a cor do próximo capítulo */
     width: 100vw;
 }
 
@@ -814,12 +1008,91 @@ section {
 
 #end {
     position: relative;
-        display: inline-flex;
+    display: inline-flex;
     top: 900vh;
     left: 50%;
     transform: translateX(-50%);
     color: #8755cb;
     font-family: "adobe-caslon-pro", serif;
-   font-size: 1.2rem;
+    font-size: 1.2rem;
     z-index: 1000;
+}
+
+/* --------------------------------------------------dialogos------------- */
+#dialogos {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+}
+
+.message {
+    position: absolute;
+    max-width: 600px;
+    font-size: 2.2rem;
+    font-family: "adobe-caslon-pro", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    pointer-events: none;
+    /* Evita interferência com interações */
+}
+
+#c1f1 {
+    top: 30%;
+    left: 30%;
+}
+#c1f2 {
+    top: 30%;
+    right: 5%;
+}
+
+
+#c1f3 {
+    top: 30%;
+    left: 20%;
+
+}
+#c1f4 {
+    top: 40%;
+    right: 15%;
+
+}
+#c1f5 {
+    top: 60%;
+    left: 20%;
+}
+#c1f6 {
+    top: 30%;
+    right: 10%;
+}
+#c1f7 {
+    top: 20%;
+    left: 30%;
+}
+#c1f8 {
+      bottom: 5%;
+    right: 20%;
+
+}
+
+#c2f1 {
+    bottom: 5%;
+    right: 5%;
+}
+#c2f2 {
+    top: 30%;
+    right: 25%;
+}
+
+
+#c2f3 {
+    bottom: 20%;
+    left: 20%;
+
 }
