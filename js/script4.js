@@ -137,6 +137,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const stickyContainer = document.getElementById('sticky-container');
         const stickyContainer2 = document.getElementById('sticky-container2');
         
+        // Calculate total page scroll progress (0 to 1)
+        const totalPageHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const currentScrollPosition = window.pageYOffset;
+        const totalScrollProgress = currentScrollPosition / totalPageHeight;
+        
         if (stickyContainer && stickyContainer2) {
             // Calculate scroll progress for sticky-container (for showing trees)
             const containerRect = stickyContainer.getBoundingClientRect();
@@ -153,9 +158,29 @@ document.addEventListener('DOMContentLoaded', function() {
             const house = document.getElementById('cap4cena2casa-img');
 
             const handImg = document.getElementById('cap4cena2mao-img');
+            const sectionArvore = document.getElementById('sectionarvore');
+            const sectionCoelho = document.getElementById('sectioncoelho');
+            
+            // Hide sections when reaching 90% of total page scroll
+            if (totalScrollProgress >= 0.9) {
+                if (sectionArvore) {
+                    sectionArvore.style.visibility = 'hidden';
+                }
+                if (sectionCoelho) {
+                    sectionCoelho.style.visibility = 'hidden';
+                }
+            } else {
+                // Restore visibility when below 90% of total page scroll
+                if (sectionArvore) {
+                    sectionArvore.style.visibility = 'visible';
+                }
+                if (sectionCoelho) {
+                    sectionCoelho.style.visibility = 'visible';
+                }
+            }
             
             if (leftTree && rightTree && house) {
-                // Show trees when sticky-container reaches 80%
+                // Show trees when sticky-container reaches 90%
                 if (scrollProgress >= 0.9 && scrollProgress2 < 0.5) {
                     leftTree.classList.add('show');
                     rightTree.classList.add('show');
@@ -174,15 +199,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 }
+                
+                // Scale up house only when sticky-container2 is almost finishing (after 80% of container2)
+                if (scrollProgress2 >= 0.8 && scrollProgress2 < 2.0) {
+                    house.classList.add('scale-up');
+                }
+                
                 // Hide trees when sticky-container2 reaches 50% OR sticky-container is below 50%
                 else if (scrollProgress2 >= 0.5 || scrollProgress <= 0.5) {
                     leftTree.classList.remove('show');
                     rightTree.classList.remove('show');
                     leftTree.classList.add('hide');
                     rightTree.classList.add('hide');
-                    // house.classList.remove('scale-up'); // Removed - casa fica grande permanentemente
+                    // Remove scale-up when trees exit
+                    house.classList.remove('scale-up');
                     treesAreVisible = false;
-                    house.classList.add('scale-up');
                     
                     // Make hand exit when trees exit - only if hand is currently visible
                     if (handImg && handImg.classList.contains('hand-forward')) {
@@ -196,6 +227,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         handTimeout = null;
                     }
                 }
+
+
+
+                
             }
         }
     });
