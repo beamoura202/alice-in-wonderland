@@ -193,4 +193,76 @@ document.addEventListener("DOMContentLoaded", function () {
         cena1Audio: !!document.getElementById('cena1-audio'),
         cena2Audio: !!document.getElementById('cena2-audio')
     });
+
+ // --- CAPÍTULO 10: Sistema de timing para frases ---
+    // audiocena1
+    const audioCena1 = document.getElementById('cena1-audio');
+    const frase_1 = document.getElementById('c1f1');
+    const frase_2 = document.getElementById('c1f2');
+    const frase_3 = document.getElementById('c1f3');
+   
+
+    if (audioCena1 && frase_1 && frase_2 && frase_3) {
+        audioCena1.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 1: 0 - 2.5s
+            if (t >= 0.01 && t < 4.755) {
+                frase_1.style.setProperty('opacity', '1', 'important');
+                frase_1.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_1.style.setProperty('opacity', '0', 'important');
+                frase_1.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 2: 2.5 - 5.5s
+            if (t >= 5.208 && t < 6.270) {
+                frase_2.style.setProperty('opacity', '1', 'important');
+                frase_2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_2.style.setProperty('opacity', '0', 'important');
+                frase_2.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 3: 5.5 - 8.5s
+            if (t >= 7.609 && t < 9.927) {
+                frase_3.style.setProperty('opacity', '1', 'important');
+                frase_3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_3.style.setProperty('opacity', '0', 'important');
+                frase_3.style.setProperty('visibility', 'hidden', 'important');
+            }
+          
+        });
+        audioCena1.addEventListener('play', function () {
+            [frase_1, frase_2, frase_3].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+
+    // audiocena2
+    const audioCena5_2 = document.getElementById('cena2-audio');
+    const frase1c2 = document.getElementById('c2f1');
+   
+
+    if (audioCena5_2 && frase1c2 ) {
+        audioCena5_2.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 6: 0 - 3s
+            if (t >= 9.055 && t < 109.055) {
+                frase1c2.style.setProperty('opacity', '1', 'important');
+                frase1c2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase1c2.style.setProperty('opacity', '0', 'important');
+                frase1c2.style.setProperty('visibility', 'hidden', 'important');
+            }
+         
+        });
+        audioCena5_2.addEventListener('play', function () {
+            [frase1c2].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+
 });

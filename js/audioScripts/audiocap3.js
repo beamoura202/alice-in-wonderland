@@ -63,45 +63,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    const audio = document.getElementById('audio-cena1');
-    const frase1 = document.getElementById('frase1');
-    const frase2 = document.getElementById('frase2');
-    const frase3 = document.getElementById('frase3');
-    const frase4 = document.getElementById('frase4');
 
-    // Esconde todas as frases ao início
-frase1.style.opacity = '0';
-frase2.style.opacity = '0';
-frase3.style.opacity = '0';
-frase4.style.opacity = '0';
 
-    audio.addEventListener('timeupdate', function () {
-      // Frase 1: 4.2s até 10s
-      if (audio.currentTime >= 4.2 && audio.currentTime < 10) {
-        frase1.style.opacity = '1';
-      } else {
-        frase1.style.opacity = '0';
-      }
 
-      // Frase 2: 20.2s até 37.05s
-      if (audio.currentTime >= 20.2 && audio.currentTime < 37.05) {
-        frase2.style.opacity = '1';
-      } else {
-        frase2.style.opacity = '0';
-      }
+    // --- CAPÍTULO 3: Sistema de timing para frases ---
+    // audiocena1
+    const audioCena1 = document.getElementById('audio-cena1');
+    const frase_1 = document.getElementById('c1f1');
+    const frase_2 = document.getElementById('c1f2');
+    const frase_3 = document.getElementById('c1f3');
+    const frase_4 = document.getElementById('c1f4');
+    const frase_5 = document.getElementById('c1f5');
+   
 
-      // Frase 3: 37.9s até 39.8s
-      if (audio.currentTime >= 37.9 && audio.currentTime < 39.8) {
-        frase3.style.opacity = '1';
-      } else {
-        frase3.style.opacity = '0';
-      }
-
-      // Frase 4: 42.7s até 44.3s
-      if (audio.currentTime >= 42.7 && audio.currentTime < 44.3) {
-        frase4.style.opacity = '1';
-      } else {
-        frase4.style.opacity = '0';
-      }
-    });
+    if (audioCena1 && frase_1 && frase_2 && frase_3 && frase_4 && frase_5) {
+        audioCena1.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 1: 0 - 2.5s
+            if (t >= 4.157 && t < 8.905) {
+                frase_1.style.setProperty('opacity', '1', 'important');
+                frase_1.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_1.style.setProperty('opacity', '0', 'important');
+                frase_1.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 2: 2.5 - 5.5s
+            if (t >= 20.376 && t < 26.756) {
+                frase_2.style.setProperty('opacity', '1', 'important');
+                frase_2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_2.style.setProperty('opacity', '0', 'important');
+                frase_2.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 3: 5.5 - 8.5s
+            if (t >= 27.121 && t < 37.295) {
+                frase_3.style.setProperty('opacity', '1', 'important');
+                frase_3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_3.style.setProperty('opacity', '0', 'important');
+                frase_3.style.setProperty('visibility', 'hidden', 'important');
+            }
+             if (t >= 37.849 && t < 39.396) {
+                frase_4.style.setProperty('opacity', '1', 'important');
+                frase_4.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_4.style.setProperty('opacity', '0', 'important');
+                frase_4.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 3: 5.5 - 8.5s
+            if (t >= 42.859 && t < 44.007) {
+                frase_5.style.setProperty('opacity', '1', 'important');
+                frase_5.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_5.style.setProperty('opacity', '0', 'important');
+                frase_5.style.setProperty('visibility', 'hidden', 'important');
+            }
+          
+        });
+        audioCena1.addEventListener('play', function () {
+            [frase_1, frase_2, frase_3,frase_4,frase_5].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
 });
