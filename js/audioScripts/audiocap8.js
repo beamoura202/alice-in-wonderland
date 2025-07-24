@@ -152,6 +152,44 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('Áudio desbloqueado!');
     }
 
+    // --- Controle preciso do áudio da cena3 (sticky-container2) ---
+    function handleStickyContainer2Audio() {
+        if (!audioUnlocked) return;
+        const sticky1 = document.getElementById('sticky-container');
+        const sticky2 = document.getElementById('sticky-container2');
+        const sticky3 = document.getElementById('sticky-container3');
+        const audioCena3 = document.getElementById('cena3-audio');
+        if (!sticky1 || !sticky2 || !sticky3 || !audioCena3) return;
+
+        const rect1 = sticky1.getBoundingClientRect();
+        const rect2 = sticky2.getBoundingClientRect();
+        const rect3 = sticky3.getBoundingClientRect();
+        // Começa quando sticky-container (cena2) termina (sai do topo)
+        // Termina quando sticky-container3 entra na viewport
+        const cena2Terminou = rect1.bottom <= 0;
+        const sticky3IsVisible = rect3.top < window.innerHeight && rect3.bottom > 0;
+        const sticky2IsActive = rect2.bottom > 0 && rect2.top < window.innerHeight;
+
+        if (cena2Terminou && sticky2IsActive && !sticky3IsVisible) {
+            if (currentAudio !== audioCena3) {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+                currentAudio = audioCena3;
+                audioCena3.play().catch(() => {});
+            }
+        } else {
+            if (currentAudio === audioCena3) {
+                audioCena3.pause();
+                audioCena3.currentTime = 0;
+                currentAudio = null;
+            }
+        }
+    }
+    window.addEventListener('scroll', handleStickyContainer2Audio);
+    document.addEventListener('DOMContentLoaded', handleStickyContainer2Audio);
+
     // Event listeners
     document.addEventListener('click', handleFirstInteraction);
     window.addEventListener('scroll', handleFirstInteraction);
