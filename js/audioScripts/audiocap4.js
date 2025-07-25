@@ -547,4 +547,191 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     };
+
+    // --- CAPÍTULO 4: Sistema de timing para frases ---
+    // audiocena1
+    const audioCena1 = document.getElementById('audio-cena1');
+    const frase_1 = document.getElementById('c1f1');
+    const frase_2 = document.getElementById('c1f2');
+    const frase_3 = document.getElementById('c1f3');
+    const frase_4 = document.getElementById('c1f4');
+    const frase_5 = document.getElementById('c1f5');
+   
+
+    if (audioCena1 && frase_1 && frase_2 && frase_3 && frase_4 && frase_5) {
+        audioCena1.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 1: 0 - 2.5s
+            if (t >= 19.112 && t < 25.927) {
+                frase_1.style.setProperty('opacity', '1', 'important');
+                frase_1.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_1.style.setProperty('opacity', '0', 'important');
+                frase_1.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 2: 2.5 - 5.5s
+            if (t >= 25.972 && t < 31.843) {
+                frase_2.style.setProperty('opacity', '1', 'important');
+                frase_2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_2.style.setProperty('opacity', '0', 'important');
+                frase_2.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 3: 5.5 - 8.5s
+            if (t >= 43.204 && t < 44.182) {
+                frase_3.style.setProperty('opacity', '1', 'important');
+                frase_3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_3.style.setProperty('opacity', '0', 'important');
+                frase_3.style.setProperty('visibility', 'hidden', 'important');
+            }
+              // Frase 4: 2.5 - 5.5s
+            if (t >= 44.241 && t < 45.639) {
+                frase_4.style.setProperty('opacity', '1', 'important');
+                frase_4.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_4.style.setProperty('opacity', '0', 'important');
+                frase_4.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 5: 5.5 - 8.5s
+            if (t >= 46.014 && t < 48.442) {
+                frase_5.style.setProperty('opacity', '1', 'important');
+                frase_5.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase_5.style.setProperty('opacity', '0', 'important');
+                frase_5.style.setProperty('visibility', 'hidden', 'important');
+            }
+          
+        });
+        audioCena1.addEventListener('play', function () {
+            [frase_1, frase_2, frase_3, frase_4,frase_5].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+
+    // audiocena2
+    const audioCena5_2 = document.getElementById('audio-cena2');
+    const frase1c2 = document.getElementById('c2f1');
+   
+
+    if (audioCena5_2 && frase1c2 ) {
+        audioCena5_2.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 6: 0 - 3s
+            if (t >= 11.897 && t < 16.435) {
+                frase1c2.style.setProperty('opacity', '1', 'important');
+                frase1c2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase1c2.style.setProperty('opacity', '0', 'important');
+                frase1c2.style.setProperty('visibility', 'hidden', 'important');
+            }
+         
+        });
+        audioCena5_2.addEventListener('play', function () {
+            [frase1c2].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+      // audiocena3
+    const audioCena3 = document.getElementById('audio-cena3');
+    const frase3_1 = document.getElementById('c3f1');
+    const frase3_2 = document.getElementById('c3f2');
+    const frase3_3 = document.getElementById('c3f3');
+    const frase3_4 = document.getElementById('c3f4');
+    const frase3_5 = document.getElementById('c3f5');
+    const frase3_6 = document.getElementById('c3f6');
+    const frase3_7 = document.getElementById('c3f7');
+    const frase3_8 = document.getElementById('c3f8');
+    const frase3_9 = document.getElementById('c3f9');  
+
+    if (audioCena3 && frase_1 && frase_2 && frase_3 && frase_4 && frase_5 && frase3_1 && frase3_2 && frase3_3 && frase3_4 && frase3_5 && frase3_6 && frase3_7 && frase3_8 && frase3_9) {
+        audioCena3.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 1: 0 - 2.5s
+            if (t >= 2.917 && t < 4.915) {
+                frase3_1.style.setProperty('opacity', '1', 'important');
+                frase3_1.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_1.style.setProperty('opacity', '0', 'important');
+                frase3_1.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 2: 2.5 - 5.5s
+            if (t >= 7.301 && t < 10.23) {
+                frase3_2.style.setProperty('opacity', '1', 'important');
+                frase3_2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_2.style.setProperty('opacity', '0', 'important');
+                frase3_2.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 3: 5.5 - 8.5s
+            if (t >= 10.589 && t < 11.622) {
+                frase3_3.style.setProperty('opacity', '1', 'important');
+                frase3_3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_3.style.setProperty('opacity', '0', 'important');
+                frase3_3.style.setProperty('visibility', 'hidden', 'important');
+            }
+              // Frase 4: 2.5 - 5.5s
+            if (t >= 11.912 && t < 14.361) {
+                frase3_4.style.setProperty('opacity', '1', 'important');
+                frase3_4.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_4.style.setProperty('opacity', '0', 'important');
+                frase3_4.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 5: 5.5 - 8.5s
+            if (t >= 14.749 && t < 17.122) {
+                frase3_5.style.setProperty('opacity', '1', 'important');
+                frase3_5.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_5.style.setProperty('opacity', '0', 'important');
+                frase3_5.style.setProperty('visibility', 'hidden', 'important');
+            }
+                // Frase 6: 2.5 - 5.5s
+            if (t >= 19.098 && t < 20.152) {
+                frase3_6.style.setProperty('opacity', '1', 'important');
+                frase3_6.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_6.style.setProperty('opacity', '0', 'important');
+                frase3_6.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 7 5.5 - 8.5s
+            if (t >= 20.611 && t < 23.995) {
+                frase3_7.style.setProperty('opacity', '1', 'important');
+                frase3_7.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_7.style.setProperty('opacity', '0', 'important');
+                frase3_7.style.setProperty('visibility', 'hidden', 'important');
+            }
+              // Frase 8: 2.5 - 5.5s
+            if (t >= 24.629 && t < 26.347) {
+                frase3_8.style.setProperty('opacity', '1', 'important');
+                frase3_8.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_8.style.setProperty('opacity', '0', 'important');
+                frase3_8.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 9: 5.5 - 8.5s
+            if (t >= 26.955 && t < 29.0) {
+                frase3_9.style.setProperty('opacity', '1', 'important');
+                frase3_9.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3_9.style.setProperty('opacity', '0', 'important');
+                frase3_9.style.setProperty('visibility', 'hidden', 'important');
+            }
+          
+          
+        });
+        audioCena3.addEventListener('play', function () {
+            [frase3_1, frase3_2, frase3_3, frase3_4,frase3_5,frase3_6,frase3_7,frase3_8,frase3_9].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+
 });

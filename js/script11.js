@@ -190,4 +190,211 @@ document.addEventListener('scroll', function () {
            
         }
     }
+
+
+    // --- CAPÍTULO 11: Sistema de timing para frases ---
+  
+
+    // audiocena2
+    const audioCena5_2 = document.getElementById('cena2-audio');
+    const frase1c2 = document.getElementById('c2f1');
+    const frase2c2 = document.getElementById('c2f2');
+    const frase3c2 = document.getElementById('c2f3');
+    const frase4c2 = document.getElementById('c2f4');
+   
+
+    if (audioCena5_2 && frase1c2 && frase2c2 && frase3c2 && frase4c2) {
+        audioCena5_2.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 6: 0 - 3s
+            if (t >= 9.162 && t < 10.459) {
+                frase1c2.style.setProperty('opacity', '1', 'important');
+                frase1c2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase1c2.style.setProperty('opacity', '0', 'important');
+                frase1c2.style.setProperty('visibility', 'hidden', 'important');
+            }
+               // Frase 6: 0 - 3s
+            if (t >=12.226 && t < 14.764) {
+                frase2c2.style.setProperty('opacity', '1', 'important');
+                frase2c2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase2c2.style.setProperty('opacity', '0', 'important');
+                frase2c2.style.setProperty('visibility', 'hidden', 'important');
+            }
+               // Frase 6: 0 - 3s
+            if (t >= 16.106 && t < 25.444) {
+                frase3c2.style.setProperty('opacity', '1', 'important');
+                frase3c2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3c2.style.setProperty('opacity', '0', 'important');
+                frase3c2.style.setProperty('visibility', 'hidden', 'important');
+            }
+               // Frase 6: 0 - 3s
+            if (t >= 25.761 && t < 27.119) {
+                frase4c2.style.setProperty('opacity', '1', 'important');
+                frase4c2.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase4c2.style.setProperty('opacity', '0', 'important');
+                frase4c2.style.setProperty('visibility', 'hidden', 'important');
+            }
+         
+        });
+        audioCena5_2.addEventListener('play', function () {
+            [frase1c2,frase2c2,frase3c2,frase4c2].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+    // audiocena3
+    const audioCena5_3 = document.getElementById('cena3-audio');
+    const frase1c3 = document.getElementById('c3f1');       
+    const frase2c3 = document.getElementById('c3f2');
+    const frase3c3 = document.getElementById('c3f3');
+    const frase4c3 = document.getElementById('c3f4');
+    const frase5c3 = document.getElementById('c3f5');
+    const frase6c3 = document.getElementById('c3f6');
+    const frase7c3 = document.getElementById('c3f7');
+    const frase8c3 = document.getElementById('c3f8');
+    const frase9c3 = document.getElementById('c3f9');
+    const frase10c3 = document.getElementById('c3f10');
+
+    if (audioCena5_3 && frase1c3 && frase2c3 && frase3c3 && frase4c3 && frase5c3 && frase6c3 && frase7c3 && frase8c3 && frase9c3 && frase10c3) {
+        audioCena5_3.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 1: 0 - 3s
+            if (t >= 7.498 && t < 15.066) {
+                frase1c3.style.setProperty('opacity', '1', 'important');
+                frase1c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase1c3.style.setProperty('opacity', '0', 'important');
+                frase1c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 2: 0 - 3s
+            if (t >= 15.171 && t < 16.408) {
+                frase2c3.style.setProperty('opacity', '1', 'important');
+                frase2c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase2c3.style.setProperty('opacity', '0', 'important');
+                frase2c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 3: 0 - 3s
+            if (t >= 23.702 && t < 24.532) {
+                frase3c3.style.setProperty('opacity', '1', 'important');
+                frase3c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3c3.style.setProperty('opacity', '0', 'important');
+                frase3c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 4: 0 - 3s
+            if (t >=27.020 && t < 27.622) {
+                frase4c3.style.setProperty('opacity', '1', 'important');
+                frase4c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase4c3.style.setProperty('opacity', '0', 'important');
+                frase4c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 5: 0 - 3s
+            if (t >= 28.810 && t < 29.888) {
+                frase5c3.style.setProperty('opacity', '1', 'important');
+                frase5c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase5c3.style.setProperty('opacity', '0', 'important');
+                frase5c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 6: 0 - 3s
+            if (t >= 31.676 && t < 34.891) {    
+                frase6c3.style.setProperty('opacity', '1', 'important');
+                frase6c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase6c3.style.setProperty('opacity', '0', 'important');
+                frase6c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 7: 0 - 3s
+            if (t >= 40.188 && t < 42.425) {
+                frase7c3.style.setProperty('opacity', '1', 'important');
+                frase7c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase7c3.style.setProperty('opacity', '0', 'important');
+                frase7c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 8: 0 - 3s
+            if (t >= 43.698 && t < 50.314) {
+                frase8c3.style.setProperty('opacity', '1', 'important');
+                frase8c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase8c3.style.setProperty('opacity', '0', 'important');
+                frase8c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 9: 0 - 3s
+            if (t >= 51.931 && t < 56.639) {
+                frase9c3.style.setProperty('opacity', '1', 'important');
+                frase9c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase9c3.style.setProperty('opacity', '0', 'important');
+                frase9c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 10: 0 - 3s
+            if (t >= 56.997 && t < 58.144) {
+                frase10c3.style.setProperty('opacity', '1', 'important');
+                frase10c3.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase10c3.style.setProperty('opacity', '0', 'important');
+                frase10c3.style.setProperty('visibility', 'hidden', 'important');
+            }
+
+        });
+        audioCena5_3.addEventListener('play', function () {
+            [frase1c3, frase2c3, frase3c3, frase4c3, frase5c3, frase6c3, frase7c3, frase8c3, frase9c3, frase10c3].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }   
+
+    // audiocena4
+    const audioCena5_4 = document.getElementById('cena4-audio');
+    const frase1c4 = document.getElementById('c4f1');
+    const frase2c4 = document.getElementById('c4f2');
+    const frase3c4 = document.getElementById('c4f3');
+    
+    if (audioCena5_4 && frase1c4 && frase2c4 && frase3c4) {
+        audioCena5_4.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            // Frase 1: 0 - 3s
+            if (t >= 11.235 && t <  12.573) {
+                frase1c4.style.setProperty('opacity', '1', 'important');
+                frase1c4.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase1c4.style.setProperty('opacity', '0', 'important');
+                frase1c4.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 2: 0 - 3s
+            if (t >= 12.978 && t < 16.509) {
+                frase2c4.style.setProperty('opacity', '1', 'important');
+                frase2c4.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase2c4.style.setProperty('opacity', '0', 'important');
+                frase2c4.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Frase 3: 0 - 3s
+            if (t >=23.793 && t < 24.786) {
+                frase3c4.style.setProperty('opacity', '1', 'important');
+                frase3c4.style.setProperty('visibility', 'visible', 'important');
+            } else {
+                frase3c4.style.setProperty('opacity', '0', 'important');
+                frase3c4.style.setProperty('visibility', 'hidden', 'important');
+            }
+          
+        });
+        audioCena5_4.addEventListener('play', function () {
+            [frase1c4,frase2c4,frase3c4].forEach(f => {
+                f.style.setProperty('opacity', '0', 'important');
+                f.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+    
+
 });
