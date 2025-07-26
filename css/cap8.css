@@ -474,21 +474,43 @@ section {
 /* MUDEI AQUIIIIII */
 
 #rainha2 {
-    position: absolute;
-/*bottom: 7vh;*/
-top:30vh;
-    right: 10vw;
     height: 75vh;
     width: auto;
+    pointer-events: none;
+}
+
+
+ /* ---------------------------------------------------------------------placa popup------------------------------- */
+#RainhaCora {
+    position: fixed;
+    bottom: -100vh; /* começa fora da tela */
+    right: 10vw;
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ transition: 
+        bottom 1s ease-out,
+        right 1s ease-out,
+        opacity 2s ease; /* <-- fade in/out suave */    z-index: 9999;
+
 
 }
- /* ---------------------------------------------------------------------placa popup------------------------------- */
 
+#RainhaCora.show {
+    bottom: 0vh; /* entra na tela */
+    right: 10vw;
+}
+
+#RainhaCora.exit {
+    right: -50vw; /* sai para fora da tela pela direita */
+    bottom: 0vh; /* entra na tela */
+}
 #coracao{
     position: absolute;
     /*bottom: 7vh;*/
-    top:30vh;
-    right: 10vw;
+    bottom: 0vh;
     height: 75vh;
     width: auto;
     transition: opacity 0.3s ease-in-out; /* Transição suave */
@@ -496,9 +518,6 @@ top:30vh;
     pointer-events: auto; /* Garante que seja clicável */
     z-index: 100000;
     animation: popup-pulse 2s infinite ease-in-out;
-
-
-
 }
 
 @keyframes popup-pulse {
@@ -539,8 +558,13 @@ top:30vh;
     width: auto;
     z-index: 3;
     animation: balancoGato 1.5s infinite;
-}
+    opacity: 1;
+        transition: opacity 2s ease; /* <- FADE OUT suave */
 
+}
+#gato.exit {
+    opacity: 0; 
+}
 
 @keyframes balancoGato {
   0% { transform: translateX(-50%) rotate(-5deg);}
@@ -582,7 +606,7 @@ top:30vh;
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 999;
+    z-index: 998;
 }
 
 .message {
@@ -694,7 +718,7 @@ top:30vh;
     left: 5%;
 }
 #c4f6 {
-    bottom: 30%;
+    bottom: 5%;
     right:2%;
 }
 #c4f7 {

@@ -397,6 +397,52 @@ document.addEventListener("DOMContentLoaded", function () {
     }
      // audiocena4
     const audioCena5_4 = document.getElementById('cena4-audio');
+    const rainhaCora = document.getElementById('RainhaCora');
+        const gato = document.getElementById('gato');
+
+
+if (audioCena5_4 && rainhaCora && gato) {
+    audioCena5_4.addEventListener('timeupdate', function () {
+        const t = this.currentTime;
+
+        // Mostra RainhaCora aos 23 segundos
+        if (t >= 31.055 && t < 40) {
+            rainhaCora.classList.add('show');
+            rainhaCora.classList.remove('exit');
+        }
+
+        // Faz sair aos 34 segundos
+        else if (t >= 34) {
+            rainhaCora.classList.add('exit');
+        }
+
+        // Esconde antes dos 23
+        else {
+            rainhaCora.classList.remove('show', 'exit');
+        }
+
+
+
+
+ // Mostra RainhaCora aos 23 segundos
+        if (t >= 36 ) {
+            gato.classList.add('exit');
+        }
+     
+        else {
+            rainhaCora.classList.remove('exit');
+        }
+
+
+    });
+    
+
+    audioCena5_4.addEventListener('play', function () {
+        rainhaCora.classList.remove('show', 'exit');
+                gato.classList.remove('exit');
+
+    });
+}
     const frase1c4 = document.getElementById('c4f1');
     const frase2c4 = document.getElementById('c4f2');
     const frase3c4 = document.getElementById('c4f3');
@@ -404,8 +450,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const frase5c4 = document.getElementById('c4f5');
     const frase6c4 = document.getElementById('c4f6');
     const frase7c4 = document.getElementById('c4f7');
-    const frase8c4 = document.getElementById('c4f8');
-    const frase9c4 = document.getElementById('c4f9');
+
    
 
     if (audioCena5_4 && frase1c4 && frase2c4 && frase3c4 && frase4c4 && frase5c4 && frase6c4 && frase7c4 ) {

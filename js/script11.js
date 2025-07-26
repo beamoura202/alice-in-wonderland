@@ -1,62 +1,62 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const sticky = document.getElementById('sticky-container1');
-  const img = document.getElementById('alicecena1');
+document.addEventListener('DOMContentLoaded', function () {
+    const sticky = document.getElementById('sticky-container1');
+    const img = document.getElementById('alicecena1');
 
-  let targetLeft = 0;
-  let targetWidth = 20;
-  let currentLeft = 0;
-  let currentWidth = 20;
-  let animating = false;
+    let targetLeft = 0;
+    let targetWidth = 20;
+    let currentLeft = 0;
+    let currentWidth = 20;
+    let animating = false;
 
-  function animate() {
-    currentLeft += (targetLeft - currentLeft) * 0.15;
-    currentWidth += (targetWidth - currentWidth) * 0.15;
+    function animate() {
+        currentLeft += (targetLeft - currentLeft) * 0.15;
+        currentWidth += (targetWidth - currentWidth) * 0.15;
 
-    img.style.left = `${currentLeft}px`;
-    img.style.width = `${currentWidth}vw`;
+        img.style.left = `${currentLeft}px`;
+        img.style.width = `${currentWidth}vw`;
 
-    if (Math.abs(currentLeft - targetLeft) > 0.5 || Math.abs(currentWidth - targetWidth) > 0.1) {
-      requestAnimationFrame(animate);
-    } else {
-      currentLeft = targetLeft;
-      currentWidth = targetWidth;
-      img.style.left = `${currentLeft}px`;
-      img.style.width = `${currentWidth}vw`;
-      animating = false;
+        if (Math.abs(currentLeft - targetLeft) > 0.5 || Math.abs(currentWidth - targetWidth) > 0.1) {
+            requestAnimationFrame(animate);
+        } else {
+            currentLeft = targetLeft;
+            currentWidth = targetWidth;
+            img.style.left = `${currentLeft}px`;
+            img.style.width = `${currentWidth}vw`;
+            animating = false;
+        }
     }
-  }
 
-  window.addEventListener('scroll', function() {
-    if (!sticky || !img) return;
-    const rect = sticky.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    window.addEventListener('scroll', function () {
+        if (!sticky || !img) return;
+        const rect = sticky.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
 
-    const totalScroll = rect.height - windowHeight;
-    const scrolled = Math.min(Math.max(windowHeight - rect.top, 0), totalScroll);
-    const percent = scrolled / totalScroll;
-    const animPercent = Math.min(percent / 0.4, 1);
+        const totalScroll = rect.height - windowHeight;
+        const scrolled = Math.min(Math.max(windowHeight - rect.top, 0), totalScroll);
+        const percent = scrolled / totalScroll;
+        const animPercent = Math.min(percent / 0.4, 1);
 
-    const widthStart = 20; // vw
-    const widthEnd = 7;   // vw
-    targetWidth = widthStart - (widthStart - widthEnd) * animPercent;
+        const widthStart = 20; // vw
+        const widthEnd = 7;   // vw
+        targetWidth = widthStart - (widthStart - widthEnd) * animPercent;
 
-    // left vai de 0 até ao centro do ecrã
-    const center = window.innerWidth / 2;
-    targetLeft = animPercent * center;
+        // left vai de 0 até ao centro do ecrã
+        const center = window.innerWidth / 2;
+        targetLeft = animPercent * center;
 
-    if (!animating) {
-      animating = true;
-      requestAnimationFrame(animate);
-    }
-  });
+        if (!animating) {
+            animating = true;
+            requestAnimationFrame(animate);
+        }
+    });
 
-  // Atualiza ao redimensionar a janela
-  window.addEventListener('resize', function() {
-    // recalcula o centro
-    targetLeft = (window.innerWidth / 2);
-    currentLeft = targetLeft;
-    img.style.left = `${currentLeft}px`;
-  });
+    // Atualiza ao redimensionar a janela
+    window.addEventListener('resize', function () {
+        // recalcula o centro
+        targetLeft = (window.innerWidth / 2);
+        currentLeft = targetLeft;
+        img.style.left = `${currentLeft}px`;
+    });
 });
 
 let sapatosAnimados = false;
@@ -144,7 +144,7 @@ document.addEventListener('scroll', function () {
     // Alice animation
     const sticky3 = document.getElementById('alice-container');
     const alice = document.getElementById('alice');
-        const esquilo = document.getElementById('esquilo');
+    const esquilo = document.getElementById('esquilo');
 
     if (sticky3 && alice) {
         const rect = sticky3.getBoundingClientRect();
@@ -154,11 +154,11 @@ document.addEventListener('scroll', function () {
 
         if (scrollPercent > 0.7) {
             alice.classList.add('alice-entra');
-           esquilo.classList.add('esquilo-entra');
+            esquilo.classList.add('esquilo-entra');
 
         } else {
             alice.classList.remove('alice-entra');
-                       esquilo.classList.remove('esquilo-entra');
+            esquilo.classList.remove('esquilo-entra');
 
         }
 
@@ -187,13 +187,13 @@ document.addEventListener('scroll', function () {
 
             alice.dataset.lastPop = '';
             alice.style.setProperty('--esquilo-width', `40vw`);
-           
+
         }
     }
 
 
     // --- CAPÍTULO 11: Sistema de timing para frases ---
-  
+
 
     // audiocena2
     const audioCena5_2 = document.getElementById('cena2-audio');
@@ -201,7 +201,7 @@ document.addEventListener('scroll', function () {
     const frase2c2 = document.getElementById('c2f2');
     const frase3c2 = document.getElementById('c2f3');
     const frase4c2 = document.getElementById('c2f4');
-   
+
 
     if (audioCena5_2 && frase1c2 && frase2c2 && frase3c2 && frase4c2) {
         audioCena5_2.addEventListener('timeupdate', function () {
@@ -214,15 +214,15 @@ document.addEventListener('scroll', function () {
                 frase1c2.style.setProperty('opacity', '0', 'important');
                 frase1c2.style.setProperty('visibility', 'hidden', 'important');
             }
-               // Frase 6: 0 - 3s
-            if (t >=12.226 && t < 14.764) {
+            // Frase 6: 0 - 3s
+            if (t >= 12.226 && t < 14.764) {
                 frase2c2.style.setProperty('opacity', '1', 'important');
                 frase2c2.style.setProperty('visibility', 'visible', 'important');
             } else {
                 frase2c2.style.setProperty('opacity', '0', 'important');
                 frase2c2.style.setProperty('visibility', 'hidden', 'important');
             }
-               // Frase 6: 0 - 3s
+            // Frase 6: 0 - 3s
             if (t >= 16.106 && t < 25.444) {
                 frase3c2.style.setProperty('opacity', '1', 'important');
                 frase3c2.style.setProperty('visibility', 'visible', 'important');
@@ -230,7 +230,7 @@ document.addEventListener('scroll', function () {
                 frase3c2.style.setProperty('opacity', '0', 'important');
                 frase3c2.style.setProperty('visibility', 'hidden', 'important');
             }
-               // Frase 6: 0 - 3s
+            // Frase 6: 0 - 3s
             if (t >= 25.761 && t < 27.119) {
                 frase4c2.style.setProperty('opacity', '1', 'important');
                 frase4c2.style.setProperty('visibility', 'visible', 'important');
@@ -238,18 +238,61 @@ document.addEventListener('scroll', function () {
                 frase4c2.style.setProperty('opacity', '0', 'important');
                 frase4c2.style.setProperty('visibility', 'hidden', 'important');
             }
-         
+
         });
         audioCena5_2.addEventListener('play', function () {
-            [frase1c2,frase2c2,frase3c2,frase4c2].forEach(f => {
+            [frase1c2, frase2c2, frase3c2, frase4c2].forEach(f => {
                 f.style.setProperty('opacity', '0', 'important');
                 f.style.setProperty('visibility', 'hidden', 'important');
             });
         });
     }
+    
     // audiocena3
     const audioCena5_3 = document.getElementById('cena3-audio');
-    const frase1c3 = document.getElementById('c3f1');       
+    const lebre = document.getElementById('lebre');
+const chapeleiro2 = document.getElementById('chapeleiro2');
+
+
+if (audioCena5_3 && lebre && chapeleiro && chapeleiro2) {
+  audioCena5_3.addEventListener('timeupdate', function () {
+    const t = this.currentTime;
+
+    // ➤ LEBRE entra e sai
+    if (t >= 22.702 && t < 24.532) {
+      lebre.classList.add('lebre-entra');
+      lebre.classList.remove('lebre-sai');
+    } else if (t >= 27.810 && t < 29.888) {
+      lebre.classList.add('lebre-entra');
+      lebre.classList.remove('lebre-sai');
+    } else {
+      lebre.classList.remove('lebre-entra');
+      lebre.classList.add('lebre-sai');
+    }
+
+  if (t >= 38 && t < 58) {
+  chapeleiro.classList.add('hide');
+  chapeleiro2.classList.add('show');
+  chapeleiro.classList.remove('chapeleiro-sai-direita');
+} else if (t >= 58) {
+  chapeleiro.classList.remove('hide');
+  chapeleiro2.classList.remove('show');
+  chapeleiro.classList.add('chapeleiro-sai-direita');
+} else {
+  chapeleiro.classList.remove('hide', 'chapeleiro-sai-direita');
+  chapeleiro2.classList.remove('show');
+}
+  });
+audioCena5_3.addEventListener('play', function () {
+  lebre.classList.remove('lebre-entra', 'lebre-sai');
+  chapeleiro.classList.remove('hide', 'chapeleiro-sai-direita');
+  chapeleiro2.classList.remove('show');
+});
+}
+
+
+
+    const frase1c3 = document.getElementById('c3f1');
     const frase2c3 = document.getElementById('c3f2');
     const frase3c3 = document.getElementById('c3f3');
     const frase4c3 = document.getElementById('c3f4');
@@ -288,7 +331,7 @@ document.addEventListener('scroll', function () {
                 frase3c3.style.setProperty('visibility', 'hidden', 'important');
             }
             // Frase 4: 0 - 3s
-            if (t >=27.020 && t < 27.622) {
+            if (t >= 27.020 && t < 27.622) {
                 frase4c3.style.setProperty('opacity', '1', 'important');
                 frase4c3.style.setProperty('visibility', 'visible', 'important');
             } else {
@@ -304,7 +347,7 @@ document.addEventListener('scroll', function () {
                 frase5c3.style.setProperty('visibility', 'hidden', 'important');
             }
             // Frase 6: 0 - 3s
-            if (t >= 31.676 && t < 34.891) {    
+            if (t >= 31.676 && t < 34.891) {
                 frase6c3.style.setProperty('opacity', '1', 'important');
                 frase6c3.style.setProperty('visibility', 'visible', 'important');
             } else {
@@ -351,19 +394,19 @@ document.addEventListener('scroll', function () {
                 f.style.setProperty('visibility', 'hidden', 'important');
             });
         });
-    }   
+    }
 
     // audiocena4
     const audioCena5_4 = document.getElementById('cena4-audio');
     const frase1c4 = document.getElementById('c4f1');
     const frase2c4 = document.getElementById('c4f2');
     const frase3c4 = document.getElementById('c4f3');
-    
+
     if (audioCena5_4 && frase1c4 && frase2c4 && frase3c4) {
         audioCena5_4.addEventListener('timeupdate', function () {
             const t = this.currentTime;
             // Frase 1: 0 - 3s
-            if (t >= 11.235 && t <  12.573) {
+            if (t >= 11.235 && t < 12.573) {
                 frase1c4.style.setProperty('opacity', '1', 'important');
                 frase1c4.style.setProperty('visibility', 'visible', 'important');
             } else {
@@ -379,22 +422,22 @@ document.addEventListener('scroll', function () {
                 frase2c4.style.setProperty('visibility', 'hidden', 'important');
             }
             // Frase 3: 0 - 3s
-            if (t >=23.793 && t < 24.786) {
+            if (t >= 23.793 && t < 24.786) {
                 frase3c4.style.setProperty('opacity', '1', 'important');
                 frase3c4.style.setProperty('visibility', 'visible', 'important');
             } else {
                 frase3c4.style.setProperty('opacity', '0', 'important');
                 frase3c4.style.setProperty('visibility', 'hidden', 'important');
             }
-          
+
         });
         audioCena5_4.addEventListener('play', function () {
-            [frase1c4,frase2c4,frase3c4].forEach(f => {
+            [frase1c4, frase2c4, frase3c4].forEach(f => {
                 f.style.setProperty('opacity', '0', 'important');
                 f.style.setProperty('visibility', 'hidden', 'important');
             });
         });
     }
-    
+
 
 });

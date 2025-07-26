@@ -528,8 +528,24 @@ section {
     width: 100vw;
     z-index: 0;
 }
+#lebre {
+  position: absolute;
+  bottom: -50vh;
+  right: 5%;
+  width: 15vw;
+  height: auto;
+  transform: scaleX(-1);
+  transition: bottom 1s ease-in-out;
+  z-index: 5;
+}
 
+.lebre-entra {
+  bottom: 0vh !important;
+}
 
+.lebre-sai {
+  bottom: -50vh !important;
+}
 
 #chapeleiro {
     position: absolute;
@@ -537,10 +553,25 @@ section {
     left: -50vw; /* Estado inicial fora do ecrã à esquerda */
     width: 20vw;
     height: auto;
-    transform: scaleX(-1);
     transition: left 1s cubic-bezier(0.77,0,0.18,1);
 }
+#chapeleiro2 {
+    position: absolute;
+    bottom: 0vh;
+    left: 10vw; /* Estado inicial fora do ecrã à esquerda */
+    width: 15vw;
+    height: auto;
+    transform: scaleX(-1);
+  display: none;
+}
 
+#chapeleiro.hide {
+  display: none !important;
+}
+
+#chapeleiro2.show {
+  display: block !important;
+}
 #sape {
    position: absolute;
     bottom: 0vh;
@@ -662,12 +693,22 @@ section {
     left: 20vw !important;
 }
 
-/* Adicione ao seu CSS */
-.chapeleiro-sair {
-  left: 110vw !important;
-  transition: left 2.5s cubic-bezier(.77,0,.18,1);
+
+/* Animação de saída para a direita */
+.chapeleiro-sai-direita {
+  animation: sairParaDireita 2s forwards;
 }
 
+@keyframes sairParaDireita {
+  0% {
+    transform: translateX(10vw);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(170vw);
+    opacity: 1;
+  }
+}
 /* Animação para o sapato esquerdo (sape) */
 .sape-saltar {
     animation: sapeSaltar 4s cubic-bezier(0.77,0,0.18,1) forwards;
@@ -887,7 +928,7 @@ section {
 }
 #c3f7 {
     bottom: 10%;
-    left: 20%;
+    left: 30%;
 }
 #c3f8 {
     top: 5%;
@@ -895,7 +936,7 @@ section {
 }
 #c3f9 {
     bottom: 10%;
-    left: 20%;
+    left: 30%;
 }
 #c3f10 {
     top: 5%;

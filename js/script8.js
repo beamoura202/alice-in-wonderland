@@ -162,16 +162,48 @@ document.addEventListener('DOMContentLoaded', function() {
             const newH = base + (max - base) * percent;
             img.style.height = newH + 'vh';
         });
+        
     }
 
-    window.addEventListener('scroll', updateFloresOpacity);
-    window.addEventListener('resize', updateFloresOpacity);
-    window.addEventListener('scroll', updateCartas);
-    window.addEventListener('resize', updateCartas);
-    window.addEventListener('scroll', updateCartasCena3Scale);
-    window.addEventListener('resize', updateCartasCena3Scale);
-    // Também chama ao carregar
-    updateFloresOpacity();
-    updateCartas();
-    updateCartasCena3Scale();
+    
+// --- ANIMAÇÃO DA RAINHA CENA 4 ---
+function animateRainhaCena4() {
+    const sticky3 = document.getElementById('sticky-container3');
+    const rainhaCora = document.getElementById('RainhaCora');
+    if (!sticky3 || !rainhaCora) return;
+
+    const rect = sticky3.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    const totalHeight = sticky3.offsetHeight;
+
+    const scrolled = Math.min(Math.max(windowHeight - rect.top, 0), totalHeight);
+    const percent = scrolled / totalHeight;
+
+    if (percent >= 1) {
+        // Sai para a direita ao atingir 100%
+        rainhaCora.classList.remove('show');
+        rainhaCora.classList.add('exit');
+    } else if (percent >= 0.8) {
+        // Entra normalmente entre 80% e 100%
+        rainhaCora.classList.add('show');
+        rainhaCora.classList.remove('exit');
+    } else {
+        // Esconde se ainda não chegou nos 80%
+        rainhaCora.classList.remove('show', 'exit');
+    }
+}
+
+// LISTENERS
+window.addEventListener('scroll', updateFloresOpacity);
+window.addEventListener('resize', updateFloresOpacity);
+window.addEventListener('scroll', updateCartas);
+window.addEventListener('resize', updateCartas);
+window.addEventListener('scroll', updateCartasCena3Scale);
+window.addEventListener('resize', updateCartasCena3Scale);
+
+
+// Também chama ao carregar
+updateFloresOpacity();
+updateCartas();
+updateCartasCena3Scale();
 });
