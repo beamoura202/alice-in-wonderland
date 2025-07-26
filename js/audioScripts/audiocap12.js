@@ -191,10 +191,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 // CENA4 NÃO É PARADA AQUI! Só no fim do body
                 if (scene.id === "sticky-container3") {
-                    console.log("ℹ️ Saiu da cena4 viewport mas áudio continua até fim do body");
+                    const scrollBottom = window.innerHeight + window.scrollY;
+                    const docHeight = document.body.offsetHeight;
+                    const isAtEnd = scrollBottom >= docHeight - 2;
+                
+                    if (!isAtEnd) {
+                        console.log("👋 Saiu da cena4 (não chegou ao fim do body) - desativando estado de cena4");
+                        audioController.sceneStates.cena4.isActive = false;
+                        audioController.sceneStates.cena4.controlledBy = null;
+                    } else {
+                        console.log("ℹ️ Saiu da cena4 viewport mas está no fim do body - mantendo ativo");
+                    }
                     return;
                 }
-                
                 // Comportamento especial para cena3 -> cena2
                 if (scene.id === "sticky-container2") {
                     // VERIFICAR SE CENA4 ESTÁ ATIVA ANTES DE VOLTAR PARA CENA2

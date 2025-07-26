@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (isChapter12) {
             // Lógica específica para Cap12
             const aliceContainer = document.getElementById('alice-container');
-            const sticky1cap12 = document.getElementById('sticky-container');
+            const sticky1cap12 = document.getElementById('sticky-container1');
             const sticky2cap12 = document.getElementById('sticky-container2');
             const sticky3cap12 = document.getElementById('sticky-container3');
 
