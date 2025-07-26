@@ -109,15 +109,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         } else if (isChapter2) {
             // Lógica específica para Cap2
-            const cena1 = document.getElementById('sticky-container-2');
-            const cena2 = document.getElementById('sectionagua');
+            const cena1 = document.getElementById('sticky-containers12');
+            const cena2 = document.getElementById('sticky-container-2');
             const cena3 = document.getElementById('sticky-container-3');
 
             console.log('Cap2 - Elementos encontrados:', { cena1, cena2, cena3 });
 
             if (cena1) {
-                const cena1Start = 0;
-                const cena1End = cena1.offsetTop;
+                const cena1End = cena1.offsetTop + cena1.offsetHeight;
                 const cena1ScrollEnd = cena1End - window.innerHeight;
                 scenePositions.push({
                     name: 'SC 1',
