@@ -466,14 +466,29 @@ section {
 }
 #important {
     position: absolute;
-    bottom: 0vh;
+    bottom: -50vh;
     right: 0vw; /* Começa fora da tela à esquerda */
     width: 50vw;
     height: auto;
     z-index: 100;
-    transition: left 0.5s linear;
+       transition: bottom 1s ease, transform 1s ease;
 }
 
+#important.show{
+    bottom:0vh;
+}
+#important.sair-direita {
+    animation: sairParaDireita 2s forwards;
+}
+
+@keyframes sairParaDireita {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(150vw);
+    }
+}
 /*------------------------------------------------------------------------cena2-------------------------------- */
 
 #rainha-container {

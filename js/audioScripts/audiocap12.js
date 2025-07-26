@@ -600,6 +600,28 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // audiocena1
     const audioCena1 = document.getElementById('cena1-audio');
+    const important = document.getElementById('important');
+
+if (audioCena1 && important) {
+  audioCena1.addEventListener('timeupdate', function () {
+    const t = this.currentTime;
+
+    // ➤ Mostra o elemento aos 10s
+    if (t >= 20.983 && t < 41.596) {
+      important.classList.add('show');
+      important.classList.remove('invertido', 'sair-direita');
+    }
+    
+    // ➤ Sai para a direita aos 40s
+    else if (t >= 42) {
+      important.classList.add('sair-direita');
+    }
+  });
+
+  audioCena1.addEventListener('play', function () {
+    important.classList.remove('show', 'invertido', 'sair-direita');
+  });
+}
     const frase_1 = document.getElementById('c1f1');
     const frase_2 = document.getElementById('c1f2');
     const frase_3 = document.getElementById('c1f3');
