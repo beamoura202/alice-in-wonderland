@@ -512,13 +512,21 @@ section {
     transform-origin: 50% 50%; /* centro da imagem */
 }
  /* ---------------------------------------------------------------------placa popup------------------------------- */
-#caranguejo {
+#carang{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    z-index: 999;
+}
+ #caranguejo {
     position: absolute;
-    bottom: 30vh; /* Ajuste a posição vertical */
+    bottom: 0vh; /* Ajuste a posição vertical */
     right: 10vw; /* Ajuste a posição horizontal */
     height: 10vh; /* Altura do caranguejo */
     width: auto; /* Largura automática */
-    z-index: 10; /* Certifique-se de que esteja acima de outros elementos */
+    z-index: 999; /* Certifique-se de que esteja acima de outros elementos */
     transition: opacity 2s ease-in-out; /* Transição suave para aparecer */
     cursor: pointer; /* Indica que é clicável */
     pointer-events: auto; /* Garante que seja clicável */
@@ -600,7 +608,7 @@ section {
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 999;
+    z-index: 998;
 }
 
 .message {

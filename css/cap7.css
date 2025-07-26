@@ -653,12 +653,12 @@ section {
 
 #mesa2-container {
 
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0vh;
     height: 960vh;
     width: 100vw;
-    z-index: 300;
+    z-index: 3000;
 
 }
 
@@ -1011,7 +1011,7 @@ section {
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 9999;
+    z-index: 998;
 }
 
 .message {

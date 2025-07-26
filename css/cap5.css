@@ -813,6 +813,22 @@ section {
     transition: left 8s ease-out;
 }
 
+.borb{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    z-index: 999;
+}
+
+.aparece {
+    display: block;
+}
+
+.desaparece {
+    display: none;
+}
 
 
 #cap5cena2bor-img {

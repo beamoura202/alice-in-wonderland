@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Lógica específica para Cap2
             const cena1 = document.getElementById('sticky-containers12');
             const cena2 = document.getElementById('sticky-container-2');
-            const cena3 = document.getElementById('sticky-container-3');
+            const cena3 = document.getElementById('end');
 
             console.log('Cap2 - Elementos encontrados:', { cena1, cena2, cena3 });
 
@@ -146,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     element: cena3,
                     markerPosition: (Math.max(0, cena3ScrollEnd) / (documentHeight - clientHeight)) * clientHeight
                 });
+                
             }
         } else if (isChapter3) {
 

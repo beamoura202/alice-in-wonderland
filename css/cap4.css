@@ -815,25 +815,33 @@ width: auto;
     50% { transform: scale(0.8); opacity: 0.95; }
     100% { transform: scale(0.85); opacity: 1; }
 }
+#pop {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    z-index: 999;
+}
 
+.aparece {
+    display: block;
+}
+
+.desaparece {
+    display: none;
+}
 #porta {
     position: absolute;
     bottom: 15%;
     right: 25%;
     width: 15vw;
     height: auto;
-    z-index: 1000000;
        cursor: pointer; /* Indica que é clicável */
     pointer-events: auto; /* Garante que seja clicável */
-            animation: popup-pulse 2s infinite ease-in-out;
+    animation: popup-pulse 2s infinite ease-in-out;
 
 }
-
-
-
-
-
-
 #chapter-transition-block {
     height: 100vh;
     background: #a36172; /* Ou a cor desejada */
@@ -878,7 +886,7 @@ width: auto;
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 999;
+    z-index: 998;
 }
 
 .message {

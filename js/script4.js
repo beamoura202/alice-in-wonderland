@@ -574,6 +574,25 @@ function handleCanvasResize() {
     }
 }
 
+
+
+window.addEventListener('scroll', function () {
+    const pop = document.getElementById('pop');
+    const scrollTop = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.documentElement.scrollHeight;
+
+    const scrollPercent = (scrollTop + windowHeight) / fullHeight;
+
+    if (scrollPercent >= 0.95) {
+      pop.classList.add('aparece');
+      pop.classList.remove('desaparece');
+    } else {
+      pop.classList.add('desaparece');
+      pop.classList.remove('aparece');
+    }
+  });
+
 // Add scroll event listener
 window.addEventListener('scroll', handleCanvasResize);
 

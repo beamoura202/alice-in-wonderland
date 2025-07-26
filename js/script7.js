@@ -119,14 +119,28 @@ function applyMesa2Effect() {
     const scrollPercent = (scrollTop / scrollHeight) * 100;
 
     let rightValue;
+
+    // Entrada (70% → 80%)
     if (scrollPercent < 70) {
         rightValue = -100;
-    } else if (scrollPercent > 80) {
-        rightValue = 0;
-    } else {
+    } else if (scrollPercent >= 70 && scrollPercent < 80) {
         const t = (scrollPercent - 70) / 10;
         rightValue = -100 + t * 100;
     }
+    // Fixa no centro (80% → 90%)
+    else if (scrollPercent >= 80 && scrollPercent < 90) {
+        rightValue = 0;
+    }
+    // Saída para fora do ecrã (90% → 100%)
+    else if (scrollPercent >= 90 && scrollPercent <= 100) {
+        const t = (scrollPercent - 90) / 10;
+        rightValue = 0 - t * 100;
+    }
+    // Após 100% garantir que saiu
+    else {
+        rightValue = -100;
+    }
+
     divmesa2.style.right = `${rightValue}vw`;
 }
 

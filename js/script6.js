@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const scrollProgress = Math.abs(containerRect.top) / (containerRect.height - window.innerHeight);
         const placa = document.getElementById('placa');
 
-        if (scrollProgress >= 0.95) {
+        if (scrollProgress >= 0.90) {
             // Remove todas as classes de animação
            alice.classList.add('move-finalAlice');
            
@@ -155,6 +155,24 @@ placa.classList.add('show');
             placa.classList.remove('show');
         }
     });
+
+
+window.addEventListener('scroll', function () {
+    const pop = document.getElementById('placadiv');
+    const scrollTop = window.scrollY || window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.documentElement.scrollHeight;
+
+    const scrollPercent = (scrollTop + windowHeight) / fullHeight;
+
+    if (scrollPercent >= 0.90) {
+      pop.classList.add('aparece');
+      pop.classList.remove('desaparece');
+    } else {
+      pop.classList.add('desaparece');
+      pop.classList.remove('aparece');
+    }
+  });
 });
 
 

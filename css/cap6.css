@@ -864,11 +864,27 @@ section {
 
 
 /* ---------------------------------------------------------------------placa popup------------------------------- */
+#placadiv{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    z-index: 999;
+}
+
+.aparece {
+    display: block;
+}
+
+.desaparece {
+    display: none;
+}
 #placa {
     position: absolute;
     height: 10vh;
     width: auto;
-    top: 28vh;
+    top: 8vh;
     right: 32vw;
     z-index: 3;
     transform-origin: center center;
@@ -958,7 +974,7 @@ section {
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 999;
+    z-index: 998;
 }
 
 .message {
