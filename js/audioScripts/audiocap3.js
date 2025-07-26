@@ -47,18 +47,27 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    function handleFirstInteraction() {
-        unlockAllAudios();
-        audioUnlocked = true; // SÓ AGORA libera o play do observer
-        document.removeEventListener('click', handleFirstInteraction);
-        window.removeEventListener('scroll', handleFirstInteraction);
-        // Força o observer a rodar de novo após desbloquear
-        observer.takeRecords().forEach(entry => observer.callback([entry]));
-    }
+   function handleFirstInteraction() {
+    scenes.forEach(scene => {
+        const audio = document.getElementById(scene.audioId);
+        if (audio) {
+            audio.muted = false; // <- Importante para Safari
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }).catch(() => {
+                console.warn("Erro ao desbloquear o áudio", audio);
+            });
+        }
+    });
+    audioUnlocked = true;
+    document.removeEventListener('click', handleFirstInteraction);
+    document.removeEventListener('touchstart', handleFirstInteraction);
+    observer.takeRecords().forEach(entry => observer.callback([entry]));
+}
 
-    document.addEventListener('click', handleFirstInteraction);
-    window.addEventListener('scroll', handleFirstInteraction);
-
+document.addEventListener('click', handleFirstInteraction, { once: true });
+document.addEventListener('touchstart', handleFirstInteraction, { once: true });
     // Suponha que você quer mostrar um texto após 5 segundos do áudio "audio-cena1"
 
 
