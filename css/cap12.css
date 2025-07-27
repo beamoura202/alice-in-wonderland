@@ -797,7 +797,12 @@ section {
     background-color: #230030;
     z-index: 9999;
     pointer-events: none;
-    transition: height 0.8s ease-in-out;
+    transition: height 2s ease-in-out;
+}
+
+
+#black-transition.active {
+  opacity: 1;
 }
  /* ------------------------------------------------------------------------------------------------ */
 

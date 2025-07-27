@@ -15,78 +15,78 @@ document.addEventListener("DOMContentLoaded", function () {
         currentScene: null,
         isTransitioning: false,
         sceneStates: {
-            cena4: { 
-                isActive: false, 
-                isFinalized: false, 
-                controlledBy: null 
+            cena4: {
+                isActive: false,
+                isFinalized: false,
+                controlledBy: null
             }
         },
-        
+
         // Método seguro para mudança de cena
         transitionTo(sceneId, audioElement, controller = 'observer') {
             if (this.isTransitioning) {
                 console.log('🔒 Transição em andamento, ignorando:', sceneId, 'por', controller);
                 return false;
             }
-            
+
             this.isTransitioning = true;
-            
+
             try {
                 // VERIFICAÇÃO GLOBAL: Se cena4 está ativa, só permitir controladores autorizados
-                if (this.sceneStates.cena4.isActive && sceneId !== 'cena4' && 
+                if (this.sceneStates.cena4.isActive && sceneId !== 'cena4' &&
                     controller !== 'scroll-reverse' && controller !== 'scroll-down') {
                     console.log('🚫 Cena4 ativa - bloqueando transição para:', sceneId, 'por', controller);
                     return false;
                 }
-                
+
                 // Verificações específicas para cena4
                 if (sceneId === 'cena4') {
                     if (this.sceneStates.cena4.isFinalized) {
                         console.log('❌ Cena4 já finalizada, ignorando tentativa de', controller);
                         return false;
                     }
-                    
-                    if (this.sceneStates.cena4.controlledBy && 
+
+                    if (this.sceneStates.cena4.controlledBy &&
                         this.sceneStates.cena4.controlledBy !== controller) {
                         console.log('⚠️ Cena4 já controlada por:', this.sceneStates.cena4.controlledBy, '- ignorando', controller);
                         return false;
                     }
                 }
-                
+
                 // Para áudio anterior se diferente
                 if (this.currentAudio && this.currentAudio !== audioElement) {
                     console.log('⏸️ Parando áudio anterior:', this.currentAudio.id);
                     this.currentAudio.pause();
                     this.currentAudio.currentTime = 0;
                 }
-                
+
                 // Se é scroll-reverse ou scroll-down, desativar cena4
-                if ((controller === 'scroll-reverse' || controller === 'scroll-down') && 
+                if ((controller === 'scroll-reverse' || controller === 'scroll-down') &&
                     this.sceneStates.cena4.isActive && sceneId !== 'cena4') {
                     console.log('⬇️⬆️ Scroll detectado - desativando cena4');
                     this.sceneStates.cena4.isActive = false;
                     this.sceneStates.cena4.controlledBy = null;
                 }
-                
+
                 // Inicia novo áudio
                 this.currentAudio = audioElement;
                 this.currentScene = sceneId;
-                
+
                 // Atualiza estado específico da cena4
                 if (sceneId === 'cena4') {
                     this.sceneStates.cena4.isActive = true;
                     this.sceneStates.cena4.controlledBy = controller;
                 }
-                
+
                 console.log('▶️ Iniciando áudio:', audioElement.id, 'para cena:', sceneId, 'controlado por:', controller);
-                
+
                 audioElement.play().catch(e => {
                     console.error('❌ Erro ao reproduzir áudio:', e);
                     this.handleAudioError(sceneId, e);
                 });
-                
+
                 return true;
-                
+
             } catch (error) {
                 console.error('❌ Erro na transição:', error);
                 this.handleAudioError(sceneId, error);
@@ -95,17 +95,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.isTransitioning = false;
             }
         },
-        
+
         // Tratamento de erros
         handleAudioError(sceneId, error) {
             console.error('🚨 Erro de áudio na cena:', sceneId, error);
-            
+
             // Reset do estado em caso de erro
             if (sceneId === 'cena4') {
                 this.sceneStates.cena4.isActive = false;
                 this.sceneStates.cena4.controlledBy = null;
             }
-            
+
             // Estratégia de recuperação básica
             setTimeout(() => {
                 if (this.currentAudio && this.currentAudio.paused) {
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }, 1000);
         },
-        
+
         // Reset de emergência
         emergencyReset() {
             console.log('🆘 Reset de emergência do sistema de áudio');
@@ -127,10 +127,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             this.currentAudio = null;
             this.currentScene = null;
-            this.sceneStates.cena4 = { 
-                isActive: false, 
-                isFinalized: false, 
-                controlledBy: null 
+            this.sceneStates.cena4 = {
+                isActive: false,
+                isFinalized: false,
+                controlledBy: null
             };
         }
     };
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     return; // Sai aqui para cena4
                 }
-                
+
                 // OUTRAS CENAS - comportamento normal
                 if (scene.id === "sticky-container2") {
                     // VERIFICAR SE CENA4 ESTÁ ATIVA ANTES DE PERMITIR CENA3
@@ -173,9 +173,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
                     }
                 }
-                
+
                 audioController.transitionTo(scene.id, audio, 'observer');
-                
+
                 // Tratamento especial para cena3 vs cena2
                 if (scene.id === "sticky-container2") {
                     const cena2Audio = document.getElementById('cena2-audio');
@@ -185,16 +185,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         cena2Audio.currentTime = 0;
                     }
                 }
-                
+
             } else {
                 // SAÍDA DA VIEWPORT
-                
+
                 // CENA4 NÃO É PARADA AQUI! Só no fim do body
                 if (scene.id === "sticky-container3") {
                     const scrollBottom = window.innerHeight + window.scrollY;
                     const docHeight = document.body.offsetHeight;
                     const isAtEnd = scrollBottom >= docHeight - 2;
-                
+
                     if (!isAtEnd) {
                         console.log("👋 Saiu da cena4 (não chegou ao fim do body) - desativando estado de cena4");
                         audioController.sceneStates.cena4.isActive = false;
@@ -218,6 +218,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         const bottom = parseFloat(computedStyle.bottom || '-100vh');
 
                         if (bottom > -99 * window.innerHeight / 100) {
+                            //NOVA RESTRIÇÃO: rainha deve estar dentro do sticky-container1
+                            const stickyContainer1 = document.getElementById('sticky-container1');
+                            if (stickyContainer1) {
+                                const containerRect = stickyContainer1.getBoundingClientRect();
+                                const isInSticky1 = containerRect.top < window.innerHeight && containerRect.bottom > 0;
+
+                                if (!isInSticky1) {
+                                    console.log("🚫 Rainha visível mas FORA de sticky-container1 - bloqueando cena2-audio");
+                                    return;
+                                }
+                            }
                             console.log("🔄 Saiu da cena3 mas rainha ainda visível, voltando para cena2-audio");
                             const cena2Audio = document.getElementById('cena2-audio');
                             if (cena2Audio && audioController.currentAudio !== cena2Audio) {
@@ -251,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function getCurrentVisibleScene() {
         const viewportHeight = window.innerHeight;
         const scrollTop = window.scrollY;
-        
+
         // Verificar elementos na ordem de prioridade
         const elements = [
             { id: 'chapter12', scene: 'intro', audio: 'intro-audio' },
@@ -260,11 +271,11 @@ document.addEventListener("DOMContentLoaded", function () {
             { id: 'sticky-container2', scene: 'cena3', audio: 'cena3-audio' },
             { id: 'sticky-container3', scene: 'cena4', audio: 'cena4-audio' }
         ];
-        
+
         for (let element of elements) {
             const el = document.getElementById(element.id);
             if (!el) continue;
-            
+
             if (element.checkStyle === 'left') {
                 // Alice - verificar posição left
                 const left = parseFloat(el.style.left || '-100vw');
@@ -292,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Elementos normais - verificar getBoundingClientRect
                 const rect = el.getBoundingClientRect();
                 const isVisible = rect.top < viewportHeight && rect.bottom > 0;
-                
+
                 if (isVisible) {
                     // Para cena4, verificar se não está finalizada
                     if (element.scene === 'cena4' && audioController.sceneStates.cena4.isFinalized) {
@@ -302,11 +313,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }
-        
+
         return null;
     }
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         // Detectar direção do scroll
         const currentScrollY = window.scrollY;
         const previousDirection = scrollDirection;
@@ -315,19 +326,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const cena4Audio = document.getElementById('cena4-audio');
         if (!cena4Audio) return;
-        
+
         const scrollBottom = window.innerHeight + window.scrollY;
         const docHeight = document.body.offsetHeight;
         const isAtEnd = scrollBottom >= docHeight - 2;
-        
+
         // Lógica de finalização da cena4 no fim do documento
         if (isAtEnd && !audioController.sceneStates.cena4.isFinalized) {
             console.log("🏁 Chegou ao fim do body - finalizando cena4");
-            
+
             audioController.sceneStates.cena4.isFinalized = true;
             audioController.sceneStates.cena4.isActive = false;
             audioController.sceneStates.cena4.controlledBy = null;
-            
+
             if (cena4Audio === audioController.currentAudio) {
                 cena4Audio.pause();
                 cena4Audio.currentTime = 0;
@@ -335,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 audioController.currentScene = null;
                 console.log("⏹️ Cena4 finalizada no fim do body");
             }
-            
+
         } else if (!isAtEnd && audioController.sceneStates.cena4.isFinalized) {
             audioController.sceneStates.cena4.isFinalized = false;
             console.log("🔄 Saiu do fim do body - cena4 pode tocar novamente");
@@ -344,47 +355,47 @@ document.addEventListener("DOMContentLoaded", function () {
         // ===== SISTEMA DE SCROLL INTELIGENTE =====
         // Só executa se o áudio está desbloqueado e mudou a direção ou não há áudio tocando
         if (!audioUnlocked) return;
-        
+
         // Detectar a cena atual visível
         const currentScene = getCurrentVisibleScene();
-        
+
         if (!currentScene) {
             console.log("🔍 Nenhuma cena visível detectada");
             return;
         }
-        
+
         const targetAudio = document.getElementById(currentScene.audio);
         if (!targetAudio) {
             console.log("❌ Áudio não encontrado:", currentScene.audio);
             return;
         }
-        
+
         // Verificar se precisa trocar o áudio
         const needsChange = audioController.currentAudio !== targetAudio;
         const directionChanged = previousDirection !== scrollDirection;
-        
+
         if (needsChange || directionChanged) {
             console.log(`🎵 Cena detectada: ${currentScene.scene} | Direção: ${scrollDirection} | Precisa trocar: ${needsChange}`);
-            
+
             // Verificações específicas antes de trocar
             let canTransition = true;
-            
+
             // Se é cena4, verificar se não está finalizada
             if (currentScene.scene === 'cena4' && audioController.sceneStates.cena4.isFinalized) {
                 canTransition = false;
                 console.log("🚫 Cena4 finalizada - não pode tocar");
             }
-            
+
             // Se cena4 está ativa e não é para tocar cena4, bloquear
             if (audioController.sceneStates.cena4.isActive && currentScene.scene !== 'cena4') {
                 canTransition = false;
                 console.log("🚫 Cena4 ativa - bloqueando", currentScene.scene);
             }
-            
+
             if (canTransition) {
                 const controller = scrollDirection === 'up' ? 'scroll-reverse' : 'scroll-down';
                 const success = audioController.transitionTo(currentScene.scene, targetAudio, controller);
-                
+
                 if (success) {
                     console.log(`✅ Áudio trocado para ${currentScene.audio} via ${controller}`);
                 } else {
@@ -475,6 +486,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     const isInCena3 = cena3Rect.top < window.innerHeight && cena3Rect.bottom > 0;
 
                     if (!isInCena3 && cena2Audio && audioController.currentAudio !== cena2Audio) {
+                        const stickyContainer1 = document.getElementById('sticky-container1');
+                        if (stickyContainer1) {
+                            const containerRect = stickyContainer1.getBoundingClientRect();
+                            const isInSticky1 = containerRect.top < window.innerHeight && containerRect.bottom > 0;
+
+                            if (!isInSticky1) {
+                                console.log("🚫 Rainha visível mas sticky-container1 fora da viewport - bloqueando cena2-audio fallback");
+                                return;
+                            }
+                        }
+
                         console.log("🔄 Rainha visível mas não na cena3, permitindo cena2-audio");
                         audioController.transitionTo('cena2', cena2Audio, 'rainha-fallback');
                     }
@@ -597,31 +619,31 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log('🎬 Audio script carregado com sistema bidirecional otimizado');
 
     // ===== SISTEMA DE TIMING PARA FRASES (mantido igual) =====
-    
+
     // audiocena1
     const audioCena1 = document.getElementById('cena1-audio');
     const important = document.getElementById('important');
 
-if (audioCena1 && important) {
-  audioCena1.addEventListener('timeupdate', function () {
-    const t = this.currentTime;
+    if (audioCena1 && important) {
+        audioCena1.addEventListener('timeupdate', function () {
+            const t = this.currentTime;
 
-    // ➤ Mostra o elemento aos 10s
-    if (t >= 20.983 && t < 41.596) {
-      important.classList.add('show');
-      important.classList.remove('invertido', 'sair-direita');
-    }
-    
-    // ➤ Sai para a direita aos 40s
-    else if (t >= 42) {
-      important.classList.add('sair-direita');
-    }
-  });
+            // ➤ Mostra o elemento aos 10s
+            if (t >= 20.983 && t < 41.596) {
+                important.classList.add('show');
+                important.classList.remove('invertido', 'sair-direita');
+            }
 
-  audioCena1.addEventListener('play', function () {
-    important.classList.remove('show', 'invertido', 'sair-direita');
-  });
-}
+            // ➤ Sai para a direita aos 40s
+            else if (t >= 42) {
+                important.classList.add('sair-direita');
+            }
+        });
+
+        audioCena1.addEventListener('play', function () {
+            important.classList.remove('show', 'invertido', 'sair-direita');
+        });
+    }
     const frase_1 = document.getElementById('c1f1');
     const frase_2 = document.getElementById('c1f2');
     const frase_3 = document.getElementById('c1f3');
@@ -708,7 +730,7 @@ if (audioCena1 && important) {
                 frase_9.style.setProperty('visibility', 'hidden', 'important');
             }
         });
-        
+
         audioCena1.addEventListener('play', function () {
             [frase_1, frase_2, frase_3, frase_4, frase_5, frase_6, frase_7, frase_8, frase_9].forEach(f => {
                 f.style.setProperty('opacity', '0', 'important');
@@ -787,7 +809,7 @@ if (audioCena1 && important) {
                 frase7c2.style.setProperty('visibility', 'hidden', 'important');
             }
         });
-        
+
         audioCena5_2.addEventListener('play', function () {
             [frase1c2, frase2c2, frase3c2, frase4c2, frase5c2, frase6c2, frase7c2].forEach(f => {
                 f.style.setProperty('opacity', '0', 'important');
@@ -821,7 +843,7 @@ if (audioCena1 && important) {
                 frase2c3.style.setProperty('visibility', 'hidden', 'important');
             }
         });
-        
+
         audioCena3.addEventListener('play', function () {
             [frase1c3, frase2c3].forEach(f => {
                 f.style.setProperty('opacity', '0', 'important');
