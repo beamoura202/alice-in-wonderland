@@ -405,34 +405,31 @@ body {
 
 /*!"#$%&/()=???)))))))))))))))))))))))))))))geral */
 h1 {
-    letter-spacing: 0.15em;
-    /* Increases space between letters */
+    letter-spacing: 0.15em; /* Increases space between letters */
     text-align: center;
-    font-family: "Libre Caslon Text", serif;
-    font-weight: 400;
-    font-size: 1.2rem;
+    font-family: "railroad-gothic-atf", sans-serif;
+        font-weight: 400;
+    font-size: 1.7rem;
 
 }
 
 h2 {
-    font-family: 'Libre Caslon Text', serif;
-    font-style: italic;
+    font-family: "railroad-gothic-atf", sans-serif;
     font-weight: 400;
-    font-size: clamp(2.5rem, 5vw, 5rem);
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
+    font-size: clamp(3rem, 7vw, 7rem);
+    margin-bottom: 0.2em;
+    margin-top: 0.2em;
 }
 
 p {
-    font-size: clamp(1.2rem, 2vw, 2rem);
-    /* Responsive scaling with minimum and maximum sizes */
-    font-family: "adobe-caslon-pro", serif;
+    font-size: clamp(1.1rem, 1.5vw, 1.5rem); /* Responsive scaling with minimum and maximum sizes */
+    font-family: 'Libre Caslon Text', serif; /* Fonte */
     font-style: normal;
     font-weight: 400;
     text-align: center;
-    max-width: 60%;
-    /* AUMENTEI Limite de largura para o texto */
+    max-width: 60%;/* AUMENTEI Limite de largura para o texto */
 }
+
 
 section {
     min-height: 100vh;
@@ -962,7 +959,7 @@ section {
     left: 50%;
     transform: translateX(-50%);
     color: #c9dd59;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif; /* Fonte */
     font-size: 1.2rem;
     z-index: 1000;
 }
@@ -981,7 +978,7 @@ section {
     position: absolute;
     max-width: 600px;
     font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif; /* Fonte */
     font-style: italic;
     font-weight: 400;
     color: #fff;

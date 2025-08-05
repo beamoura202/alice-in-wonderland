@@ -262,32 +262,31 @@ flex-direction: column-reverse;
 
 
 /*                                  geral */
+
 h1 {
     letter-spacing: 0.15em; /* Increases space between letters */
     text-align: center;
-    font-family: "Libre Caslon Text", serif;
+    font-family: "railroad-gothic-atf", sans-serif;
         font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.7rem;
 
 }
 
 h2 {
-    font-family: 'Libre Caslon Text', serif;
-    font-style: italic;
+    font-family: "railroad-gothic-atf", sans-serif;
     font-weight: 400;
-    font-size: clamp(2.5rem, 5vw, 5rem);
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
+    font-size: clamp(3rem, 7vw, 7rem);
+    margin-bottom: 0.2em;
+    margin-top: 0.2em;
 }
 
-
-h2 {
-    font-family: 'Libre Caslon Text', serif;
-    font-style: italic;
+p {
+    font-size: clamp(1.1rem, 1.5vw, 1.5rem); /* Responsive scaling with minimum and maximum sizes */
+    font-family: 'Libre Caslon Text', serif; /* Fonte */
+    font-style: normal;
     font-weight: 400;
-    font-size: clamp(2.5rem, 5vw, 5rem);
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
+    text-align: center;
+    max-width: 60%;/* AUMENTEI Limite de largura para o texto */
 }
 
 /* Parágrafos normais no capítulo */
@@ -298,15 +297,6 @@ h2 {
 }
 
 
-
-p {
-    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
-    font-family: "adobe-caslon-pro", serif;
-    font-style: normal;
-    font-weight: 400;
-    text-align: center;
-
-}
 section {
     min-height: 100vh;
     display: flex;
@@ -434,11 +424,12 @@ section {
 #end {
     position: relative;
         display: inline-flex;
+            font-family: 'Libre Caslon Text', serif; /* Fonte */
+
     top: 10vh;
     left: 50%;
     transform: translateX(-50%);
     color: #f3dea1;
-    font-family: "adobe-caslon-pro", serif;
    font-size: 1.2rem;
     z-index: 1000;
 }
@@ -461,7 +452,7 @@ section {
         text-align: center;
 
     font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif; /* Fonte */
     font-style: italic;
     font-weight: 400;
     color: #fff;

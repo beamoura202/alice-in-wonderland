@@ -629,9 +629,8 @@ width: 100%;
     bottom: 20%;  /* Posicionado no topo da tela */
     left: 30%;  /* Alinhado à direita */
     
-    max-width: 300px;
     font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif;
     font-style: italic;
     font-weight: 400;
     color: #fff;  /* Texto branco para melhor contraste */
@@ -647,9 +646,8 @@ width: 100%;
     position: absolute;
     top: 20%;
     right: 10%;
-    max-width: 500px;
     font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif;
     font-style: italic;
     font-weight: 400;
     color: #fff;
@@ -662,9 +660,8 @@ width: 100%;
     position: absolute;
     bottom: 20%;
     left: 10%;
-    max-width: 500px;
     font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif;
     font-style: italic;
     font-weight: 400;
     color: #fff;
@@ -679,7 +676,7 @@ width: 100%;
     left: 10%;
     max-width: 500px;
     font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif;
     font-style: italic;
     font-weight: 400;
     color: #fff;
@@ -693,9 +690,8 @@ width: 100%;
     position: absolute;
     bottom: 20%;
     left: 30%;
-    max-width: 400px;
     font-size: 2.2rem;
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif;
     font-style: italic;
     font-weight: 400;
     color: #fff;
@@ -800,26 +796,30 @@ width: 100%;
 h1 {
     letter-spacing: 0.15em; /* Increases space between letters */
     text-align: center;
-    font-family: "Libre Caslon Text", serif;
-        font-weight: 400;
-    font-size: 1.2rem;
+    
+font-size: 1.7rem;
+font-family: "railroad-gothic-atf", sans-serif;
+font-weight: 400;
+font-style: normal;
 
 }
 
 h2 {
-    font-family: 'Libre Caslon Text', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(2.5rem, 5vw, 5rem);
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
+   
+    font-size: clamp(3rem, 7vw, 7rem);
+    margin-bottom: 0.2em;
+    margin-top: 0.2em;
+
+    font-family: "railroad-gothic-atf", sans-serif;
+font-weight: 400;
+font-style: normal;
 }
 
 
 
 p {
-    font-size: clamp(1.2rem, 2vw, 2rem); /* Responsive scaling with minimum and maximum sizes */
-    font-family: "adobe-caslon-pro", serif;
+    font-size: clamp(1.1rem, 1.5vw, 1.5rem); /* Responsive scaling with minimum and maximum sizes */
+    font-family: 'Libre Caslon Text', serif;
     font-style: normal;
     font-weight: 400;
     text-align: center;
@@ -955,7 +955,7 @@ img.background-image {
     top: 10vh;
     left: 50%;
     transform: translateX(-50%);
-    font-family: "adobe-caslon-pro", serif;
+    font-family: 'Libre Caslon Text', serif;
    font-size: 1.2rem;
     z-index: 1000;
     color: #5AA3E7; /* Texto */
