@@ -365,6 +365,56 @@
 <script src="js/scriptmenu.js"></script>
 <script src="js/scrollbar-theme.js"></script>
 <script src="js/mouse.js"></script>
+<script>
+ // Inicialização - define escala inicial
+      function animateScaleDown() {
+    const layerVegeta = document.getElementById('layerVegeta');
+    const layerPersonagens = document.getElementById('layerPersonagens');
+    const duration = 5000; // 5 segundos
+    const startScale = 2;
+    const endScale = 1;
+    const startTime = performance.now();
 
+    function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const scale = startScale - (startScale - endScale) * progress;
+
+        if (layerVegeta) layerVegeta.style.transform = `scale(${scale})`;
+        if (layerPersonagens) layerPersonagens.style.transform = `scale(${scale})`;
+
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
+// Chama a animação ao carregar a página
+window.addEventListener('load', function() {
+    animateScaleDown();
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    const audio = document.createElement('audio');
+    audio.src = 'audio/cap12/capcreditos.mp3';
+    audio.id = 'audio-creditos';
+    audio.autoplay = true;
+    audio.style.display = 'none';
+    document.body.appendChild(audio);
+
+    // Desbloqueia o áudio após interação do usuário (requisito dos navegadores)
+    function unlockAudio() {
+        audio.play().catch(() => {});
+        document.removeEventListener('click', unlockAudio);
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('keydown', unlockAudio);
+    }
+    document.addEventListener('click', unlockAudio);
+    document.addEventListener('touchstart', unlockAudio);
+    document.addEventListener('keydown', unlockAudio);
+});
+</script>
 
 </html>
