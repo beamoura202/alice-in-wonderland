@@ -1,0 +1,175 @@
+/* Esconde scrollbar nativo */
+::-webkit-scrollbar {
+    display: none;         
+}
+
+/* Scrollbar customizado - posicionado fixed por cima do conteúdo */
+.custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100vh;
+    z-index: 999999;
+    pointer-events: auto;
+}
+
+.custom-scrollbar-track {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.custom-scrollbar-thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background: #043224cf; /* Cor do capítulo 1 mais opaca */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-height: 30px;
+}
+
+
+/* -----------------------------------------------scrollBar implementada--------------------------------------- */
+.custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100vh;
+   /* background: rgba(0, 0, 0, 0.1);*/
+    z-index: 999999;
+    pointer-events: auto;
+}
+
+.custom-scrollbar-track {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.custom-scrollbar-thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background: #043224cf; /* Cor do capítulo 1 mais opaca */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-height: 30px;
+}
+body {
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+    color: #ffffffcf;
+    overflow-x: hidden;
+    overflow-y: scroll;            /* mantém o scroll vertical */
+    scrollbar-width: none;         /* Firefox */
+    -ms-overflow-style: none; 
+}
+#layerFundo{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    z-index: 0;
+    background-image: url('/imgcreditos/fundo.png');
+}
+
+#layerVegeta{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    z-index: 2;
+    background-image: url('/imgcreditos/la2.png');
+}
+
+#layerPersonagens{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    right:0;
+    z-index: 3;
+    background-image: url('/imgcreditos/la3.png');
+}
+#layerText {
+    position: absolute;
+    top:40vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: auto;
+    z-index: 1;
+    text-align: center; /* <-- Centraliza o conteúdo de texto */
+    padding-bottom: 100vh;
+}
+
+h1{
+   font-family: 'Libre Caslon Text', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.7rem, 2.6rem, 2.6rem);
+    margin-bottom: -0.2em;
+    margin-top: -0.1em;
+}
+h2{
+    font-family: 'Libre Caslon Text', serif;
+    font-style: bold;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1em;
+}
+h3{
+    font-family: 'Libre Caslon Text', serif;
+    font-style: italic;
+    font-weight: 10;
+    font-size: 1rem;/* Responsive scaling with minimum and maximum sizes */
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+p{
+    font-family: 'Libre Caslon Text', serif;
+    font-weight: 400;
+    font-size: 1rem;/* Responsive scaling with minimum and maximum sizes */
+  
+}
+/* Layers que fazem zoom-out - começam grandes */
+        #layerVegeta,
+        #layerPersonagens {
+            position: fixed;
+            width: 150%; /* Maior que viewport para evitar cortes */
+            height: 150%;
+            top: -25%; /* Centralizar o espaço extra */
+            left: -25%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform-origin: center center; /* Zoom do centro */
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+
+        #layerVegeta, #layerPersonagens {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+    z-index: 1;
+    pointer-events: none;
+}
