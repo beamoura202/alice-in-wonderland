@@ -119,10 +119,9 @@ body {
 }
 
 h1{
-   font-family: 'Libre Caslon Text', serif;
-    font-style: italic;
+   font-family: "railroad-gothic-atf", sans-serif;
     font-weight: 400;
-    font-size: clamp(1.7rem, 2.6rem, 2.6rem);
+    font-size: clamp(1.7rem, 4vw, 4rem);
     margin-bottom: -0.2em;
     margin-top: -0.1em;
 }

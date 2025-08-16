@@ -1,3 +1,23 @@
+
+body {
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+        background-color: #C3A66A; /* Fundo */
+
+    color: #ffffffcf;
+    overflow-x: hidden;
+    overflow-y: scroll;            /* mantém o scroll vertical */
+    scrollbar-width: none;         /* Firefox */
+    -ms-overflow-style: none; 
+}
+#container {
+  position: relative;
+      top: 0;
+    left: 0;
+    width: 100%;
+    height: 300vh;
+    z-index: 10000;
+}
 /* Esconde scrollbar nativo */
 ::-webkit-scrollbar {
     display: none;         
@@ -68,46 +88,54 @@
     transition: background-color 0.2s ease;
     min-height: 30px;
 }
-body {
-    margin: 0;
-    font-family: 'Libre Caslon Text', serif;
-    color: #ffffffcf;
-    overflow-x: hidden;
-    overflow-y: scroll;            /* mantém o scroll vertical */
-    scrollbar-width: none;         /* Firefox */
-    -ms-overflow-style: none; 
-}
-#layerFundo{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top:0;
-    left:0;
-    z-index: 0;
-    background-image: url('/imgcreditos/fundo.png');
-}
 
-#layerVegeta{
-    position: fixed;
-    width: 100%;
-    height: 100%;
+
+#divlayerVegeta {
+    position: absolute; 
+    left:0%;
     top:0;
-    left:0;
+    width: 100%;
+    height: 300vh;
     z-index: 2;
-    background-image: url('/imgcreditos/la2.png');
+}
+#layerVegeta {
+    position: relative; 
+    
+    bottom:0%;
+    width: 200%;
+    height: 100%;
+    z-index: 2;
 }
 
-#layerPersonagens{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top:0;
-    right:0;
-    z-index: 3;
-    background-image: url('/imgcreditos/la3.png');
+.layer1{
+  position: absolute; 
+    left: -30%;
+    bottom:-10%;
+    width: auto;
+    height: 60%;
+    z-index: 2;
 }
+
+
+.layer2{
+  position:    absolute; 
+    right: -30%;
+    bottom:-400px;
+    width: auto;
+    height: 60%;
+    z-index: 2;
+}
+
 #layerText {
-    position: absolute;
+  position: fixed;
+  top: 40vh;
+  z-index: 10;
+  text-align: center;
+  color: white;
+}
+
+#layerText {
+    position: fixed;
     top:40vh;
     left: 50%;
     transform: translateX(-50%);
@@ -119,10 +147,9 @@ body {
 }
 
 h1{
-   font-family: 'Libre Caslon Text', serif;
-    font-style: italic;
+    font-family: "railroad-gothic-atf", sans-serif;
     font-weight: 400;
-    font-size: clamp(1.7rem, 2.6rem, 2.6rem);
+    font-size: clamp(2rem, 5vw, 5rem);
     margin-bottom: -0.2em;
     margin-top: -0.1em;
 }
@@ -137,39 +164,35 @@ h3{
     font-family: 'Libre Caslon Text', serif;
     font-style: italic;
     font-weight: 10;
-    font-size: 1rem;/* Responsive scaling with minimum and maximum sizes */
+    font-size: 1.2rem;/* Responsive scaling with minimum and maximum sizes */
     margin-bottom: 0.5em;
     margin-top: 0.5em;
 }
 p{
     font-family: 'Libre Caslon Text', serif;
     font-weight: 400;
-    font-size: 1rem;/* Responsive scaling with minimum and maximum sizes */
+    font-size: 1.2rem;/* Responsive scaling with minimum and maximum sizes */
   
 }
 /* Layers que fazem zoom-out - começam grandes */
-        #layerVegeta,
-        #layerPersonagens {
-            position: fixed;
-            width: 150%; /* Maior que viewport para evitar cortes */
-            height: 150%;
-            top: -25%; /* Centralizar o espaço extra */
-            left: -25%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transform-origin: center center; /* Zoom do centro */
-            will-change: transform;
-            transition: transform 0.1s ease-out;
-        }
+   
 
-        #layerVegeta, #layerPersonagens {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
+#next-chapter-block {
+    position: relative;
     height: 100vh;
-    overflow: visible;
-    z-index: 1;
-    pointer-events: none;
+    bottom:0;
+    background: #011309; /* Escolha a cor do próximo capítulo */
+    width: 100vw;
+}
+
+#end {
+    position: relative;
+    display: inline-flex;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #e0c643b4;
+    font-family: 'Libre Caslon Text', serif; /* Fonte */
+    font-size: 1.2rem;
+    z-index: 1000;
 }

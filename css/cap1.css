@@ -941,6 +941,11 @@ img.background-image {
     z-index: 1000;
     pointer-events: none;
 }
+#chapter-transition-block {
+    height: 100vh;
+    background: #011309; /* Ou a cor desejada */
+    width: 100vw;
+}
 
 #next-chapter-block {
     height: 150vh;
