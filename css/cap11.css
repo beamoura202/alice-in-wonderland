@@ -323,6 +323,20 @@ p {
     text-align: center;
     max-width: 60%;/* AUMENTEI Limite de largura para o texto */
 }
+.quote {
+  position: relative;
+  padding-left: 0.5em; /* espaço para as aspas */
+  text-align: left;
+}
+
+.quote::before {
+  content: "“"; /* aspas de abertura */
+  position: absolute;
+  left: 0;      /* fora do bloco de texto */
+  top: 0;
+  font-size: 2.2rem; /* tamanho maior que o texto */
+  line-height: 1;
+}
 
 #chapter9 {
     padding: 4rem 2rem;

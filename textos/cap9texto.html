@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,8 @@
         body {
             margin: 0;
             padding: 0;
-    background-color: #032C36;
-    color: #59baca;
+            background-color: #032C36;
+            color: #59baca;
             font-family: "adobe-caslon-pro", serif;
             min-height: 100vh;
             display: flex;
@@ -30,11 +31,11 @@
             text-align: center;
             font-style: italic;
             margin-bottom: 6rem;
-            
+
             font-family: "adobe-caslon-pro", serif;
             font-weight: 400;
         }
-        
+
         p {
             font-size: 2rem;
             font-family: "adobe-caslon-pro", serif;
@@ -42,7 +43,8 @@
             font-weight: 400;
             margin: 0;
             text-indent: 2em;
-            line-height: 1.2; /* Added this line to reduce space between lines */
+            line-height: 1.2;
+            /* Added this line to reduce space between lines */
         }
 
         /* Scroll bar personalizada */
@@ -50,7 +52,7 @@
             width: 8px;
         }
 
-     
+
 
         ::-webkit-scrollbar-thumb {
             background: #59baca;
@@ -81,56 +83,85 @@
         .nav-button:hover {
             opacity: 0.5;
         }
+ h2 {
+            letter-spacing: 0.15em;
+            /* Increases space between letters */
+            text-align: center;
+
+            font-size: 1.7rem;
+            font-family: "adobe-caslon-pro", serif;
+            font-weight: 400;
+            font-style: normal;
+
+        }
+        p:first-of-type {
+            text-indent: 0;
+        }
     </style>
 </head>
+
 <body>
     <a href="../cap9.html" class="nav-button" title="Voltar para o capítulo"></a>
     <div class="text-container">
+                <h2 id="chapter"></h2>
+
         <h1 id="title"></h1>
         <div id="content"></div>
     </div>
 
     <script>
-        fetch('texts.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Data received:', data);
-                if (!data || !data.cap9) {
-                    throw new Error('Invalid JSON structure');
-                }
-                document.getElementById('title').innerHTML = `${data.cap9.chapter}<br>${data.cap9.title}`;
-                const paragraphs = data.cap9.content.split('\n\n');
-                const formattedContent = paragraphs
-                    .map(p => `<p>${p.trim()}</p>`)
-                    .join('\n');
-                document.getElementById('content').innerHTML = formattedContent;
-            })
-            .catch(error => {
-                console.error('Detailed error:', error);
-                document.getElementById('content').innerHTML = `
-                    <p style="color: #ff6b6b;">Error loading content: ${error.message}</p>
-                    <p>Please make sure:</p>
-                    <ul>
-                        <li>texts.json is in the same folder as this HTML file</li>
-                        <li>You're running this through a web server (not file://)</li>
-                        <li>The JSON file is properly formatted</li>
-                    </ul>
-                `;
-            });
+       function convertQuotes(text) {
+        let open = true;
+        return text.replace(/"/g, () => {
+            const replacement = open ? '«' : '»';
+            open = !open;
+            return replacement;
+        });
+    }
+
+
+       fetch('texts.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Data received:', data);
+        if (!data || !data.cap9) {
+            throw new Error('Invalid JSON structure');
+        }
+
+        // Coloca o chapter em h2
+        document.getElementById('chapter').innerHTML = data.cap9.chapter;
+
+        // Coloca o título em h1
+        document.getElementById('title').innerHTML = data.cap9.title;
+
+        // Conteúdo em p
+        const paragraphs = data.cap9.content.split('\n\n');
+        const formattedContent = paragraphs
+            .map(p => `<p>${p.trim()}</p>`)
+            .join('\n');
+
+        document.getElementById('content').innerHTML = formattedContent;
+    })
+    .catch(error => {
+        console.error('Detailed error:', error);
+        document.getElementById('content').innerHTML = `
+            <p style="color: #ff6b6b;">Error loading content: ${error.message}</p>
+            <p>Please make sure:</p>
+            <ul>
+                <li>texts.json is in the same folder as this HTML file</li>
+                <li>You're running this through a web server (not file://)</li>
+                <li>The JSON file is properly formatted</li>
+            </ul>
+        `;
+    });
+
+ 
     </script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-

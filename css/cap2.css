@@ -614,3 +614,17 @@ width: 100%;
    font-size: 1.2rem;
     z-index: 1000;
 }
+.quote {
+  position: relative;
+  padding-left: 0.5em; /* espaço para as aspas */
+  text-align: left;
+}
+
+.quote::before {
+  content: "“"; /* aspas de abertura */
+  position: absolute;
+  left: 0;      /* fora do bloco de texto */
+  top: 0;
+  font-size: 2.2rem; /* tamanho maior que o texto */
+  line-height: 1;
+}

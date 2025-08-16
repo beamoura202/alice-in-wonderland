@@ -57,7 +57,17 @@
             border-radius: 4px;
         }
 
-      
+       h2 {
+            letter-spacing: 0.15em;
+            /* Increases space between letters */
+            text-align: center;
+
+            font-size: 1.7rem;
+            font-family: "adobe-caslon-pro", serif;
+            font-weight: 400;
+            font-style: normal;
+
+        }
 
         /* Botão de navegação */
         .nav-button {
@@ -82,47 +92,62 @@
         .nav-button:hover {
             opacity: 0.5;
         }
+        p:first-of-type {
+    text-indent: 0;
+}
+
     </style>
 </head>
 <body>
     <a href="../cap3.html" class="nav-button" title="Voltar para o capítulo"></a>
     <div class="text-container">
+                <h2 id="chapter"></h2>
+
         <h1 id="title"></h1>
         <div id="content"></div>
     </div>
 
-    <script>
-        fetch('texts.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Data received:', data);
-                if (!data || !data.cap3) {
-                    throw new Error('Invalid JSON structure');
-                }
-                document.getElementById('title').innerHTML = `${data.cap3.chapter}<br>${data.cap3.title}`;
-                const paragraphs = data.cap3.content.split('\n\n');
-                const formattedContent = paragraphs
-                    .map(p => `<p>${p.trim()}</p>`)
-                    .join('\n');
-                document.getElementById('content').innerHTML = formattedContent;
-            })
-            .catch(error => {
-                console.error('Detailed error:', error);
-                document.getElementById('content').innerHTML = `
-                    <p style="color: #ff6b6b;">Error loading content: ${error.message}</p>
-                    <p>Please make sure:</p>
-                    <ul>
-                        <li>texts.json is in the same folder as this HTML file</li>
-                        <li>You're running this through a web server (not file://)</li>
-                        <li>The JSON file is properly formatted</li>
-                    </ul>
-                `;
-            });
+   <script>
+       fetch('texts.json')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Data received:', data);
+        if (!data || !data.cap3) {
+            throw new Error('Invalid JSON structure');
+        }
+
+        // Coloca o chapter em h2
+        document.getElementById('chapter').innerHTML = data.cap3.chapter;
+
+        // Coloca o título em h1
+        document.getElementById('title').innerHTML = data.cap3.title;
+
+        // Conteúdo em p
+        const paragraphs = data.cap3.content.split('\n\n');
+        const formattedContent = paragraphs
+            .map(p => `<p>${p.trim()}</p>`)
+            .join('\n');
+
+        document.getElementById('content').innerHTML = formattedContent;
+    })
+    .catch(error => {
+        console.error('Detailed error:', error);
+        document.getElementById('content').innerHTML = `
+            <p style="color: #ff6b6b;">Error loading content: ${error.message}</p>
+            <p>Please make sure:</p>
+            <ul>
+                <li>texts.json is in the same folder as this HTML file</li>
+                <li>You're running this through a web server (not file://)</li>
+                <li>The JSON file is properly formatted</li>
+            </ul>
+        `;
+    });
+
     </script>
 </body>
 </html>
