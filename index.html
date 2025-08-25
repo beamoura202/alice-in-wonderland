@@ -103,6 +103,28 @@ window.addEventListener('scroll', function () {
   }
 });
 
+
+// AUTO SCROLL RÁPIDO
+function autoScroll(pxPerSecond = 200) { // ajusta aqui a velocidade (200px/s ou mais)
+  const interval = 20; // ms
+  const scrollSpeed = (pxPerSecond / 1000) * interval;
+
+  const scrollInterval = setInterval(() => {
+    window.scrollBy(0, scrollSpeed);
+
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      clearInterval(scrollInterval);
+    }
+  }, interval);
+}
+
+// Inicia auto scroll assim que a página carregar
+window.addEventListener("load", () => {
+  setTimeout(() => autoScroll(200), 0); 
+});
+
+
+
 </script>
 
 
