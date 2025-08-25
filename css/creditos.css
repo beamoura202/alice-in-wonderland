@@ -84,7 +84,7 @@ body {
     top:0;
     left:0;
     z-index: 0;
-    background-image: url('imgcreditos/fundo.png');
+    background-image: url('../imgcreditos/fundo.png');
 }
 
 #layerVegeta{
@@ -94,7 +94,7 @@ body {
     top:0;
     left:0;
     z-index: 2;
-    background-image: url('imgcreditos/la2.png');
+    background-image: url('../imgcreditos/la2.png');
 }
 
 #layerPersonagens{
@@ -104,7 +104,7 @@ body {
     top:0;
     right:0;
     z-index: 3;
-    background-image: url('imgcreditos/la3.png');
+    background-image: url('../imgcreditos/la3.png');
 }
 #layerText {
     position: absolute;
