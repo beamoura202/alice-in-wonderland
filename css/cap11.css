@@ -334,7 +334,6 @@ p {
   position: absolute;
   left: 0;      /* fora do bloco de texto */
   top: 0;
-  font-size: 2.2rem; /* tamanho maior que o texto */
   line-height: 1;
 }
 
@@ -546,21 +545,20 @@ section {
 }
 #lebre {
   position: absolute;
-  bottom: -50vh;
-  right: 5%;
+  bottom: 0vh;
   width: 15vw;
   height: auto;
   transform: scaleX(-1);
-  transition: bottom 1s ease-in-out;
+  transition: right 1s ease-in-out;
   z-index: 5;
 }
 
 .lebre-entra {
-  bottom: 0vh !important;
+  right: 5% !important;
 }
 
 .lebre-sai {
-  bottom: -50vh !important;
+  right: -50vw !important;
 }
 
 #chapeleiro {
@@ -885,7 +883,7 @@ section {
 .message {
     position: absolute;
     max-width: 600px;
-    font-size: 2.2rem;
+font-size: clamp(1rem, 1rem + 1vw, 1.8rem);
     font-family: 'Libre Caslon Text', serif; /* Fonte */
     font-style: italic;
     font-weight: 400;

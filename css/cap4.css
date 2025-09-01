@@ -893,7 +893,7 @@ width: auto;
 .message {
     position: absolute;
     max-width: 600px;
-    font-size: 2.2rem;
+font-size: clamp(1rem, 1rem + 1vw, 1.8rem);
     font-family: 'Libre Caslon Text', serif; /* Fonte */
     font-style: italic;
     font-weight: 400;
@@ -984,6 +984,5 @@ width: auto;
   position: absolute;
   left: 0;      /* fora do bloco de texto */
   top: 0;
-  font-size: 2.2rem; /* tamanho maior que o texto */
   line-height: 1;
 }
